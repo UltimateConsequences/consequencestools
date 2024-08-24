@@ -1,23 +1,23 @@
 ## Make a generic function to summarize deaths according to the columns
 ## in our Categorized Deaths table
 quasilogical_as_binary <- function(datacolumn){
-  datacolumn %>% fct_collapse(
+  datacolumn %>% forcats::fct_collapse(
     "Yes" = c("Yes", "Likely Yes", "Indirect", "Presumed Yes"),
     "No" = c("No", "Likely No", "Presumed No", "Likely Disarmed")) %>%
     suppressWarnings()
-} 
-  
+}
+
 n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
   if (sp_binary){
     def$state_perpetrator <- quasilogical_as_binary(def$state_perpetrator)
   }
-  
+
   output <- def %>%
-    filter(!is.na({{by}})) %>%
-    filter({{by}} != "") %>%
-    group_by( {{ by }} ) %>%
+    dplyr::filter(!is.na({{by}})) %>%
+    dplyr::filter({{by}} != "") %>%
+    dplyr::group_by( {{ by }} ) %>%
     dplyr::summarize(
-      n = n(), # all deaths
+      n = dplyr::n(), # all deaths
       n_coca = sum(str_detect(protest_domain, "Coca"), na.rm = TRUE), #coca deaths
       n_armedactor =sum((protest_domain=="Guerrilla") |
                           ( protest_domain == "Paramilitary"),
@@ -38,10 +38,10 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
       n_remaining_coca = n_coca - n_state_perp_coca - n_state_victim_coca,
       n_remaining_armedactor = n_armedactor - n_state_perp_armedactor - n_state_victim_armedactor
     )
-  
+
   if(complete){
     output <- output %>%
-      complete({{by}}, fill =list(
+      tidyr::complete({{by}}, fill =list(
         n = 0,
         n_coca = 0,
         n_armedactor = 0,
@@ -59,7 +59,7 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
         n_remaining_armedactor = 0
       ))
   }
-  
+
   return(output)
 }
 
