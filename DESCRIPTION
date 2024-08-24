@@ -1,7 +1,7 @@
 Package: consequencestools
 Type: Package
-Title:  Provides Support Tools for Data Analysis and Visualization 
-  from the Ultimate Consequences Database
+Title: Provides Support Tools for Data Analysis and Visualization 
+    from the Ultimate Consequences Database
 Version: 0.0.0.9000
 Authors@R: 
     person(
@@ -10,9 +10,19 @@ Authors@R:
     role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0000-0002-4977-0458")
   )
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Underlying functions to clean and analyze data, including names,
+    geography, weapons, cause of death, and other facts about over six hundred
+    deaths in political conflict in Bolivia since 1982.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
+Imports: 
+    assertthat,
+    dplyr,
+    magrittr,
+    stringr,
+    tibble
