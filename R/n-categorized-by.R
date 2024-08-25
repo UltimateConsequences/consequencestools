@@ -1,11 +1,6 @@
 ## Make a generic function to summarize deaths according to the columns
 ## in our Categorized Deaths table
-quasilogical_as_binary <- function(datacolumn){
-  datacolumn %>% forcats::fct_collapse(
-    "Yes" = c("Yes", "Likely Yes", "Indirect", "Presumed Yes"),
-    "No" = c("No", "Likely No", "Presumed No", "Likely Disarmed")) %>%
-    suppressWarnings()
-}
+
 
 n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
   if (sp_binary){
