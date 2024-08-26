@@ -1,4 +1,5 @@
 test_that("Quasilogicals collapse to yes and no", {
+  stopifnot(rlang::is_installed("tibble"))
   va <- tibble::new_tibble(list(victim_armed =
                                   c("No", "Yes", "Likely Yes", "Likely No", "Likely no",
                                     "Likely disarmed", "Unclear", "Disputed", "Presumed No")))

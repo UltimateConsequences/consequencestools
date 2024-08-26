@@ -2,6 +2,7 @@ test_that("Non-numeric fails", {
   expect_error(render_age("text"))
 })
 
+stopifnot(rlang::is_installed("tibble"))
 halves <-  tibble::new_tibble(list(age=1:4)) %>%
       dplyr::mutate(half_age = age - 0.5) %>%
       dplyr::mutate(age_text = render_age(half_age)) %>%

@@ -1,6 +1,10 @@
 ## Make a generic function to summarize deaths according to the columns
 ## in our Categorized Deaths table
-
+utils::globalVariables(c("n", "n_coca", "n_armedactor", "n_state_perp",
+                         "n_state_perp_coca", "n_state_perp_armedactor", "n_state_victim",
+                         "n_state_victim_coca", "n_state_victim_armedactor", "n_state_separate",
+                         "n_state_perp_ordinary", "n_state_victim_ordinary", "n_remaining",
+                         "n_remaining_coca", "n_remaining_armedactor"))
 
 n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
   if (sp_binary){
@@ -32,7 +36,7 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
     )
 
   if (complete) {
-    fill_values <- setNames(rep(0, 15), c(
+    fill_values <- stats::setNames(rep(0, 15), c(
       "n", "n_coca", "n_armedactor", "n_state_perp", "n_state_perp_coca",
       "n_state_perp_armedactor", "n_state_perp_ordinary", "n_state_victim",
       "n_state_victim_coca", "n_state_victim_armedactor", "n_state_separate",

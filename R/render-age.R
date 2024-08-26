@@ -1,3 +1,5 @@
+# n-tilde rendered via unicode as
+#
 #' Render a numerical age as text
 #'
 #' Returns a partial numerical and partially spelled out age for
@@ -44,13 +46,13 @@ render_age_es <- function(age){
   months_number <- round(12*(age-age_number), digits = 0)
 
   age_string <- dplyr::case_when(
-    age_number >= 2 ~ str_c(age_number, " años"),
-    (age_number==1) & (months_number>1) ~ str_c("1 año y ", months_number, " meses"),
-    (age_number==1) & (months_number==1) ~ str_c("1 año y ", months_number, " mes"),
-    (age_number==1) & (months_number==0) ~ str_c("1 año"),
+    age_number >= 2 ~ str_c(age_number, " a\u00F1os"),
+    (age_number==1) & (months_number>1) ~ str_c("1 a\u00F1o y ", months_number, " meses"),
+    (age_number==1) & (months_number==1) ~ str_c("1 a\u00F1o y ", months_number, " mes"),
+    (age_number==1) & (months_number==0) ~ str_c("1 a\u00F1o"),
     (age_number==0) & (months_number>1) ~ str_c(months_number, " meses"),
     (age_number==0) & (months_number==1) ~ str_c(months_number, " mes"),
-    (age_number==0) & (months_number==0) ~ str_c("menos que 30 días")
+    (age_number==0) & (months_number==0) ~ str_c("menos que 30 d\u00edas")
   )
   return(age_string)
 }
