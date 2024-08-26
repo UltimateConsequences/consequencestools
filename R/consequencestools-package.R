@@ -13,6 +13,7 @@
 #' @importFrom rlang .data
 #' @importFrom stringr str_c
 #' @importFrom stringr str_detect
+#' @importFrom stringr str_glue
 #' @importFrom stringr str_locate_all
 #' @importFrom stringr str_sub
 ## usethis namespace: end

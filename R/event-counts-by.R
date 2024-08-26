@@ -74,7 +74,12 @@ event_counts_by <- function(def, ..., newline_style="html"){
 #' @examples
 #' deaths_aug24 %>% event_counts_by(department, newline_style="text") %>%
 #'   truncate_event_list(num_events = 6) %>% dplyr::arrange(desc(total))
-truncate_event_list <- function(dataframe, variable = events, num_events=4){
+truncate_event_list <- function(dataframe, variable = "events", num_events=4){
+  if  (!({{variable}} %in% colnames(dataframe))){
+    warning(str_glue("Variable \"{variable}\" is not available for editing."))
+    return(dataframe)
+  }
+
   ellipsis_character <- "\u2026"
   space_and_ellipsis <- str_c(" ", ellipsis_character)
 
