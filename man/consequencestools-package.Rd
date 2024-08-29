@@ -8,6 +8,14 @@
 \description{
 Underlying functions to clean and analyze data, including names, geography, weapons, cause of death, and other facts about over six hundred deaths in political conflict in Bolivia since 1982.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/CarwilB/consequencestools}
+  \item Report bugs at \url{https://github.com/CarwilB/consequencestools/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Carwil Bjork-James \email{c.bjork-james@vanderbilt.edu} (\href{https://orcid.org/0000-0002-4977-0458}{ORCID}) [copyright holder]
 
