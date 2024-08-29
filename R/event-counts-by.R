@@ -22,7 +22,7 @@ event_list_with_counts_by <- function(dataframe, ...){
     dplyr::arrange(dplyr::desc(count)) %>% ungroup()
   }
 
-#' Produce Table Summarized by a Custom Set of Variables, Each with an Event Lists
+#' Produce Table Summarized by a Custom Set of Variables, Each with an Event List
 #'
 #' @param def Dataframe to be processed.
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> List of variables in tidy-select format.
@@ -67,6 +67,7 @@ event_counts_by <- function(def, ..., newline_style="html"){
 #' @param variable Variable containing the event string
 #'     (`events` by default)
 #' @param num_events Number of events to be kept in string
+#' @param sep_char Character that separates the listed items
 #'
 #' @return A dataframe with the designated variable dataed.
 #' @export
@@ -74,7 +75,7 @@ event_counts_by <- function(def, ..., newline_style="html"){
 #' @examples
 #' deaths_aug24 %>% event_counts_by(department, newline_style="text") %>%
 #'   truncate_event_list(num_events = 6) %>% dplyr::arrange(desc(total))
-truncate_event_list <- function(dataframe, variable = "events", num_events=4){
+truncate_event_list <- function(dataframe, variable = "events", num_events=4, sep_char=","){
   if  (!({{variable}} %in% colnames(dataframe))){
     warning(str_glue("Variable \"{variable}\" is not available for editing."))
     return(dataframe)
@@ -85,7 +86,8 @@ truncate_event_list <- function(dataframe, variable = "events", num_events=4){
 
   dataframe <- dataframe %>% dplyr::rename(events={{variable}})
   dataframe <- dataframe %>% dplyr::mutate(nth_comma_position = as.numeric(unlist
-                                                (str_locate_all(pattern = ",", events) %>%
+                                                (str_locate_all(pattern = sep_char,
+                                                                events) %>%
                                                     purrr::map(~ .x[,1][num_events])
                                                 ))) %>%
     dplyr::mutate(events = case_when(

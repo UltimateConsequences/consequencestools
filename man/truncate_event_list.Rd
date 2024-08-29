@@ -4,7 +4,12 @@
 \alias{truncate_event_list}
 \title{Process Event Count Strings to First N Events}
 \usage{
-truncate_event_list(dataframe, variable = events, num_events = 4)
+truncate_event_list(
+  dataframe,
+  variable = "events",
+  num_events = 4,
+  sep_char = ","
+)
 }
 \arguments{
 \item{dataframe}{Dataframe to be processed.}
@@ -13,6 +18,8 @@ truncate_event_list(dataframe, variable = events, num_events = 4)
 (`events` by default)}
 
 \item{num_events}{Number of events to be kept in string}
+
+\item{sep_char}{Character that separates the listed items}
 }
 \value{
 A dataframe with the designated variable dataed.

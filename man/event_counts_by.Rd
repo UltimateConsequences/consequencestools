@@ -2,7 +2,7 @@
 % Please edit documentation in R/event-counts-by.R
 \name{event_counts_by}
 \alias{event_counts_by}
-\title{Produce Table Summarized by a Custom Set of Variables, Each with an Event Lists}
+\title{Produce Table Summarized by a Custom Set of Variables, Each with an Event List}
 \usage{
 event_counts_by(def, ..., newline_style = "html")
 }
@@ -20,7 +20,7 @@ A dataframe listing all possible combinations of the
     of deaths involved in parentheses.
 }
 \description{
-Produce Table Summarized by a Custom Set of Variables, Each with an Event Lists
+Produce Table Summarized by a Custom Set of Variables, Each with an Event List
 }
 \examples{
 deaths_aug24 \%>\% event_counts_by(protest_domain, protest_campaign) \%>\%
