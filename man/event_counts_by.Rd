@@ -4,7 +4,7 @@
 \alias{event_counts_by}
 \title{Produce Table Summarized by a Custom Set of Variables, Each with an Event List}
 \usage{
-event_counts_by(def, ..., newline_style = "html")
+event_counts_by(def, ..., newline_style = "html", count_events = FALSE)
 }
 \arguments{
 \item{def}{Dataframe to be processed.}

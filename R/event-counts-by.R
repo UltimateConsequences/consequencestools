@@ -44,21 +44,26 @@ event_list_with_counts_by <- function(dataframe, ...){
 #'   dplyr::pull()
 #' deaths_aug24 %>% event_counts_by(state_perpetrator, munition) %>%
 #'   dplyr::filter(state_perpetrator=="Yes") %>% dplyr::arrange(desc(total)) %>% print(n=40)
-event_counts_by <- function(def, ..., newline_style="html"){
+event_counts_by <- function(def, ..., newline_style="html", count_events=FALSE){
   comma_newline <- case_when(
-    newline_style == "html" ~ ", <br> ",
+    newline_style == "html" ~ ", <br>",
     newline_style == "text" ~ ",\n",
-    newline_style == "markdown" ~ ", <br> ",
+    newline_style == "markdown" ~ ", <br>",
     TRUE ~ ",\n"
   )
-  event_list_with_counts_by(def, ...) %>%
+  count_table <- event_list_with_counts_by(def, ...) %>%
     group_by(...) %>%
     dplyr::summarize(
       total = sum(count),
+      n_events = n(),
       events = paste(event_title, " (", count,")", sep="",
                      collapse = comma_newline),
       .groups = "rowwise"
       )
+  if (!count_events){
+    count_table <- count_table[, names(count_table) != "n_events"]
+  }
+  return(count_table)
 }
 
 #' Process Event Count Strings to First N Events
@@ -69,7 +74,7 @@ event_counts_by <- function(def, ..., newline_style="html"){
 #' @param num_events Number of events to be kept in string
 #' @param sep_char Character that separates the listed items
 #'
-#' @return A dataframe with the designated variable dataed.
+#' @return A dataframe with the designated variable truncated.
 #' @export
 #'
 #' @examples

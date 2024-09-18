@@ -4,7 +4,7 @@
 \alias{muni_counts_by}
 \title{Produce Table Summarized by a Custom Set of Variables, Each with an Event List}
 \usage{
-muni_counts_by(def, ..., newline_style = "html")
+muni_counts_by(def, ..., count_muni = FALSE, newline_style = "html")
 }
 \arguments{
 \item{def}{Dataframe to be processed.}

@@ -78,6 +78,27 @@
       10 Coca           Coca conflict 2000           1 Isinuta cocalero ambush (1)    
       # i 161 more rows
 
+---
+
+    Code
+      event_counts_by(deaths_aug24, protest_domain, protest_campaign, count_events = TRUE)
+    Output
+      # A tibble: 171 x 5
+      # Rowwise:  protest_domain, protest_campaign
+         protest_domain protest_campaign         total n_events events                
+         <chr>          <chr>                    <int>    <int> <chr>                 
+       1 Coca           2001 Coca protest            8        1 Chapare cocalero prot~
+       2 Coca           Adepcoca conflict            6        4 Asunta coca conflict ~
+       3 Coca           Apolo eradication            4        1 Apolo coca eradicatio~
+       4 Coca           Chapare coca 1991            2        2 Isiboro Sécure cocale~
+       5 Coca           Chapare coca 1992            3        1 UMOPAR 1992 (3)       
+       6 Coca           Chapare coca 1994            4        4 Carrasco coca (1), <b~
+       7 Coca           Chapare coca 1995            8        3 Coca eradication 1995~
+       8 Coca           Chapare coca 1997           10        2 Eterazama eradication~
+       9 Coca           Chapare eradication 2003     2        1 Chapare soldiers kill~
+      10 Coca           Coca conflict 2000           1        1 Isinuta cocalero ambu~
+      # i 161 more rows
+
 # truncate_event_list(): Results table is consistent with past runs
 
     Code
