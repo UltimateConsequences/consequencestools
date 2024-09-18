@@ -22,7 +22,7 @@ truncate_event_list(
 \item{sep_char}{Character that separates the listed items}
 }
 \value{
-A dataframe with the designated variable dataed.
+A dataframe with the designated variable truncated.
 }
 \description{
 Process Event Count Strings to First N Events
