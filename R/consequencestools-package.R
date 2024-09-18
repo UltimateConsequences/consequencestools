@@ -16,6 +16,7 @@
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_locate_all
 #' @importFrom stringr str_sub
+#' @importFrom zoo as.Date.yearmon
 ## usethis namespace: end
 NULL
 
