@@ -42,7 +42,7 @@ muni_list_with_counts_by <- function(dataframe, ...){
 #' muni_counts_by(deaths_aug24, event_title, newline_style="oneline") %>%
 #'   dplyr::mutate(len=stringr::str_length(municipalities)) %>%
 #'   dplyr::arrange(desc(total)) %>% print(n=25)
-muni_counts_by <- function(def, ..., newline_style="html"){
+muni_counts_by <- function(def, ..., count_muni=FALSE, newline_style="html"){
   sep_newline <- case_when(
     newline_style == "html" ~ "; <br> ",
     newline_style == "text" ~ ";\n",
@@ -50,14 +50,19 @@ muni_counts_by <- function(def, ..., newline_style="html"){
     newline_style == "oneline" ~ "; ",
     TRUE ~ ",\n"
   )
-  muni_list_with_counts_by(def, ...) %>%
+  count_table <- muni_list_with_counts_by(def, ...) %>%
     group_by(...) %>%
     dplyr::summarize(
       total = sum(count),
+      n_muni = n(),
       municipalities = paste(muni_text, " (", count,")", sep="",
                      collapse = sep_newline),
       .groups = "rowwise"
     )
+  if (!count_muni){
+    count_table <- count_table[, names(count_table) != "n_muni"]
+  }
+  return(count_table)
 }
 
 #' Process Municipality Count Strings to First N Municipalities
