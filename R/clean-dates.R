@@ -54,11 +54,11 @@ clean_dates <- function(de_chardates){
 
   de_chardates <- de_chardates %>%
   #  mutate_at(date_num_variables, str_extract, "\\d+")
-    mutate(dplyr::across(date_num_variables, ~ str_extract(.x, pattern = "\\d+")))
+    mutate(dplyr::across(any_of(date_num_variables), ~ str_extract(.x, pattern = "\\d+")))
 
   de_chardates <- de_chardates %>%
     # mutate_at(date_num_variables, as.integer)
-    mutate(dplyr::across(date_num_variables, ~ as.integer(.x, pattern = "\\d+")))
+    mutate(dplyr::across(any_of(date_num_variables), ~ as.integer(.x, pattern = "\\d+")))
   #    mutate(across(.cols = year:later_day, .fns = as.integer) )
 
   return(de_chardates)
