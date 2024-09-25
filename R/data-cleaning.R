@@ -9,7 +9,6 @@
 #' @return A modified version of the dataframe
 #' @export
 #'
-#' @examples
 clean_pt_variables <- function(pt){
   stopifnot(is.tbl(pt))
   pt <- rename_with(pt, ~ sub(" \\(.*", "", .x))
@@ -22,31 +21,40 @@ clean_pt_variables <- function(pt){
   return(pt)
 }
 
+#' Assign Presidency Levels
+#'
+#' @param dataframe A dataframe that may contain a 'pres_admin' column
+#'
+#' @return A dataframe with 'pres_admin' column as a factor with levels from president$levels
+#' @export
+#'
+#' @examples
+#' df <- data.frame(pres_admin = c("Obama", "Trump", "Biden"))
+#' assign_presidency_levels(df)
 assign_presidency_levels <- function(dataframe){
-  president_levels <<- c(
-    "Hernán Siles Zuazo", "Víctor Paz Estenssoro", "Jaime Paz Zamora",
-    "Gonzalo Sanchez de Lozada (1st)", "Hugo Banzer (2nd)", "Jorge Quiroga",
-    "Gonzalo Sanchez de Lozada (2nd)", "Carlos Diego Mesa Gisbert",
-    "Eduardo Rodríguez", "Evo Morales", "Interim military government",
-    "Jeanine Áñez", "Luis Arce")
-  president_initials <<- c(
-    "HSZ", "VPE", "JPZ",
-    "GSL", "HB", "JQ",
-    "GSL", "CM",
-    "ER", "EM", "Mil",
-    "JA", "LA")
-
   # This complicated construction ensures that no errors will be generated if there is no pres_admin column
   if (!("pres_admin" %in% colnames(dataframe))) return(dataframe)
 
-  dataframe <- dataframe %>% mutate(pres_admin = factor(pres_admin, levels=president_levels))
+  dataframe <- dataframe %>% mutate(pres_admin = factor(pres_admin, levels=president$levels))
   return(dataframe)
 }
 
+#' Assign State Perpetrator Levels
+#'
+#' @param dataframe A dataframe containing a 'state_perpetrator' column
+#' @param simplify Logical, whether to simplify the levels (default: FALSE)
+#'
+#' @return A dataframe with modified 'state_perpetrator' column
+#' @export
+#'
+#' @examples
+#' df <- data.frame(state_perpetrator = c("yes", "no", NA, "LIKELY YES"))
+#' assign_state_perpetrator_levels(df)
+#' assign_state_perpetrator_levels(df, simplify = TRUE)
 assign_state_perpetrator_levels <- function(dataframe, simplify=FALSE){
   de <- dataframe
   de$state_perpetrator <- str_to_title(de$state_perpetrator)
-  de$state_perpetrator <- fct_explicit_na(de$state_perpetrator, na_level = "Unknown")
+  de$state_perpetrator <- fct_na_value_to_level(de$state_perpetrator, level = "Unknown")
   if (simplify){
     de$state_perpetrator <- fct_collapse(de$state_perpetrator,
                                          Yes = c("Yes", "Likely Yes", "Presumed Yes"),
@@ -70,7 +78,7 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
     intentionality == "Conflict Accident" ~ "Accidental",
     TRUE ~ state_responsibility))
 
-  de$state_responsibility <- fct_explicit_na(de$state_responsibility, na_level = "Unknown")
+  de$state_responsibility <- fct_na_value_to_level(de$state_responsibility, level = "Unknown")
   if (simplify){
     de$state_responsibility <- fct_collapse(de$state_responsibility,
                                             Perpetrator = c("State perpetrator", "State likely perpetrator",
@@ -199,7 +207,7 @@ assign_protest_domain_levels <- function(dataframe, na.level = "Unknown"){
     dataframe <- dataframe %>%
                 mutate(protest_domain = string_to_listcase(protest_domain))
   }
-  dataframe$protest_domain <- fct_explicit_na(dataframe$protest_domain, na_level = na.level)
+  dataframe$protest_domain <- fct_na_value_to_level(dataframe$protest_domain, level = na.level)
   dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, protest_domain.grouped)
   return(dataframe)
 }
