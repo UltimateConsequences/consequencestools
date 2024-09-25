@@ -1,0 +1,305 @@
+---
+title: "event-heat-map"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{event-heat-map}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(consequencestools)
+library(tidyverse)
+library(zoo)
+library(ggplot2)
+
+# Generate the grid
+years <- 1982:2024
+months <- 1:12
+
+event_range_table <- event_date_range_table(deaths_aug24)
+
+grid <- expand.grid(year = years, month = months) %>%
+  mutate(yearmonth = as.yearmon(paste(year, month, sep = "-")),
+         count = map_dbl(yearmonth, ~count_events_in_month(event_range_table, .))) %>%
+  select(-yearmonth) %>%
+  pivot_wider(names_from = month, values_from = count)
+
+# Display as heatmap
+ggplot(grid %>% pivot_longer(cols = -year, names_to = "month", values_to = "count"),
+       aes(x = as.numeric(month), y = year, fill = count)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  scale_y_continuous(breaks = c(1982, 1990, 2000, 2010, 2020, 2025)) +
+  labs(x = "Month", y = "Year", fill = "Event Count") +
+  theme_minimal()
+
+#####
+
+library(dplyr)
+library(lubridate)
+
+date_range <- seq(as.Date("1998-01-01"), as.Date("2005-12-31"), by = "day")
+
+max_events_day <- date_range %>%
+  data.frame(date = .) %>%
+  mutate(event_count = sapply(date, function(d) count_ongoing_events(event_range_table, d))) %>%
+  arrange(desc(event_count)) %>%
+  slice(1)
+
+print(paste("Date with most ongoing events:", max_events_day$date))
+print(paste("Number of events:", max_events_day$event_count))
+
+###
+# # install.packages("devtools")
+# devtools::install_github("thomasp85/patchwork")
+
+
+library(ggplot2)
+library(lubridate)
+library(dplyr)
+library(patchwork)
+
+create_calendar_heatmap <- function(year) {
+  dates <- seq(as.Date(paste0(year, "-01-01")), as.Date(paste0(year, "-12-31")), by = "day")
+
+  df <- data.frame(date = dates) %>%
+    mutate(
+      month = month(date),
+      wday = wday(date, week_start = 1),
+      week = as.numeric(format(date, "%W")),
+      day = day(date),
+      events = sapply(date, function(d) count_ongoing_events(event_range_table, d))
+    )
+
+  plot_month <- function(month_num) {
+    month_data <- df %>% filter(month == month_num)
+    ggplot(month_data, aes(x = wday, y = week, fill = events)) +
+      geom_tile(color = "white") +
+      scale_fill_gradient(low = "white", high = "red") +
+      scale_x_continuous(breaks = 1:7, labels = c("S", "M", "T", "W", "T", "F", "S")) +
+      scale_y_reverse() +
+      labs(title = month.abb[month_num]) +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title = element_blank(),
+            plot.title = element_text(hjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks = element_blank(),
+            panel.grid = element_blank())
+  }
+
+  plots <- lapply(1:12, plot_month)
+
+  wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = paste("Event Heatmap Calendar", year),
+      theme = theme(plot.title = element_text(hjust = 0.5))
+    )
+}
+
+
+
+
+count_deaths_on_date <- function(deaths_df, target_date) {
+  target_year <- year(target_date)
+  target_month <- month(target_date)
+  target_day <- day(target_date)
+
+  count <- deaths_df %>%
+    filter(year == target_year, month == target_month, day == target_day) %>%
+    nrow()
+
+  return(count)
+}
+
+create_calendar_heatmap <- function(year, max_deaths = NULL) {
+  dates <- seq(as.Date(paste0(year, "-01-01")), as.Date(paste0(year, "-12-31")), by = "day")
+
+  df <- data.frame(date = dates) %>%
+    mutate(
+      month = month(date),
+      wday = wday(date, week_start = 1),
+      week = as.numeric(format(date, "%W")),
+      day = day(date),
+      events = sapply(date, function(d) count_ongoing_events(event_range_table, d)),
+      deaths = sapply(date, function(d) count_deaths_on_date(deaths_aug24, d))
+    )
+
+  if (is.null(max_deaths)) {
+    max_deaths <- max(df$deaths)
+  }
+
+  plot_month <- function(month_num) {
+    month_data <- df %>%
+      filter(month == month_num) %>%
+      mutate(fill_color = case_when(
+        deaths > 0 ~ scales::alpha(colorRampPalette(c("lightpink", "darkred"))(101)[pmin(deaths, max_deaths) + 1], 1),
+        events > 0 ~ "#dddddd",
+        TRUE ~ "#f0f0f0"
+      ))
+
+    ggplot(month_data, aes(x = wday, y = week)) +
+      geom_tile(aes(fill = fill_color), color = "#777777", size = 0.5) +
+      geom_text(aes(label = ifelse(deaths > 0, deaths, "")), size = 3) +
+      scale_fill_identity() +
+      scale_x_continuous(breaks = 1:7, labels = c("S", "M", "T", "W", "T", "F", "S")) +
+      scale_y_reverse() +
+      labs(title = month.abb[month_num]) +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title = element_blank(),
+            plot.title = element_text(hjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks = element_blank(),
+            panel.grid = element_blank())
+  }
+
+  plots <- lapply(1:12, plot_month)
+
+  wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = paste("Event Heatmap Calendar", year),
+      theme = theme(plot.title = element_text(hjust = 0.5))
+    )
+}
+
+# Call the function for 2003
+create_calendar_heatmap(2003)
+
+create_calendar_heatmap <- function(year, max_deaths = NULL) {
+  dates <- seq(as.Date(paste0(year, "-01-01")), as.Date(paste0(year, "-12-31")), by = "day")
+
+  df <- data.frame(date = dates) %>%
+    mutate(
+      month = month(date),
+      wday = wday(date, week_start = 7),
+      week = epiweek(date),
+      day = day(date),
+      events = sapply(date, function(d) count_ongoing_events(event_range_table, d)),
+      deaths = sapply(date, function(d) count_deaths_on_date(deaths_aug24, d))
+    ) %>%
+    mutate(
+      week = case_when(
+        (month==1) & (week ==52) ~ 0,
+        (month==12) & (week ==1) ~ 53,
+        TRUE ~ week
+      )
+    )
+
+  if (is.null(max_deaths)) {
+    max_deaths <- max(df$deaths)
+  }
+
+  plot_month <- function(month_num) {
+    month_data <- df %>%
+      filter(month == month_num) %>%
+      mutate(fill_color = case_when(
+        deaths > 0 ~ scales::alpha(colorRampPalette(c("lightpink", "darkred"))(101)[pmin(deaths, max_deaths) + 1], 1),
+        events > 0 ~ "#dddddd",
+        TRUE ~ "#f0f0f0"
+      ))
+
+    ggplot(month_data, aes(x = wday, y = week)) +
+      geom_tile(aes(fill = fill_color), color = "#777777", size = 0.5) +
+      geom_text(aes(label = ifelse(deaths > 0, deaths, "")), size = 3) +
+      scale_fill_identity() +
+      scale_x_continuous(breaks = 1:7, labels = c("S", "M", "T", "W", "T", "F", "S")) +
+      scale_y_reverse() +
+      labs(title = month.abb[month_num]) +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title = element_blank(),
+            plot.title = element_text(hjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks = element_blank(),
+            panel.grid = element_blank())
+  }
+
+  plots <- lapply(1:12, plot_month)
+
+  wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = paste("Event Heatmap Calendar", year),
+      theme = theme(plot.title = element_text(hjust = 0.5))
+    )
+}
+
+# Call the function for 2003
+create_calendar_heatmap(2003)
+
+month.abb.es <- c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
+
+create_calendar_heatmap_es <- function(year, max_deaths = NULL) {
+  dates <- seq(as.Date(paste0(year, "-01-01")), as.Date(paste0(year, "-12-31")), by = "day")
+
+  df <- data.frame(date = dates) %>%
+    mutate(
+      month = month(date),
+      wday = wday(date, week_start = 7),
+      week = epiweek(date),
+      day = day(date),
+      events = sapply(date, function(d) count_ongoing_events(event_range_table, d)),
+      deaths = sapply(date, function(d) count_deaths_on_date(deaths_aug24, d))
+    ) %>%
+    mutate(
+      week = case_when(
+        (month==1) & (week ==52) ~ 0,
+        (month==12) & (week ==1) ~ 53,
+        TRUE ~ week
+        )
+      ) %>%
+    mutate(
+      mes = month.abb.es[month],
+      dia = c( "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá")[wday]
+    )
+
+  if (is.null(max_deaths)) {
+    max_deaths <- max(df$deaths)
+  }
+
+  plot_month <- function(month_num) {
+    month_data <- df %>%
+      filter(month == month_num) %>%
+      mutate(fill_color = case_when(
+        deaths > 0 ~ scales::alpha(colorRampPalette(c("lightpink", "darkred"))(101)[pmin(deaths, max_deaths) + 1], 1),
+        events > 0 ~ "#dddddd",
+        TRUE ~ "#f0f0f0"
+      ))
+
+    ggplot(month_data, aes(x = dia, y = week)) +
+      geom_tile(aes(fill = fill_color), color = "#777777", size = 0.5) +
+      geom_text(aes(label = ifelse(deaths > 0, deaths, "")), size = 3) +
+      scale_fill_identity() +
+      scale_x_discrete(limits=c("Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá")) +
+      scale_y_reverse() +
+      labs(title = month.abb.es[month_num]) +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title = element_blank(),
+            plot.title = element_text(hjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks = element_blank(),
+            panel.grid = element_blank())
+  }
+
+  plots <- lapply(1:12, plot_month)
+
+  wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = paste("Calendario de Eventos", year),
+      theme = theme(plot.title = element_text(hjust = 0.5))
+    )
+}
+
+create_calendar_heatmap_es(2005)
+
+```
