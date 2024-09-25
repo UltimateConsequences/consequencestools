@@ -10,12 +10,16 @@
 #' @importFrom dplyr summarize
 #' @importFrom dplyr ungroup
 #' @importFrom forcats fct_collapse
+#' @importFrom forcats fct_explicit_na
+#' @importFrom forcats fct_na_value_to_level
+#' @importFrom forcats fct_relevel
 #' @importFrom rlang .data
 #' @importFrom stringr str_c
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_locate_all
 #' @importFrom stringr str_sub
+#' @importFrom stringr str_to_title
 #' @importFrom zoo as.Date.yearmon
 ## usethis namespace: end
 NULL
