@@ -24,8 +24,9 @@ Produce Table Summarized by a Custom Set of Variables, Each with an Event List
 }
 \examples{
 muni_counts_by(deaths_aug24, event_title) \%>\% dplyr::arrange(desc(total))
-muni_counts_by(deaths_aug24, event_title, newline_style="oneline")
-muni_counts_by(deaths_aug24, event_title, newline_style="oneline") \%>\%
-  dplyr::mutate(len=stringr::str_length(municipalities)) \%>\%
-  dplyr::arrange(desc(total)) \%>\% print(n=25)
+muni_counts_by(deaths_aug24, event_title, newline_style = "oneline")
+muni_counts_by(deaths_aug24, event_title, newline_style = "oneline") \%>\%
+  dplyr::mutate(len = stringr::str_length(municipalities)) \%>\%
+  dplyr::arrange(desc(total)) \%>\%
+  print(n = 25)
 }
