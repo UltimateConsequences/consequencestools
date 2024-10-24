@@ -29,6 +29,8 @@ A dataframe with the designated variable dataed.
 Process Municipality Count Strings to First N Municipalities
 }
 \examples{
-deaths_aug24 \%>\% muni_counts_by(department, newline_style="text") \%>\%
-  truncate_muni_list(num_muni = 3) \%>\% dplyr::arrange(desc(total))
+deaths_aug24 \%>\%
+  muni_counts_by(department, newline_style = "text") \%>\%
+  truncate_muni_list(num_muni = 3) \%>\%
+  dplyr::arrange(desc(total))
 }
