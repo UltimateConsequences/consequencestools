@@ -53,6 +53,22 @@
 #' or three-letter initials for display in shortened contexts).
 "president"
 
+#' Helper variable for levels of location precision
+#'
+#' @format A list with members `location_precision$levels`, a small-to-large
+#' list of levels in English: c("address", "poi_small", "intersection",
+#' "block", "poi_large", "road", "community", "town", "rural_zone",
+#' "municipality", "province", "region", "department")
+"location_precision"
+
+#' Helper variable for levels of state responsibility
+#'
+#' @format A list with members `state_resp$levels` (an ordered list of
+#' state responsibility levels in English), `state_resp$colors` (name
+#' and color pairs for these levels in English) and `state_resp$colors_es`,
+#' the same pairs with Spanish names
+"state_resp"
+
 # This list produced by colnames(deaths_aug24) %>% dput()
 # Needed for dplyr references to variables
 # See: https://www.r-bloggers.com/2019/08/no-visible-binding-for-global-variable/
