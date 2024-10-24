@@ -44,3 +44,64 @@ state_resp$colors_es <-  c(
   Desconocido = "lightgray")
 
 usethis::use_data(state_resp)
+
+mat_color <- read_csv("data-raw/MaterialColour.csv")
+
+mat_color_hex <- mat_color$hexvalue
+names(mat_color_hex) <- mat_color$name
+
+protest_domain.grouped <- c(
+  "Gas wars",                         # Economic
+  "Economic policies",
+  "Labor",
+  "Education",
+  "Mining",
+  "Coca",                             # Rural
+  "Peasant",
+  "Rural land",
+  "Rural land, Partisan politics",
+  "Ethno-ecological",
+  "Urban land",
+  "Drug trade",                       # Criminalized
+  "Contraband",
+  "Municipal governance",
+  "Local development",                # Local
+  "National governance",
+  "Partisan politics",                # (solo)
+  "Disabled",                         # (solo)
+  "Guerrilla",                        # Armed actors
+  "Paramilitary",
+  "Unknown")                       # (solo)
+
+assign_protest_domain.colors <- function() {
+  c(
+    "Gas wars" = mat_color_hex[['blue-900']],
+    "Economic policies" = mat_color_hex[['blue-700']],
+    "Labor" = mat_color_hex[['blue-500']],
+    "Education" = mat_color_hex[['blue-200']],
+    "Mining" = mat_color_hex[['red-700']],
+    "Coca" = mat_color_hex[['green-900']],
+    "Peasant" = mat_color_hex[['green-700']],
+    "Rural land" = mat_color_hex[['green-500']],
+    "Rural land, Partisan politics" = mat_color_hex[['green-400']],
+    "Ethno-ecological" = mat_color_hex[['teal-400']],
+    "Urban land" = mat_color_hex[['yellow-700']],
+    "Drug trade" = mat_color_hex[['lime-700']],
+    "Contraband" = mat_color_hex[['lime-400']],
+    "Municipal governance" = mat_color_hex[['deep purple-900']],
+    "Local development" = mat_color_hex[['deep purple-600']],
+    "National governance" = mat_color_hex[['deep purple-300']],
+    "Partisan politics" = mat_color_hex[['orange-500']],
+    "Disabled" = mat_color_hex[['blue grey-600']],
+    "Guerrilla" = mat_color_hex[['brown-800']],
+    "Paramilitary" = mat_color_hex[['brown-400']],
+    "Unknown" = mat_color_hex[['grey-300']]
+  )
+}
+
+protest_domain <- list()
+protest_domain$title <- "Protest Domain"
+protest_domain$levels <- protest_domain.grouped
+protest_domain$colors <- assign_protest_domain.colors()
+
+usethis::use_data(protest_domain)
