@@ -64,3 +64,46 @@ test_that("assign_state_perpetrator_levels works correctly", {
   # Check NA handling
   expect_equal(as.character(result$state_perpetrator[is.na(df$state_perpetrator)]), "Unknown")
 })
+
+test_that("assign_state_responsibility_levels works correctly", {
+  # Test input
+  df <- data.frame(
+    state_responsibility = c("State perpetrator", "Separate from state", NA, "State likely perpetrator",
+                             "State indirect perpetrator", "Disputed", "Possibly state involved",
+                             "State perpetrator, State victim in mutiny"),
+    intentionality = c("Direct", "Direct", "Direct", "Direct",
+                       "Direct", "Direct", "Direct", "Direct")
+  )
+  df_no_na <- filter(df, !is.na(state_responsibility))
+
+  # Run function
+  result <- assign_state_responsibility_levels(df)
+  result_simple <- assign_state_responsibility_levels(df, simplify = TRUE)
+  result_no_na <- assign_state_responsibility_levels(df_no_na)
+
+  # Check results
+  expect_s3_class(result$state_responsibility, "factor")
+  expect_equal(result$sr_text, df$state_responsibility)
+  expect_equal(sort(levels(result$state_responsibility)),
+               sort(c("Unknown", "State perpetrator", "Separate from state", "State likely perpetrator",
+                      "State indirect perpetrator", "Disputed", "Possibly state involved",
+                      "State perpetrator, State victim in mutiny")))
+
+  expect_s3_class(result_simple$state_responsibility, "factor")
+  expect_equal(sort(levels(result_simple$state_responsibility)),
+               sort(c("Unknown", "Separate", "Perpetrator", "Involved")))
+
+  # Check original text preservation
+  expect_equal(as.character(df_no_na$state_responsibility), result_no_na$sr_text)
+
+  # Check NA handling
+  expect_equal(as.character(result$state_responsibility[is.na(df$state_responsibility)]), "Unknown")
+
+  # Check intentionality override
+  df_intent <- df
+  df_intent$intentionality[1] <- "Incidental"
+  df_intent$intentionality[2] <- "Conflict Accident"
+  result_intent <- assign_state_responsibility_levels(df_intent)
+  expect_equal(as.character(result_intent$state_responsibility[1]), "Incidental")
+  expect_equal(as.character(result_intent$state_responsibility[2]), "Accidental")
+})
