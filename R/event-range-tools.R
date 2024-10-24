@@ -12,7 +12,7 @@
 #' @export
 count_ongoing_events <- function(event_date_range_table, input_date) {
   ongoing_events <- event_date_range_table %>%
-    filter(date_first <= input_date & date_last >= input_date)
+    dplyr::filter(date_first <= input_date & date_last >= input_date)
 
   return(nrow(ongoing_events))
 }
@@ -35,11 +35,11 @@ count_events_in_month <- function(event_date_range_table, yearmonth) {
 
   # Convert yearmonth to start and end dates of the month
   start_date <- as.Date(yearmonth)
-  end_date <- as.Date(yearmonth) + months(1) - days(1)
+  end_date <- as.Date(yearmonth) + months(1) - lubridate::days(1)
 
   # Filter events overlapping with the month
   overlapping_events <- event_date_range_table %>%
-    filter(date_first <= end_date & date_last >= start_date)
+    dplyr::filter(date_first <= end_date & date_last >= start_date)
 
   return(nrow(overlapping_events))
 }
