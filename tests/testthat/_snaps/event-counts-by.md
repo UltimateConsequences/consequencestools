@@ -47,15 +47,15 @@
       # Rowwise:  department
         department total events                                                       
         <chr>      <int> <chr>                                                        
-      1 Beni          21 Santa Ana de Yacuma drug trafficking raid (4), <br> Santa Ro~
-      2 Chuquisaca    10 Pensioner strike (3), <br> Sucre constitution protest (3), <~
-      3 Cochabamba   185 Plan Dignity 1998 (23), <br> Villa Tunari Massacre (12), <br~
-      4 La Paz       249 Gas War 2003 (70), <br> Tarifazo tax protest (33), <br> Bus ~
-      5 Oruro         69 Laymi-Qaqachaka 2000 (30), <br> Huanuni clashes (17), <br> L~
-      6 Pando         14 Porvenir Massacre (11), <br> Militarization of Cobija (2), <~
-      7 Potosí        53 Laymi-Qaqachaka 1998 (14), <br> Chayanta mining strike (11),~
-      8 Santa Cruz    60 Shooting at San Julián blockade (4), <br> Yapacaní land clas~
-      9 Tarija         9 Panantí Massacre (7), <br> Tarija provincial border clash (1~
+      1 Beni          21 Santa Ana de Yacuma drug trafficking raid (4), <br>Santa Ros~
+      2 Chuquisaca    10 Pensioner strike (3), <br>Sucre constitution protest (3), <b~
+      3 Cochabamba   185 Plan Dignity 1998 (23), <br>Villa Tunari Massacre (12), <br>~
+      4 La Paz       249 Gas War 2003 (70), <br>Tarifazo tax protest (33), <br>Bus cr~
+      5 Oruro         69 Laymi-Qaqachaka 2000 (30), <br>Huanuni clashes (17), <br>Lay~
+      6 Pando         14 Porvenir Massacre (11), <br>Militarization of Cobija (2), <b~
+      7 Potosí        53 Laymi-Qaqachaka 1998 (14), <br>Chayanta mining strike (11), ~
+      8 Santa Cruz    60 Shooting at San Julián blockade (4), <br>Yapacaní land clash~
+      9 Tarija         9 Panantí Massacre (7), <br>Tarija provincial border clash (1)~
 
 ---
 
@@ -71,7 +71,7 @@
        3 Coca           Apolo eradication            4 Apolo coca eradication (4)     
        4 Coca           Chapare coca 1991            2 Isiboro Sécure cocalero killed~
        5 Coca           Chapare coca 1992            3 UMOPAR 1992 (3)                
-       6 Coca           Chapare coca 1994            4 Carrasco coca (1), <br> Chapar~
+       6 Coca           Chapare coca 1994            4 Carrasco coca (1), <br>Chapare~
        7 Coca           Chapare coca 1995            8 Coca eradication 1995 (5), <br~
        8 Coca           Chapare coca 1997           10 Eterazama eradication (8), <br~
        9 Coca           Chapare eradication 2003     2 Chapare soldiers killed Jun 20~
@@ -114,7 +114,7 @@
        3 Coca           Apolo eradication            4 Apolo coca eradication (4)     
        4 Coca           Chapare coca 1991            2 Isiboro Sécure cocalero killed~
        5 Coca           Chapare coca 1992            3 UMOPAR 1992 (3)                
-       6 Coca           Chapare coca 1994            4 Carrasco coca (1), <br> Chapar~
+       6 Coca           Chapare coca 1994            4 Carrasco coca (1), <br>Chapare~
        7 Coca           Chapare coca 1995            8 Coca eradication 1995 (5), <br~
        8 Coca           Chapare coca 1997           10 Eterazama eradication (8), <br~
        9 Coca           Chapare eradication 2003     2 Chapare soldiers killed Jun 20~

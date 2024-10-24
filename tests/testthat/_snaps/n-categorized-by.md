@@ -76,3 +76,23 @@
       #   n_state_victim_ordinary <int>, n_remaining <int>, n_remaining_coca <int>,
       #   n_remaining_armedactor <int>
 
+---
+
+    Code
+      n_responsibility_by(deaths_aug24, cause_death, complete = TRUE)
+    Output
+      # A tibble: 60 x 5
+         cause_death                 n n_state_perp n_state_victim n_state_separate
+         <chr>                   <int>        <int>          <int>            <int>
+       1 Assault                     1            0              0                1
+       2 Assault, whipping, rape     1            0              0                1
+       3 Beating                    38           11              8               17
+       4 Beating / Impact            2            0              0                2
+       5 Beating and Gunshot         1            0              0                1
+       6 Beating, burning            1            0              1                0
+       7 Beating, torture            1            1              0                0
+       8 Beating/tear gas            1            0              0                1
+       9 COVID / Beating             1            0              0                1
+      10 Cable cut through neck      1            0              0                0
+      # i 50 more rows
+
