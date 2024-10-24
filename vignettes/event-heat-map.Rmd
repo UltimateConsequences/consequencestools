@@ -33,7 +33,7 @@ grid <- expand.grid(year = years, month = months) %>%
   pivot_wider(names_from = month, values_from = count)
 
 # Display as heatmap
-ggplot(grid %>% pivot_longer(cols = -year, names_to = "month", values_to = "count"),
+ggplot2::ggplot(grid %>% pivot_longer(cols = -year, names_to = "month", values_to = "count"),
        aes(x = as.numeric(month), y = year, fill = count)) +
   geom_tile() +
   scale_fill_gradient(low = "white", high = "red") +

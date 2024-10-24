@@ -43,7 +43,7 @@ test_that("assign_presidency_levels works correctly", {
 test_that("assign_state_perpetrator_levels works correctly", {
   # Test input
   df <- data.frame(state_perpetrator = c("yes", "no", NA, "LIKELY YES", 'indirect', "disputed", "Suspected", "in mutiny"))
-  df_no_na <- filter(df, !is.na(state_perpetrator))
+  df_no_na <- dplyr::filter(df, !is.na(state_perpetrator))
 
   # Run function
   result <- assign_state_perpetrator_levels(df)
@@ -74,7 +74,7 @@ test_that("assign_state_responsibility_levels works correctly", {
     intentionality = c("Direct", "Direct", "Direct", "Direct",
                        "Direct", "Direct", "Direct", "Direct")
   )
-  df_no_na <- filter(df, !is.na(state_responsibility))
+  df_no_na <- dplyr::filter(df, !is.na(state_responsibility))
 
   # Run function
   result <- assign_state_responsibility_levels(df)

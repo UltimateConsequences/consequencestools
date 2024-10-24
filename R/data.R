@@ -69,6 +69,14 @@
 #' the same pairs with Spanish names
 "state_resp"
 
+#' Helper Variable for Levels of Protest Domain
+#'
+#' @format A list with members `protest_domain$title` (the string "Protest
+#' Domain"), `protest_domain$levels` (an ordered list of
+#' state responsibility levels in English), `protest_domain$colors` (name
+#' and color pairs for these levels in English).
+"protest_domain"
+
 # This list produced by colnames(deaths_aug24) %>% dput()
 # Needed for dplyr references to variables
 # See: https://www.r-bloggers.com/2019/08/no-visible-binding-for-global-variable/
@@ -132,6 +140,8 @@ utils::globalVariables(
     "year_notes",
     "later_day_notes",
     "later_month_notes",
-    "later_year_notes"
+    "later_year_notes",
+    "date_text",
+    "sr_text"
   )
 )

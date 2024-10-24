@@ -55,7 +55,7 @@ event_counts_by <- function(def, ..., newline_style="html", count_events=FALSE){
     group_by(...) %>%
     dplyr::summarize(
       total = sum(count),
-      n_events = n(),
+      n_events = dplyr::n(),
       events = paste(event_title, " (", count,")", sep="",
                      collapse = comma_newline),
       .groups = "rowwise"

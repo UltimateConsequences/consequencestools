@@ -56,7 +56,7 @@ muni_counts_by <- function(def, ..., count_muni = FALSE, newline_style = "html")
     group_by(...) %>%
     dplyr::summarize(
       total = sum(count),
-      n_muni = n(),
+      n_muni = dplyr::n(),
       municipalities = paste(muni_text, " (", count, ")",
         sep = "",
         collapse = sep_newline

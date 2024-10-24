@@ -28,6 +28,7 @@ Imports:
     assertthat,
     dplyr,
     forcats,
+    incase,
     magrittr,
     purrr,
     rlang,

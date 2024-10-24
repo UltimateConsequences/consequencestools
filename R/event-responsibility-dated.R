@@ -127,7 +127,7 @@ event_responsibilty_summary_table <- function(dataframe) {
 
   event.responsibility.dateless <- de %>% group_by(event_title) %>%
     dplyr::summarize(
-      n = n(),
+      n = dplyr::n(),
       n_state_perp = sum(state_responsibility=="Perpetrator", na.rm = TRUE),
       n_state_victim = sum(state_responsibility=="Victim", na.rm = TRUE),
       n_state_separate = sum(str_detect(state_responsibility, "Separate"), na.rm = TRUE),

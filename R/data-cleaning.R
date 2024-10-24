@@ -125,7 +125,7 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Unknown  = c("Unknown", "Unclear", "Disputed") ) %>%
                                  suppressWarnings()
 
-    de$state_responsibility <- fct_relevel(de$state_responsibility, sr_levels) %>%
+    de$state_responsibility <- fct_relevel(de$state_responsibility, state_resp$levels) %>%
       suppressWarnings()
   }
   return(de)
@@ -138,9 +138,9 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
 #' It treats unknown dates within a year as June 30 and unknown dates
 #' within a month as the 15th day of the month.
 #'
-#' @param year
-#' @param month
-#' @param day
+#' @param year Numerical year
+#' @param month Numerical month
+#' @param day Numerical day
 #'
 #' @return A numerical date string in "YYYY-MM-DD" format
 #' @export
@@ -229,35 +229,13 @@ assign_protest_domain_levels <- function(dataframe, na.level = "Unknown"){
   if (!("protest_domain" %in% colnames(dataframe))) return(dataframe)
 
   # factor protest_domain
-  protest_domain.grouped <<- c(
-    "Gas wars",                         # Economic
-    "Economic policies",
-    "Labor",
-    "Education",
-    "Mining",
-    "Coca",                             # Rural
-    "Peasant",
-    "Rural land",
-    "Rural land, Partisan politics",
-    "Ethno-ecological",
-    "Drug trade",                       # Criminalized
-    "Contraband",
-    "Local development",                # Local
-    "Municipal governance",
-    "Partisan politics",                # (solo)
-    "Disabled",                         # (solo)
-    "Guerrilla",                        # Armed actors
-    "Paramilitary",
-    "Urban land",
-    "Unknown")                       # (solo)
-
   if(is.character(dataframe$protest_domain))
   {
     dataframe <- dataframe %>%
                 mutate(protest_domain = string_to_listcase(protest_domain))
   }
   dataframe$protest_domain <- fct_na_value_to_level(dataframe$protest_domain, level = na.level)
-  dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, protest_domain.grouped)
+  dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, protest_domain$levels)
   return(dataframe)
 }
 

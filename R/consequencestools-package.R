@@ -21,6 +21,7 @@
 #' @importFrom forcats fct_explicit_na
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom forcats fct_relevel
+#' @importFrom incase in_case
 #' @importFrom rlang .data
 #' @importFrom stringr str_c
 #' @importFrom stringr str_detect

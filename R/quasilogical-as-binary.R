@@ -17,6 +17,6 @@ quasilogical_as_binary <- function(datacolumn){
   datacolumn %>% forcats::fct_collapse(
     "Yes" = c("Yes", "Likely Yes", "Indirect", "Presumed Yes", "Likely"),
     "No" = c("No", "Likely No", "Presumed No", "Likely Disarmed", "Disarmed"),
-    "Diputed" = c("Disputed")) %>%
+    "Disputed" = c("Disputed")) %>%
     suppressWarnings()
 }
