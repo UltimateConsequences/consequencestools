@@ -16,12 +16,13 @@ globalVariables(c("muni_text"))
 #'
 #' @examples
 #' muni_list_with_counts_by(deaths_aug24, event_title)
-muni_list_with_counts_by <- function(dataframe, ...){
+muni_list_with_counts_by <- function(dataframe, ...) {
   dataframe %>%
-    dplyr::mutate(muni_text = paste(municipality, department, sep=", ")) %>%
-    group_by(... , muni_text) %>%
+    dplyr::mutate(muni_text = paste(municipality, department, sep = ", ")) %>%
+    group_by(..., muni_text) %>%
     dplyr::summarize(count = dplyr::n(), .groups = "rowwise") %>%
-    dplyr::arrange(dplyr::desc(count)) %>% ungroup()
+    dplyr::arrange(dplyr::desc(count)) %>%
+    ungroup()
 }
 
 #' Produce Table Summarized by a Custom Set of Variables, Each with an Event List
@@ -38,11 +39,12 @@ muni_list_with_counts_by <- function(dataframe, ...){
 #'
 #' @examples
 #' muni_counts_by(deaths_aug24, event_title) %>% dplyr::arrange(desc(total))
-#' muni_counts_by(deaths_aug24, event_title, newline_style="oneline")
-#' muni_counts_by(deaths_aug24, event_title, newline_style="oneline") %>%
-#'   dplyr::mutate(len=stringr::str_length(municipalities)) %>%
-#'   dplyr::arrange(desc(total)) %>% print(n=25)
-muni_counts_by <- function(def, ..., count_muni=FALSE, newline_style="html"){
+#' muni_counts_by(deaths_aug24, event_title, newline_style = "oneline")
+#' muni_counts_by(deaths_aug24, event_title, newline_style = "oneline") %>%
+#'   dplyr::mutate(len = stringr::str_length(municipalities)) %>%
+#'   dplyr::arrange(desc(total)) %>%
+#'   print(n = 25)
+muni_counts_by <- function(def, ..., count_muni = FALSE, newline_style = "html") {
   sep_newline <- case_when(
     newline_style == "html" ~ "; <br> ",
     newline_style == "text" ~ ";\n",
@@ -55,11 +57,13 @@ muni_counts_by <- function(def, ..., count_muni=FALSE, newline_style="html"){
     dplyr::summarize(
       total = sum(count),
       n_muni = n(),
-      municipalities = paste(muni_text, " (", count,")", sep="",
-                     collapse = sep_newline),
+      municipalities = paste(muni_text, " (", count, ")",
+        sep = "",
+        collapse = sep_newline
+      ),
       .groups = "rowwise"
     )
-  if (!count_muni){
+  if (!count_muni) {
     count_table <- count_table[, names(count_table) != "n_muni"]
   }
   return(count_table)
@@ -78,8 +82,10 @@ muni_counts_by <- function(def, ..., count_muni=FALSE, newline_style="html"){
 #' @export
 #'
 #' @examples
-#' deaths_aug24 %>% muni_counts_by(department, newline_style="text") %>%
-#'   truncate_muni_list(num_muni = 3) %>% dplyr::arrange(desc(total))
-truncate_muni_list <- function(dataframe, variable = "municipalities", num_muni=4, sep_char=";"){
+#' deaths_aug24 %>%
+#'   muni_counts_by(department, newline_style = "text") %>%
+#'   truncate_muni_list(num_muni = 3) %>%
+#'   dplyr::arrange(desc(total))
+truncate_muni_list <- function(dataframe, variable = "municipalities", num_muni = 4, sep_char = ";") {
   truncate_event_list(dataframe, variable, num_muni, sep_char)
 }
