@@ -7,7 +7,7 @@
 event_responsibilty_summary_table(dataframe)
 }
 \arguments{
-\item{dataframe}{}
+\item{dataframe}{Data table containing year, month, day}
 }
 \value{
 A summary table describing events, with the following variables:

@@ -7,7 +7,7 @@
 event_date_range_table(dataframe)
 }
 \arguments{
-\item{dataframe}{}
+\item{dataframe}{Data table containing year, month, day}
 }
 \value{
 A tibble with 11 variables: event_title, date_first, date_last,
