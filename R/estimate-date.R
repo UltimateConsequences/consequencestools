@@ -82,8 +82,8 @@ estimated_date_string <- function(year, month, day){
 #' @export
 #'
 #' @examples
-#' displayed_date_string(2015, NA, NA), "2015-06-30")
-#' displayed_date_string(2015, 8, NA), "2015-08-15")
+#' displayed_date_string(2015, NA, NA)
+#' displayed_date_string(2015, 8, NA)
 #' displayed_date_string(2015, 1, 11)
 displayed_date_string <- function(year, month, day){
   # Unfortunate work-around to the simultaneous evaluation done by incase::in_case()
@@ -103,4 +103,47 @@ displayed_date_string <- function(year, month, day){
   )
 
   return(date_string)
+}
+
+#' Combine Year, Month, and Day into Dates in a Dataframe
+#'
+#' Our data includes sometimes complex and sometimes incomplete values
+#' for year, month, and day. This function merges them into a variable
+#' `date`, which is sortable and a variable `date_text`.
+#'
+#' Optionally,
+#' the process can also be applied to `later_date`, used when individuals
+#' die after the event itself.
+#'
+#' @param dataframe A dataframe containing date components (year, month, day)
+#' @param incl_laterdate Logical, whether to include a later date if available (default FALSE)
+#' @param date_at_front Logical, whether to move date columns to the front (default FALSE)
+#' @param unknown_date_string String to use for unknown dates (default NA)
+#'
+#' @return A dataframe with combined date information
+#' @export
+#'
+#' @importFrom dplyr %>% rowwise mutate relocate
+#' @importFrom lubridate ymd
+#'
+#' @examples
+#' # Add examples here
+combine_dates <- function(dataframe, incl_laterdate=FALSE, date_at_front=FALSE,
+                          unknown_date_string = NA){
+  dataframe <- dataframe %>% rowwise() %>%
+    dplyr::mutate(date_text = estimated_date_string(year, month, day)) %>%
+    dplyr::mutate(date = as.Date(lubridate::ymd(date_text))) %>%
+    dplyr::mutate(date_text = displayed_date_string(year, month, day))
+
+  if(incl_laterdate & ("later_day" %in% colnames(dataframe))){
+    dataframe <- dplyr::mutate(dataframe,
+                               laterdate = (paste(later_year, later_month, later_day, sep="-") %>%
+                                              lubridate::ymd() %>% as.Date()))
+  }
+  if(date_at_front){
+    dataframe <- dataframe %>% relocate(event_title, date) %>%
+      relocate(year, month, day, .after = last_col())
+  }
+
+  dataframe
 }
