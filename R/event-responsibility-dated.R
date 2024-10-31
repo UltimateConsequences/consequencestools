@@ -35,7 +35,7 @@ diffdays <- function(date1, date2){
 
 #' Produce a table of first and last days of each event and their length
 #'
-#' @param dataframe
+#' @param dataframe Data table containing year, month, day
 #'
 #' @return A tibble with 11 variables: event_title, date_first, date_last,
 #'   length_in_days, year_first, month_first, day_first, date_text_first,
@@ -100,7 +100,7 @@ add_days_between <- function(event_date_table){
 #' Each event will also have the following characteristics recorded:
 #' date (of first death), year, protest_domain, and presidential administration.
 #'
-#' @param dataframe
+#' @param dataframe Data table containing year, month, day
 #'
 #' @return A summary table describing events, with the following variables:
 #'   `event_title`, `date`, `year`,

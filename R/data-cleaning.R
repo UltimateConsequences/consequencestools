@@ -35,7 +35,7 @@ assign_presidency_levels <- function(dataframe){
   # This complicated construction ensures that no errors will be generated if there is no pres_admin column
   if (!("pres_admin" %in% colnames(dataframe))) return(dataframe)
 
-  dataframe <- dataframe %>% mutate(pres_admin = factor(pres_admin, levels=president$levels))
+  dataframe <- dataframe %>% mutate(pres_admin = factor(pres_admin, levels= consequencestools::president$levels))
   return(dataframe)
 }
 
@@ -93,6 +93,9 @@ assign_state_perpetrator_levels <- function(dataframe, simplify=FALSE){
 #' assign_state_responsibility_levels(df1, simplify = TRUE)
 #' assign_state_responsibility_levels(deaths_aug24)
 assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
+  # This complicated construction ensures that no errors will be generated if column is missing
+  if (!("state_responsibility" %in% colnames(dataframe))) return(dataframe)
+
   if (is.factor(dataframe$state_responsibility)){
     message("assign_state_responsibility_levels: leaving factored variable unchanged.")
     return(dataframe)
@@ -125,82 +128,25 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Unknown  = c("Unknown", "Unclear", "Disputed") ) %>%
                                  suppressWarnings()
 
-    de$state_responsibility <- fct_relevel(de$state_responsibility, state_resp$levels) %>%
+    de$state_responsibility <- fct_relevel(de$state_responsibility, consequencestools::state_resp$levels) %>%
       suppressWarnings()
   }
   return(de)
 }
 
-#' Produce an Estimated Date String for (Sometimes Incomplete) Dates
+
+#' Assign Location Precision Levels
 #'
-#' This function produces dates using partial information to enable
-#' sequential sorting by date even when information is incomplete.
-#' It treats unknown dates within a year as June 30 and unknown dates
-#' within a month as the 15th day of the month.
+#' This function factors the variable `location_precision`.
 #'
-#' @param year Numerical year
-#' @param month Numerical month
-#' @param day Numerical day
+#' @param dataframe A dataframe containing a 'state_responsibility' column
 #'
-#' @return A numerical date string in "YYYY-MM-DD" format
+#' @return A dataframe with the 'location_precision' column turned into an
+#'   ordered factor
 #' @export
-#' @importFrom incase in_case
 #'
 #' @examples
-#' estimated_date_string(2015, NA, NA), "2015-06-30")
-#' estimated_date_string(2015, 8, NA), "2015-08-15")
-#' estimated_date_string(2015, 1, 11)
-estimated_date_string <- function(year, month, day){
-  date_string <- incase::in_case(
-    (is.na(year)) ~ NA,
-    (is.na(day) & is.na(month) & !is.na(year)) ~ str_glue("{year}-06-30"),
-    (is.na(day) & !is.na(month) & !is.na(year)) ~ str_glue("{year}-{month}-15"),
-    TRUE ~ paste(year, month, day, sep = "-")
-  )
-
-  return(date_string)
-}
-
-displayed_date_string <- function(year, month, day){
-  # Unfortunate work around to the simultaneous evaluation done by incase::in_case()
-  # when using the vectors month.abb, month.name
-  month_name <- ""
-  month_abb <- ""
-  if (!is.na(month)) {
-    month_name <- month.name[month]
-    month_abb <- month.abb[month]
-  }
-
-  date_string <- incase::in_case(
-    (is.na(year)) ~ "Date Unknown",
-    ((is.na(day) & is.na(month) & !is.na(year))) ~ str_glue("{year}"),
-    (is.na(day) & !is.na(month) & !is.na(year)) ~ str_glue("{month_name} {year}"),
-    TRUE ~ str_glue("{day} {month_abb} {year}")
-  )
-
-  return(date_string)
-}
-
-combine_dates <- function(dataframe, incl_laterdate=FALSE, date_at_front=FALSE,
-                          unknown_date_string = NA){
-  dataframe <- dataframe %>% rowwise() %>%
-                 dplyr::mutate(date_text = estimated_date_string(year, month, day)) %>%
-                 dplyr::mutate(date = as.Date(lubridate::ymd(date_text))) %>%
-                 dplyr::mutate(date_text = displayed_date_string(year, month, day))
-
-  if(incl_laterdate & ("later_day" %in% colnames(dataframe))){
-    dataframe <- dplyr::mutate(dataframe,
-                        laterdate = (paste(later_year, later_month, later_day, sep="-") %>%
-                                       lubridate::ymd() %>% as.Date()))
-  }
-  if(date_at_front){
-    dataframe <- dataframe %>% relocate(event_title, date) %>%
-                               relocate(year, month, day, .after = last_col())
-  }
-
-  dataframe
-}
-
+#' assign_location_precision_levels(deaths_aug24)
 assign_location_precision_levels <- function(dataframe){
   # This assignment is done via data.R
   #
@@ -218,14 +164,22 @@ assign_location_precision_levels <- function(dataframe){
   return(dataframe)
 }
 
-string_to_listcase <- function(string) {
-  string %>% str_replace(",", ".") %>%
-    str_to_sentence() %>%
-    str_replace("\\.", ",")
-  }
 
+#' Assign Protest Domain Levels
+#'
+#' This function factors the variable `protest_domain`.
+#'
+#' @param dataframe A dataframe containing a 'state_responsibility' column
+#' @param na.level The name of the level to which NA is assigned
+#'
+#' @return A dataframe with the 'protest_domain' column turned into an
+#'   ordered factor
+#' @export
+#'
+#' @examples
+#' assign_protest_domain_levels(deaths_aug24)
 assign_protest_domain_levels <- function(dataframe, na.level = "Unknown"){
-  # This complicated construction ensures that no errors will be generated if there is no location_precision column
+  # This complicated construction ensures that no errors will be generated if column is missing
   if (!("protest_domain" %in% colnames(dataframe))) return(dataframe)
 
   # factor protest_domain

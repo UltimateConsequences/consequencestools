@@ -17,7 +17,6 @@ count_ongoing_events <- function(event_date_range_table, input_date) {
   return(nrow(ongoing_events))
 }
 
-
 #' Count Events Overlapping with a Specific Month
 #'
 #' @param yearmonth A yearmon object specifying the month to check for overlapping events
@@ -28,14 +27,11 @@ count_ongoing_events <- function(event_date_range_table, input_date) {
 #' num_events <- count_events_in_month(as.yearmon("Jan 2003"))
 #' print(paste("Number of overlapping events:", num_events))
 #'
-#' @import zoo
 #' @export
 count_events_in_month <- function(event_date_range_table, yearmonth) {
-  require(zoo)
-
   # Convert yearmonth to start and end dates of the month
-  start_date <- as.Date(yearmonth)
-  end_date <- as.Date(yearmonth) + months(1) - lubridate::days(1)
+  start_date <- zoo::as.Date(yearmonth)
+  end_date <- zoo::as.Date(yearmonth) + months(1) - lubridate::days(1)
 
   # Filter events overlapping with the month
   overlapping_events <- event_date_range_table %>%
