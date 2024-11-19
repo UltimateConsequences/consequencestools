@@ -12,8 +12,14 @@ president$initials <- c(
   "GSL", "CM",
   "ER", "EM", "Mil",
   "JA", "LA")
+president$levels_es <- c(
+  "Hernán Siles Zuazo", "Víctor Paz Estenssoro", "Jaime Paz Zamora",
+  "Gonzalo Sanchez de Lozada (1ro)", "Hugo Banzer (2do)", "Jorge Quiroga",
+  "Gonzalo Sanchez de Lozada (2do)", "Carlos Diego Mesa Gisbert",
+  "Eduardo Rodríguez", "Evo Morales", "Interim military government",
+  "Jeanine Áñez", "Luis Arce")
 
-usethis::use_data(president)
+usethis::use_data(president, overwrite=TRUE)
 
 location_precision <- list()
 location_precision$levels <- c(
