@@ -1,5 +1,7 @@
 #' Count Ongoing Events on a Specific Date
 #'
+#' @param event_date_range_table A table of date ranges of events in the
+#'   format produced by event_date_range_table()
 #' @param input_date A Date object specifying the date to check for ongoing events
 #'
 #' @return An integer representing the number of events ongoing on the input date
@@ -19,12 +21,15 @@ count_ongoing_events <- function(event_date_range_table, input_date) {
 
 #' Count Events Overlapping with a Specific Month
 #'
+#' @param event_date_range_table A table of date ranges of events in the
+#'   format produced by event_date_range_table()
 #' @param yearmonth A yearmon object specifying the month to check for overlapping events
 #'
 #' @return An integer representing the number of events overlapping with the specified month
 #'
 #' @examples
-#' num_events <- count_events_in_month(as.yearmon("Jan 2003"))
+#' event_range_table <- event_date_range_table(deaths_aug24)
+#' num_events <- count_events_in_month(event_range_table, zoo::as.yearmon("2003-01"))
 #' print(paste("Number of overlapping events:", num_events))
 #'
 #' @export

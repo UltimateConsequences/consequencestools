@@ -7,7 +7,7 @@
 quasilogical_as_binary(datacolumn)
 }
 \arguments{
-\item{datacolumn}{}
+\item{datacolumn}{The relevant variable in a dataframe}
 }
 \value{
 Same data column with simplified values

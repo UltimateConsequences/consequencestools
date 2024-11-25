@@ -7,6 +7,9 @@
 count_events_in_month(event_date_range_table, yearmonth)
 }
 \arguments{
+\item{event_date_range_table}{A table of date ranges of events in the
+format produced by event_date_range_table()}
+
 \item{yearmonth}{A yearmon object specifying the month to check for overlapping events}
 }
 \value{
@@ -16,7 +19,8 @@ An integer representing the number of events overlapping with the specified mont
 Count Events Overlapping with a Specific Month
 }
 \examples{
-num_events <- count_events_in_month(as.yearmon("Jan 2003"))
+event_range_table <- event_date_range_table(deaths_aug24)
+num_events <- count_events_in_month(event_range_table, zoo::as.yearmon("2003-01"))
 print(paste("Number of overlapping events:", num_events))
 
 }

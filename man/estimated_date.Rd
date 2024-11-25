@@ -31,5 +31,5 @@ returns NA.
 \examples{
 estimated_date_string(2015, NA, NA)
 estimated_date_string(2015, 8, NA)
-(estimated_date(2015, 10, 11)
+estimated_date(2015, 10, 11)
 }

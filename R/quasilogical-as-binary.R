@@ -6,7 +6,7 @@
 #' function flattens quasilogical variables into three options:
 #' "Yes", "No" and "Disputed". The project
 #'
-#' @param datacolumn
+#' @param datacolumn The relevant variable in a dataframe
 #'
 #' @return Same data column with simplified values
 #' @export

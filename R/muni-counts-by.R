@@ -30,6 +30,8 @@ muni_list_with_counts_by <- function(dataframe, ...) {
 #' @param def Dataframe to be processed.
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> List of variables in tidy-select format.
 #' @param newline_style Text format for separating the event lists
+#' @param count_muni A boolean flag. If true return `n_muni` a count of the number
+#'   of municipalities that match.
 #'
 #' @return A dataframe listing all possible combinations of the
 #'     variables being analyzed, followed by an events column, which
@@ -38,11 +40,11 @@ muni_list_with_counts_by <- function(dataframe, ...) {
 #' @export
 #'
 #' @examples
-#' muni_counts_by(deaths_aug24, event_title) %>% dplyr::arrange(desc(total))
+#' muni_counts_by(deaths_aug24, event_title) %>% dplyr::arrange(dplyr::desc(total))
 #' muni_counts_by(deaths_aug24, event_title, newline_style = "oneline")
 #' muni_counts_by(deaths_aug24, event_title, newline_style = "oneline") %>%
 #'   dplyr::mutate(len = stringr::str_length(municipalities)) %>%
-#'   dplyr::arrange(desc(total)) %>%
+#'   dplyr::arrange(dplyr::desc(total)) %>%
 #'   print(n = 25)
 muni_counts_by <- function(def, ..., count_muni = FALSE, newline_style = "html") {
   sep_newline <- case_when(
@@ -85,7 +87,7 @@ muni_counts_by <- function(def, ..., count_muni = FALSE, newline_style = "html")
 #' deaths_aug24 %>%
 #'   muni_counts_by(department, newline_style = "text") %>%
 #'   truncate_muni_list(num_muni = 3) %>%
-#'   dplyr::arrange(desc(total))
+#'   dplyr::arrange(dplyr::desc(total))
 truncate_muni_list <- function(dataframe, variable = "municipalities", num_muni = 4, sep_char = ";") {
   truncate_event_list(dataframe, variable, num_muni, sep_char)
 }

@@ -1,3 +1,5 @@
+utils::globalVariables(c("state_resp"))
+
 #' Color Palettes for a Numerical Scale
 #'
 #' A series of functions with different colors:
@@ -41,9 +43,10 @@ gray_pal <- function(x) {
 #' A series of functions blending from a light grey to
 #' category-specific colors: perp_pal() for state-perpetrated
 #' deaths; sv_pal() for state-victim deaths, sep_pal() for
-#' deaths separate from the state.
+#' deaths separate from the state. Each passes `x`, a number from 0 to 1
+#' to the underlying palette function.
 #'
-#' @param x A number from 0 to 1
+#' @param ... Parameters to be passed to the underlying palette
 #'
 #' @return A color along the palette range
 #'
@@ -103,8 +106,9 @@ set_maximums <- function(df.responsibility){
   maxm
 }
 
-
 #' Calculate Luminance of a Hex-Coded Color
+#'
+#' @noRd
 #'
 #' @param hex Color expressed in hex code
 #'
@@ -118,8 +122,6 @@ luminance <- function(hex="#ffffff") {
   rgb <- grDevices::col2rgb(hex)
   (0.299*rgb[1] + 0.587*rgb[2] + 0.114*rgb[3])/255
 }
-
-
 
 #' Convert color names to hex RGB strings
 #'

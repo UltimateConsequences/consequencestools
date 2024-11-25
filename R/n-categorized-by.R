@@ -28,7 +28,7 @@ utils::globalVariables(c("n", "n_coca", "n_armedactor", "n_state_perp",
 #' @param by A variable to summarize by
 #' @param complete A logical value stating whether to fill in zero values
 #' @param sp_binary A logical value. If TRUE, partial values for state_perpetrator
-#'   (e.g., "Likely Yes") are counted.
+#'   (e.g., "Likely Yes") are counted. Only used in n_categorized_by
 #'
 #' @return A data table.
 #' @export
@@ -81,6 +81,8 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
   return(output)
 }
 
+#' @rdname n_categorized_by
+#' @export
 n_responsibility_by <- function(def, by, complete = FALSE){
   def <- assign_state_responsibility_levels(def, simplify = TRUE)
 
@@ -107,3 +109,4 @@ n_responsibility_by <- function(def, by, complete = FALSE){
 
   return(output)
 }
+

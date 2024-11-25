@@ -11,6 +11,9 @@ muni_counts_by(def, ..., count_muni = FALSE, newline_style = "html")
 
 \item{...}{<[`dynamic-dots`][rlang::dyn-dots]> List of variables in tidy-select format.}
 
+\item{count_muni}{A boolean flag. If true return `n_muni` a count of the number
+of municipalities that match.}
+
 \item{newline_style}{Text format for separating the event lists}
 }
 \value{
@@ -23,10 +26,10 @@ A dataframe listing all possible combinations of the
 Produce Table Summarized by a Custom Set of Variables, Each with an Event List
 }
 \examples{
-muni_counts_by(deaths_aug24, event_title) \%>\% dplyr::arrange(desc(total))
+muni_counts_by(deaths_aug24, event_title) \%>\% dplyr::arrange(dplyr::desc(total))
 muni_counts_by(deaths_aug24, event_title, newline_style = "oneline")
 muni_counts_by(deaths_aug24, event_title, newline_style = "oneline") \%>\%
   dplyr::mutate(len = stringr::str_length(municipalities)) \%>\%
-  dplyr::arrange(desc(total)) \%>\%
+  dplyr::arrange(dplyr::desc(total)) \%>\%
   print(n = 25)
 }

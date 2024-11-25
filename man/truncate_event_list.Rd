@@ -29,5 +29,5 @@ Process Event Count Strings to First N Events
 }
 \examples{
 deaths_aug24 \%>\% event_counts_by(department, newline_style="text") \%>\%
-  truncate_event_list(num_events = 6) \%>\% dplyr::arrange(desc(total))
+  truncate_event_list(num_events = 6) \%>\% dplyr::arrange(dplyr::desc(total))
 }

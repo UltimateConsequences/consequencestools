@@ -13,7 +13,7 @@ sv_pal(...)
 sep_pal(...)
 }
 \arguments{
-\item{x}{A number from 0 to 1}
+\item{...}{Parameters to be passed to the underlying palette}
 }
 \value{
 A color along the palette range
@@ -22,7 +22,8 @@ A color along the palette range
 A series of functions blending from a light grey to
 category-specific colors: perp_pal() for state-perpetrated
 deaths; sv_pal() for state-victim deaths, sep_pal() for
-deaths separate from the state.
+deaths separate from the state. Each passes `x`, a number from 0 to 1
+to the underlying palette function.
 }
 \examples{
 max_deaths <- 100

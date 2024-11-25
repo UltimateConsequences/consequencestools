@@ -20,7 +20,7 @@
 #' @examples
 #' estimated_date_string(2015, NA, NA)
 #' estimated_date_string(2015, 8, NA)
-#' (estimated_date(2015, 10, 11)
+#' estimated_date(2015, 10, 11)
 estimated_date <- function(year, month, day) {
   if (is.na(year)) return(NA)
 
@@ -44,8 +44,8 @@ estimated_date <- function(year, month, day) {
 #' @importFrom incase in_case
 #'
 #' @examples
-#' estimated_date_string(2015, NA, NA), "2015-06-30")
-#' estimated_date_string(2015, 8, NA), "2015-08-15")
+#' estimated_date_string(2015, NA, NA)
+#' estimated_date_string(2015, 8, NA)
 #' estimated_date_string(2015, 1, 11)
 estimated_date_string <- function(year, month, day){
   month_padded <- incase::in_case(

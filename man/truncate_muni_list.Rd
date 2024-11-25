@@ -32,5 +32,5 @@ Process Municipality Count Strings to First N Municipalities
 deaths_aug24 \%>\%
   muni_counts_by(department, newline_style = "text") \%>\%
   truncate_muni_list(num_muni = 3) \%>\%
-  dplyr::arrange(desc(total))
+  dplyr::arrange(dplyr::desc(total))
 }

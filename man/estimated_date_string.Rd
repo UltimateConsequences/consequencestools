@@ -23,7 +23,7 @@ It treats unknown dates within a year as June 30 and unknown dates
 within a month as the 15th day of the month.
 }
 \examples{
-estimated_date_string(2015, NA, NA), "2015-06-30")
-estimated_date_string(2015, 8, NA), "2015-08-15")
+estimated_date_string(2015, NA, NA)
+estimated_date_string(2015, 8, NA)
 estimated_date_string(2015, 1, 11)
 }

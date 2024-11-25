@@ -160,7 +160,9 @@ assign_location_precision_levels <- function(dataframe){
   # This complicated construction ensures that no errors will be generated if there is no location_precision column
   if (!("location_precision" %in% colnames(dataframe))) return(dataframe)
 
-  dataframe <- dataframe %>% mutate(location_precision = factor(location_precision, levels=location_precision$levels))
+  lp_levels <- location_precision$levels
+
+  dataframe <- dataframe %>% mutate(location_precision = factor(location_precision, levels=lp_levels))
   return(dataframe)
 }
 

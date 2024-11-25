@@ -7,6 +7,9 @@
 count_ongoing_events(event_date_range_table, input_date)
 }
 \arguments{
+\item{event_date_range_table}{A table of date ranges of events in the
+format produced by event_date_range_table()}
+
 \item{input_date}{A Date object specifying the date to check for ongoing events}
 }
 \value{
