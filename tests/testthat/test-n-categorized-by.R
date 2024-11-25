@@ -1,4 +1,4 @@
-test_that("Appropriately sized table", {
+test_that("Appropriately sized table for n_categorized_by", {
   n_calculated_columns <- 15
   expect_equal(nrow(n_categorized_by(deaths_aug24, protest_domain, complete=TRUE)),
                nrow(unique(na.omit(deaths_aug24[,"protest_domain"]))))
@@ -9,7 +9,7 @@ test_that("Appropriately sized table", {
                n_calculated_columns+1)
 })
 
-test_that("Appropriately sized table", {
+test_that("Appropriately sized table for n_responsibility_by()", {
   n_calculated_columns <- 4
   expect_equal(nrow(n_responsibility_by(deaths_aug24, protest_domain, complete=TRUE)),
                nrow(unique(na.omit(deaths_aug24[,"protest_domain"]))))

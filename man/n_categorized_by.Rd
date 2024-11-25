@@ -2,9 +2,12 @@
 % Please edit documentation in R/n-categorized-by.R
 \name{n_categorized_by}
 \alias{n_categorized_by}
+\alias{n_responsibility_by}
 \title{Produce a Summary Table for Deaths by Responsibility and Major Domains}
 \usage{
 n_categorized_by(def, by, complete = FALSE, sp_binary = FALSE)
+
+n_responsibility_by(def, by, complete = FALSE)
 }
 \arguments{
 \item{def}{A data frame detailing deaths}
@@ -14,7 +17,7 @@ n_categorized_by(def, by, complete = FALSE, sp_binary = FALSE)
 \item{complete}{A logical value stating whether to fill in zero values}
 
 \item{sp_binary}{A logical value. If TRUE, partial values for state_perpetrator
-(e.g., "Likely Yes") are counted.}
+(e.g., "Likely Yes") are counted. Only used in n_categorized_by}
 }
 \value{
 A data table.

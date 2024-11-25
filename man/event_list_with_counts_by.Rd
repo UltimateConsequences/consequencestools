@@ -22,5 +22,5 @@ Produce Table of Events by a Custom Set of Variables
 }
 \examples{
 deaths_aug24 \%>\% event_list_with_counts_by(protest_domain, protest_campaign) \%>\%
-  dplyr::filter(count > 5) \%>\% dplyr::arrange(desc(count))
+  dplyr::filter(count > 5) \%>\% dplyr::arrange(dplyr::desc(count))
 }

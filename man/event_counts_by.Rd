@@ -12,6 +12,9 @@ event_counts_by(def, ..., newline_style = "html", count_events = FALSE)
 \item{...}{<[`dynamic-dots`][rlang::dyn-dots]> List of variables in tidy-select format.}
 
 \item{newline_style}{Text format for separating the event lists}
+
+\item{count_events}{A boolean flag. If true return `n_events` a count of the number
+of events that match.}
 }
 \value{
 A dataframe listing all possible combinations of the
@@ -24,12 +27,12 @@ Produce Table Summarized by a Custom Set of Variables, Each with an Event List
 }
 \examples{
 deaths_aug24 \%>\% event_counts_by(protest_domain, protest_campaign) \%>\%
-  dplyr::filter(total>2) \%>\% dplyr::arrange(desc(total)) \%>\% print(n=10)
+  dplyr::filter(total>2) \%>\% dplyr::arrange(dplyr::desc(total)) \%>\% print(n=10)
 deaths_aug24 \%>\% event_counts_by(protest_domain, department) \%>\%
-  dplyr::filter(total > 1) \%>\% dplyr::arrange(department, desc(total)) \%>\% print(n=100)
+  dplyr::filter(total > 1) \%>\% dplyr::arrange(department, dplyr::desc(total)) \%>\% print(n=100)
 deaths_aug24 \%>\% event_counts_by(department) \%>\%
-  dplyr::arrange(desc(total)) \%>\% dplyr::select(department) \%>\%
+  dplyr::arrange(dplyr::desc(total)) \%>\% dplyr::select(department) \%>\%
   dplyr::pull()
 deaths_aug24 \%>\% event_counts_by(state_perpetrator, munition) \%>\%
-  dplyr::filter(state_perpetrator=="Yes") \%>\% dplyr::arrange(desc(total)) \%>\% print(n=40)
+  dplyr::filter(state_perpetrator=="Yes") \%>\% dplyr::arrange(dplyr::desc(total)) \%>\% print(n=40)
 }

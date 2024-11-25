@@ -14,7 +14,7 @@ globalVariables(c("count", "total", "events"))
 #'
 #' @examples
 #' deaths_aug24 %>% event_list_with_counts_by(protest_domain, protest_campaign) %>%
-#'   dplyr::filter(count > 5) %>% dplyr::arrange(desc(count))
+#'   dplyr::filter(count > 5) %>% dplyr::arrange(dplyr::desc(count))
 event_list_with_counts_by <- function(dataframe, ...){
   dataframe %>%
     group_by(... , event_title) %>%
@@ -27,6 +27,8 @@ event_list_with_counts_by <- function(dataframe, ...){
 #' @param def Dataframe to be processed.
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> List of variables in tidy-select format.
 #' @param newline_style Text format for separating the event lists
+#' @param count_events A boolean flag. If true return `n_events` a count of the number
+#'   of events that match.
 #'
 #' @return A dataframe listing all possible combinations of the
 #'     variables being analyzed, followed by an events column, which
@@ -36,14 +38,14 @@ event_list_with_counts_by <- function(dataframe, ...){
 #'
 #' @examples
 #' deaths_aug24 %>% event_counts_by(protest_domain, protest_campaign) %>%
-#'   dplyr::filter(total>2) %>% dplyr::arrange(desc(total)) %>% print(n=10)
+#'   dplyr::filter(total>2) %>% dplyr::arrange(dplyr::desc(total)) %>% print(n=10)
 #' deaths_aug24 %>% event_counts_by(protest_domain, department) %>%
-#'   dplyr::filter(total > 1) %>% dplyr::arrange(department, desc(total)) %>% print(n=100)
+#'   dplyr::filter(total > 1) %>% dplyr::arrange(department, dplyr::desc(total)) %>% print(n=100)
 #' deaths_aug24 %>% event_counts_by(department) %>%
-#'   dplyr::arrange(desc(total)) %>% dplyr::select(department) %>%
+#'   dplyr::arrange(dplyr::desc(total)) %>% dplyr::select(department) %>%
 #'   dplyr::pull()
 #' deaths_aug24 %>% event_counts_by(state_perpetrator, munition) %>%
-#'   dplyr::filter(state_perpetrator=="Yes") %>% dplyr::arrange(desc(total)) %>% print(n=40)
+#'   dplyr::filter(state_perpetrator=="Yes") %>% dplyr::arrange(dplyr::desc(total)) %>% print(n=40)
 event_counts_by <- function(def, ..., newline_style="html", count_events=FALSE){
   comma_newline <- case_when(
     newline_style == "html" ~ ", <br>",
@@ -79,7 +81,7 @@ event_counts_by <- function(def, ..., newline_style="html", count_events=FALSE){
 #'
 #' @examples
 #' deaths_aug24 %>% event_counts_by(department, newline_style="text") %>%
-#'   truncate_event_list(num_events = 6) %>% dplyr::arrange(desc(total))
+#'   truncate_event_list(num_events = 6) %>% dplyr::arrange(dplyr::desc(total))
 truncate_event_list <- function(dataframe, variable = "events", num_events=4, sep_char=","){
   if  (!({{variable}} %in% colnames(dataframe))){
     warning(str_glue("Variable \"{variable}\" is not available for editing."))
