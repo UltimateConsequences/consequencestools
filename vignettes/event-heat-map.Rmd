@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(consequencestools)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(purrr)
 library(zoo)
 library(ggplot2)
 
