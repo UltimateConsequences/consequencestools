@@ -43,7 +43,7 @@ state_resp$colors <-  c(
 
 state_resp$colors_es <-  c(
   Perpetrador = "forestgreen",
-  Víctima = "#cd6600",                  # "darkorange3",
+  Victima = "#cd6600",                  # "darkorange3",
   Involucrado = "#90ee90",                # "lightgreen",
   Separado = "#eeb422",                # "goldenrod2",
   "No Intencional" = "darkgray",
