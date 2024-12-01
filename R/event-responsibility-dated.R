@@ -90,9 +90,9 @@ add_days_between <- function(event_date_table){
 
 #' Create an Event Responsibility Summary Table
 #'
-#' Given a properly factored table of deaths — one on which the
+#' Given a properly factored table of deaths -- one on which the
 #' state_responsibility variable has been factored and "Perpetrator" is one of
-#' factor levels — this function creates a summary table, each of whose
+#' factor levels -- this function creates a summary table, each of whose
 #' lines describes an individual event, by name, number of deaths,
 #' number of state-perpetrated deaths, number of state victim deaths, and
 #' number of deaths separate from the state.
@@ -116,7 +116,7 @@ event_responsibilty_summary_table <- function(dataframe) {
 
   msg_fixfactor <- paste0("The function event_responsibility_summary_table requires factoring ",
                           "state_responsibliity.\n",
-                          "Try applying assign_state_responsibility_levels(…, ",
+                          "Try applying assign_state_responsibility_levels(..., ",
                           "simplify = TRUE) first.")
 
   assertthat::assert_that("state_responsibility" %in% names(dataframe))
