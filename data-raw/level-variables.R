@@ -49,7 +49,7 @@ state_resp$colors_es <-  c(
   "No Intencional" = "darkgray",
   Desconocido = "lightgray")
 
-usethis::use_data(state_resp)
+usethis::use_data(state_resp, overwrite=TRUE)
 
 mat_color <- read_csv("data-raw/MaterialColour.csv")
 
