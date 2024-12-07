@@ -24,6 +24,24 @@
 #' "later_year_notes")
 "deaths_aug24"
 
+#' Ultimate Consequences Deaths Table
+#'
+#' An internal copy of the Ultimate Consequences deaths table
+#' (not for public release)
+#'
+#' @format
+#' `event_status_aug24` is a large data table. A tibble [211 × 21]
+#' (S3: tbl_df/tbl/data.frame)
+#'
+#' @details
+#' c("event_title", "year", "id_event", "n", "n_state_perp", "n_state_perp_excl",
+#' "n_state_perp_direct_excl", "n_state_victim", "n_name_problems",
+#' "name_problem_expl", "n_blank_notes", "n_blank_highestsource",
+#' "n_blank_certainty", "outcome", "outcome_summary", "has_narrative",
+#' "quality_narrative", "has_uncertain_deaths", "expand_narrative",
+#' "newspaper", "sourcing")
+"event_status_aug24"
+
 #' An internal copy of the Ultimate Consequences deaths table raw data
 #' (not for public release)
 #'
