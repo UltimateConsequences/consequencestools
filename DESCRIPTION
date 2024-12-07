@@ -37,7 +37,6 @@ Imports:
     stringr,
     tidyr,
     tidyselect,
-    utils,
     zoo
 Depends: 
     R (>= 2.10)

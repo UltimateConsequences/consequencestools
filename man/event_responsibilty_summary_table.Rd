@@ -16,9 +16,9 @@ A summary table describing events, with the following variables:
   `n`, `n_state_perp`, `n_state_victim`, `n_state_separate`
 }
 \description{
-Given a properly factored table of deaths — one on which the
+Given a properly factored table of deaths -- one on which the
 state_responsibility variable has been factored and "Perpetrator" is one of
-factor levels — this function creates a summary table, each of whose
+factor levels -- this function creates a summary table, each of whose
 lines describes an individual event, by name, number of deaths,
 number of state-perpetrated deaths, number of state victim deaths, and
 number of deaths separate from the state.
@@ -28,5 +28,6 @@ Each event will also have the following characteristics recorded:
 date (of first death), year, protest_domain, and presidential administration.
 }
 \examples{
-deaths_aug24 \%>\% assign_state_responsibility_levels(simplify=TRUE) \%>\% event_responsibilty_summary_table()
+assign_state_responsibility_levels(deaths_aug24, simplify=TRUE) |>
+  event_responsibilty_summary_table()
 }

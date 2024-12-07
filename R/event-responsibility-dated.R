@@ -110,7 +110,8 @@ add_days_between <- function(event_date_table){
 #' @export
 #'
 #' @examples
-#' deaths_aug24 %>% assign_state_responsibility_levels(simplify=TRUE) %>% event_responsibilty_summary_table()
+#' assign_state_responsibility_levels(deaths_aug24, simplify=TRUE) |>
+#'   event_responsibilty_summary_table()
 event_responsibilty_summary_table <- function(dataframe) {
   de <- dataframe
 

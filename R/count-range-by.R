@@ -73,7 +73,7 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
 
   # merge the event/campaign table with the corresponding data from the unfiltered counts
   counts_joined <- counts %>%
-    left_join(counts_unfiltered) %>%
+    dplyr::full_join(counts_unfiltered) %>%
     relocate(n_state_perp_hi, .after=n_state_perp) %>%
     relocate(n_state_victim_hi, .after=n_state_victim) %>%
     relocate(n_state_separate_hi, .after=n_state_separate) %>%
