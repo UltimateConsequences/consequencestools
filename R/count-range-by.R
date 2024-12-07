@@ -43,7 +43,8 @@ utils::globalVariables(c("department", "n", "n_unfiltered", "n_state_perp",
 #' count_range_by(deaths_aug24_filtered, deaths_aug24_unfiltered, department)
 count_range_by <- function(deaths, deaths_unfiltered, by,
                            drop_separate=FALSE, drop_extra=FALSE,
-                           blank_hi = TRUE){
+                           blank_hi = TRUE,
+                           .disqualified=FALSE){
   counts <- deaths %>% dplyr::filter(!is.na({{by}})) %>%
     dplyr::filter({{by}} != "") %>%
     group_by( {{ by }} ) %>%
@@ -55,6 +56,7 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
       n_state_separate = sum(str_detect(state_responsibility, "Separate from state"), na.rm = TRUE),
       .groups = "drop"
     )
+  cat("Counts: ", nrow(counts), "\n")
 
   counts_unfiltered <- deaths_unfiltered %>%
     dplyr::filter(!is.na({{by}})) %>%
@@ -70,18 +72,26 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
       n_unfiltered = dplyr::n(),
       .groups = "drop"
     )
+  cat("Counts unfiltered: ", nrow(counts_unfiltered), "\n")
 
   # merge the event/campaign table with the corresponding data from the unfiltered counts
   counts_joined <- counts %>%
     dplyr::full_join(counts_unfiltered) %>%
+    suppressMessages()
+
+  if(.disqualified){
+    disqualified_table <- dplyr::anti_join(counts_unfiltered, counts)
+    return(disqualified_table)
+  }
+
+  counts_joined <- counts_joined %>%
     relocate(n_state_perp_hi, .after=n_state_perp) %>%
     relocate(n_state_victim_hi, .after=n_state_victim) %>%
     relocate(n_state_separate_hi, .after=n_state_separate) %>%
-    relocate(n_unfiltered, .after = n) %>% # n_unfiltered in the "high" value of n
+    relocate(n_unfiltered, .after = n) # n_unfiltered in the "high" value of n
     # but our standard option is to drop it below
-    suppressMessages()
 
-  # blank the high values if they are the same as the low values…
+   # blank the high values if they are the same as the low values…
   if(blank_hi){
     counts_joined <- counts_joined %>%
       mutate(n_state_perp_hi = ifelse(n_state_perp_hi==n_state_perp, NA, n_state_perp_hi)) %>%
