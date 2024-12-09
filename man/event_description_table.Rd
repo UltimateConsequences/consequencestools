@@ -16,3 +16,6 @@ A table of event descriptions.
 This function generates a table of event descriptions based on the provided deaths data.
 It assigns presidential administrations and years to each event title.
 }
+\examples{
+event_description_table(deaths_aug24)
+}

@@ -6,16 +6,16 @@
       # A tibble: 214 x 12
          event_title        n n_unfiltered n_state_perp n_state_perp_hi n_state_victim
          <chr>          <int>        <int>        <int>           <int>          <int>
-       1 Achocalla lan~     1            1            0              NA              0
-       2 Achumani land~     1            1            0              NA              0
-       3 Altiplano blo~     2            2            2              NA              0
-       4 Ancoraimes Co~     1            1            0              NA              0
-       5 Anti-privatiz~     1            1            0               1              0
-       6 Apolo coca er~     4            4            0              NA              4
-       7 Arani school ~     1            1            1              NA              0
-       8 Arcopongo Min~     3            3            0              NA              0
-       9 Arcopongo Min~     1            1            0              NA              0
-      10 Asunta coca c~     3            3            2              NA              1
+       1 Achocalla lan~     1           NA            0              NA              0
+       2 Achumani land~     1           NA            0              NA              0
+       3 Altiplano blo~     2           NA            2              NA              0
+       4 Ancoraimes Co~     1           NA            0              NA              0
+       5 Anti-privatiz~     1           NA            0               1              0
+       6 Apolo coca er~     4           NA            0              NA              4
+       7 Arani school ~     1           NA            1              NA              0
+       8 Arcopongo Min~     3           NA            0              NA              0
+       9 Arcopongo Min~     1           NA            0              NA              0
+      10 Asunta coca c~     3           NA            2              NA              1
       # i 204 more rows
       # i 6 more variables: n_state_victim_hi <int>, n_state_separate <int>,
       #   n_state_separate_hi <int>, n_unconfirmed <int>, n_collateral <int>,
@@ -30,16 +30,16 @@
       # A tibble: 214 x 10
          event_title        n n_unfiltered n_state_perp n_state_perp_hi n_state_victim
          <chr>          <int>        <int>        <int>           <int>          <int>
-       1 Achocalla lan~     1            1            0              NA              0
-       2 Achumani land~     1            1            0              NA              0
-       3 Altiplano blo~     2            2            2              NA              0
-       4 Ancoraimes Co~     1            1            0              NA              0
-       5 Anti-privatiz~     1            1            0               1              0
-       6 Apolo coca er~     4            4            0              NA              4
-       7 Arani school ~     1            1            1              NA              0
-       8 Arcopongo Min~     3            3            0              NA              0
-       9 Arcopongo Min~     1            1            0              NA              0
-      10 Asunta coca c~     3            3            2              NA              1
+       1 Achocalla lan~     1           NA            0              NA              0
+       2 Achumani land~     1           NA            0              NA              0
+       3 Altiplano blo~     2           NA            2              NA              0
+       4 Ancoraimes Co~     1           NA            0              NA              0
+       5 Anti-privatiz~     1           NA            0               1              0
+       6 Apolo coca er~     4           NA            0              NA              4
+       7 Arani school ~     1           NA            1              NA              0
+       8 Arcopongo Min~     3           NA            0              NA              0
+       9 Arcopongo Min~     1           NA            0              NA              0
+      10 Asunta coca c~     3           NA            2              NA              1
       # i 204 more rows
       # i 4 more variables: n_state_victim_hi <int>, n_unconfirmed <int>,
       #   n_collateral <int>, n_nonconflict <int>

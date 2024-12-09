@@ -26,6 +26,12 @@ utils::globalVariables(c("department", "n", "n_unfiltered", "n_state_perp",
 #'   columns (e.g., unconfirmed, collateral, non-conflict deaths)
 #' @param blank_hi A logical value indicating whether to replace high estimates
 #'   with NA if they are the same as the low estimates
+#' @param complete When true, fill in unknown counts with zeroes. This
+#'   does not override the blank_hi parameter.
+#' @param .disqualified When TRUE, return the list of events that would only
+#'   be included if the unfiltered list of deaths is used.
+#' @param .verbose When TRUE, message with the number of events in the
+#'   filtered and unfiltered datasets.
 #'
 #' @return A data table with low and high estimates for each category of
 #' state responsibility. In the default state, these are the index variable
@@ -43,8 +49,9 @@ utils::globalVariables(c("department", "n", "n_unfiltered", "n_state_perp",
 #' count_range_by(deaths_aug24_filtered, deaths_aug24_unfiltered, department)
 count_range_by <- function(deaths, deaths_unfiltered, by,
                            drop_separate=FALSE, drop_extra=FALSE,
-                           blank_hi = TRUE,
-                           .disqualified=FALSE){
+                           complete = TRUE, blank_hi = TRUE,
+                           .disqualified=FALSE,
+                           .verbose = FALSE){
   counts <- deaths %>% dplyr::filter(!is.na({{by}})) %>%
     dplyr::filter({{by}} != "") %>%
     group_by( {{ by }} ) %>%
@@ -56,7 +63,7 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
       n_state_separate = sum(str_detect(state_responsibility, "Separate from state"), na.rm = TRUE),
       .groups = "drop"
     )
-  cat("Counts: ", nrow(counts), "\n")
+  if (.verbose) cat("Counts: ", nrow(counts), "\n")
 
   counts_unfiltered <- deaths_unfiltered %>%
     dplyr::filter(!is.na({{by}})) %>%
@@ -72,7 +79,7 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
       n_unfiltered = dplyr::n(),
       .groups = "drop"
     )
-  cat("Counts unfiltered: ", nrow(counts_unfiltered), "\n")
+  if (.verbose) cat("Counts unfiltered: ", nrow(counts_unfiltered), "\n")
 
   # merge the event/campaign table with the corresponding data from the unfiltered counts
   counts_joined <- counts %>%
@@ -91,9 +98,26 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
     relocate(n_unfiltered, .after = n) # n_unfiltered in the "high" value of n
     # but our standard option is to drop it below
 
+  if(complete){
+    counts_joined <- counts_joined %>%
+      tidyr::complete({{by}}, fill =list(
+        n = 0,
+        n_unfiltered = 0,
+        n_state_perp = 0,
+        n_state_perp_hi = 0,
+        n_state_victim = 0,
+        n_state_victim_hi = 0,
+        n_state_separate = 0,
+        n_state_separate_hi = 0,
+        n_collateral = 0,
+        n_nonconflict = 0
+      ))
+  }
+
    # blank the high values if they are the same as the low values…
   if(blank_hi){
     counts_joined <- counts_joined %>%
+      mutate(n_unfiltered = ifelse(n==n_unfiltered, NA, n_unfiltered)) %>%
       mutate(n_state_perp_hi = ifelse(n_state_perp_hi==n_state_perp, NA, n_state_perp_hi)) %>%
       mutate(n_state_victim_hi = ifelse(n_state_victim_hi==n_state_victim, NA, n_state_victim_hi)) %>%
       mutate(n_state_separate_hi = ifelse(n_state_separate_hi==n_state_separate, NA, n_state_separate_hi))

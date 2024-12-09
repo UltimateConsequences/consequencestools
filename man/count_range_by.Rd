@@ -10,7 +10,10 @@ count_range_by(
   by,
   drop_separate = FALSE,
   drop_extra = FALSE,
-  blank_hi = TRUE
+  complete = TRUE,
+  blank_hi = TRUE,
+  .disqualified = FALSE,
+  .verbose = FALSE
 )
 }
 \arguments{
@@ -27,8 +30,17 @@ including unconfirmed ones}
 \item{drop_extra}{A logical value indicating whether to exclude extra
 columns (e.g., unconfirmed, collateral, non-conflict deaths)}
 
+\item{complete}{When true, fill in unknown counts with zeroes. This
+does not override the blank_hi parameter.}
+
 \item{blank_hi}{A logical value indicating whether to replace high estimates
 with NA if they are the same as the low estimates}
+
+\item{.disqualified}{When TRUE, return the list of events that would only
+be included if the unfiltered list of deaths is used.}
+
+\item{.verbose}{When TRUE, message with the number of events in the
+filtered and unfiltered datasets.}
 }
 \value{
 A data table with low and high estimates for each category of

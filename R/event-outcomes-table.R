@@ -55,6 +55,9 @@ event_outcomes_table <- function(campaign_events, event.status){
 #'
 #' @return A table of event descriptions.
 #' @export
+#'
+#' @examples
+#' event_description_table(deaths_aug24)
 event_description_table <- function(deaths) {
   def <- deaths
   event.domain.count <- def %>%
@@ -102,5 +105,38 @@ event_description_table <- function(deaths) {
     relocate(year, .after = "event_title")
 
   event_description
+}
+
+#' Generate a Table of Event Counts
+#'
+#' This function generates a table of event counts based on the provided deaths data.
+#'
+#' @param deaths A data frame containing filtered deaths data.
+#' @param deaths_unfiltered A data frame containing unfiltered deaths data.
+#' @param event.status An event status data table to be passed to
+#'   event_description_table()
+#' @param ... Additional arguments passed to the `count_range_by` function.
+#'
+#' @return A table of event counts.
+#' @export
+#'
+#' @examples
+#' deaths_aug24_filtered <- standard_filter(deaths_aug24)
+#' deaths_aug24_unfiltered <- deaths_aug24
+#' wide_event_outcomes_table(deaths_aug24_filtered, deaths_aug24_unfiltered,
+#'   event_status_aug24)
+wide_event_outcomes_table <- function(deaths, deaths_unfiltered, event.status, ...){
+  event_counts <- event_counts_table(deaths, deaths_unfiltered, ...)
+  campaign.events_joined <- event_outcomes_table(event_counts, event.status)
+
+  event_description <- event_description_table(deaths_unfiltered)
+
+  output <- event_description %>%
+    dplyr::right_join(campaign.events_joined, by = c("event_title")) %>%
+    dplyr::select(event_title, year, n, n_state_perp, n_state_perp_hi,
+           n_state_victim,  n_state_victim_hi,
+           outcome, outcome_summary, everything())
+
+  return(output)
 }
 
