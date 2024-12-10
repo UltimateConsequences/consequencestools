@@ -95,6 +95,12 @@
 #' and color pairs for these levels in English).
 "protest_domain"
 
+#' Table of Month Names in Spanish
+#'
+#' @format A list with twelve lower-case names as members from "enero"
+#'   to "diciembre"
+"month.name.es"
+
 # This list produced by colnames(deaths_aug24) %>% dput()
 # Needed for dplyr references to variables
 # See: https://www.r-bloggers.com/2019/08/no-visible-binding-for-global-variable/
@@ -163,3 +169,5 @@ utils::globalVariables(
     "sr_text"
   )
 )
+
+

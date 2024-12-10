@@ -41,6 +41,7 @@
 #' @importFrom stringr str_to_title
 #' @importFrom tidyselect any_of
 #' @importFrom tidyselect last_col
+#' @importFrom transcats translated_join_vars
 #' @importFrom zoo as.Date.yearmon
 ## usethis namespace: end
 NULL
