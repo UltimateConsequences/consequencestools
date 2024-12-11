@@ -207,7 +207,7 @@ add_detailed_label <- function(dataframe){
   }
 
   dataframe <- dataframe %>% rowwise() %>% mutate(
-    protest_domain_color = protest_domain$colors[protest_domain],
+    protest_domain_color = protest_domain$colors[[protest_domain]],
     styled_protest_domain =
       str_glue("<span style=\"color:{protest_domain_color};\"><b>",
                "{protest_domain}</b></span>")
