@@ -78,7 +78,7 @@ wide_event_outcomes_reactable <- function(dataset, static=FALSE, max_larger=0) {
                                 filterable=!static,
                                 theme = nytimes(),
                                 defaultPageSize=16,
-                                pageSizeOptions = c(16, 25, 35, 50),
+                                pageSizeOptions = c(8, 16, 25, 35, 50),
                                 showPageSizeOptions=TRUE,
                                 defaultColDef = colDef(
                                   filterable=FALSE,
