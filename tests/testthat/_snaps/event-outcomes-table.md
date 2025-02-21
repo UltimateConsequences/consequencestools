@@ -10,7 +10,7 @@
        2 Achumani land~     1           NA            0              NA              0
        3 Altiplano blo~     2           NA            2              NA              0
        4 Ancoraimes Co~     1           NA            0              NA              0
-       5 Anti-privatiz~     1           NA            0               1              0
+       5 Anti-privatiz~     1           NA            1              NA              0
        6 Apolo coca er~     4           NA            0              NA              4
        7 Arani school ~     1           NA            1              NA              0
        8 Arcopongo Min~     3           NA            0              NA              0
@@ -34,7 +34,7 @@
        2 Achumani land~     1           NA            0              NA              0
        3 Altiplano blo~     2           NA            2              NA              0
        4 Ancoraimes Co~     1           NA            0              NA              0
-       5 Anti-privatiz~     1           NA            0               1              0
+       5 Anti-privatiz~     1           NA            1              NA              0
        6 Apolo coca er~     4           NA            0              NA              4
        7 Arani school ~     1           NA            1              NA              0
        8 Arcopongo Min~     3           NA            0              NA              0
@@ -57,7 +57,7 @@
        2 Achumani land clash             1            0              NA              0
        3 Altiplano blockades June 2~     2            2              NA              0
        4 Ancoraimes Councilwoman As~     1            0              NA              0
-       5 Anti-privatization miner d~     1            0               1              0
+       5 Anti-privatization miner d~     1            1              NA              0
        6 Apolo coca eradication          4            0              NA              4
        7 Arani school transfer road~     1            1              NA              0
        8 Arcopongo Mine clash            3            0              NA              0

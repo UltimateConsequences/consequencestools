@@ -1,7 +1,112 @@
 utils::globalVariables(c("department", "n", "n_unfiltered", "n_state_perp",
                          "n_state_perp_hi", "n_state_victim", "n_state_victim_hi",
                          "n_state_separate", "n_state_separate_hi",
-                         "n_unconfirmed", "n_collateral", "n_nonconflict"))
+                         "n_unconfirmed", "n_collateral", "n_nonconflict",
+                         "sp_text"))
+
+
+#' Add a new column to a dataframe if it doesn't exist
+#'
+#' @param df A dataframe
+#' @param new_col String name of the new column to add
+#' @param source_col String name of the existing column to copy from
+#'
+#' @return The modified dataframe
+#'
+#' @noRd
+add_column_if_missing <- function(df, new_col, source_col) {
+  if (!(new_col %in% names(df))) {
+    df <- dplyr::mutate(df, !!new_col := !!rlang::sym(source_col))
+  }
+  return(df)
+}
+
+#' Calculate counts for deaths data
+#'
+#' @param data A dataframe containing death records
+#' @param by A column name to group by
+#'
+#' @return A dataframe with counts grouped by the specified column
+#'
+#' @noRd
+calculate_counts <- function(data, by) {
+  data <- add_column_if_missing(data, "sr_text", "state_responsibility")
+  data <- add_column_if_missing(data, "sp_text", "state_perpetrator")
+
+  counts <- data %>%
+    dplyr::filter(!is.na({{by}}), {{by}} != "") %>%
+    group_by({{by}}) %>%
+    summarize(
+      n = dplyr::n(),
+      n_state_perp = sum(sp_text %in% c("Yes", "Disputed", "Likely Yes", "Presumed Yes", "Indirect"),
+                         na.rm = TRUE),
+      n_state_victim = sum(str_detect(sr_text, "^State victim") &
+                             !str_detect(intentionality, "cident"), na.rm = TRUE),
+      n_state_separate = sum(str_detect(sr_text, "Separate from state"), na.rm = TRUE),
+      .groups = "drop"
+    )
+  return(counts)
+}
+
+calculate_counts_from_factored_data <- function(data, by) {
+  counts <- data %>%
+    dplyr::filter(!is.na({{by}}), {{by}} != "") %>%
+    group_by({{by}}) %>%
+    summarize(
+      n = dplyr::n(),
+      n_state_perp = sum(state_perpetrator == "Yes", na.rm = TRUE),
+      n_state_victim = sum((state_responsibility=="Victim") &
+                             !str_detect(intentionality, "cident"), na.rm = TRUE),
+      n_state_separate = sum((state_responsibility=="Separate"), na.rm = TRUE),
+      .groups = "drop"
+    )
+  return(counts)
+}
+
+#' Calculate unfiltered counts for deaths data
+#'
+#' @param data A dataframe containing unfiltered death records
+#' @param by A column name to group by
+#'
+#' @return A dataframe with unfiltered counts grouped by the specified column
+#'
+#' @noRd
+calculate_counts_unfiltered <- function(data, by) {
+  data <- add_column_if_missing(data, "sr_text", "state_responsibility")
+  data <- add_column_if_missing(data, "sp_text", "state_perpetrator")
+
+  counts_unfiltered <- data %>%
+    dplyr::filter(!is.na({{by}}), {{by}} != "") %>%
+    group_by({{by}}) %>%
+    summarize(
+      n_unconfirmed = sum(unconfirmed == TRUE, na.rm = TRUE),
+      n_collateral = sum(intentionality == "Collateral", na.rm = TRUE),
+      n_nonconflict = sum(str_detect(intentionality, "Nonconflict"), na.rm = TRUE),
+      n_state_perp_hi = sum(sp_text %in% c("Yes", "Disputed", "Likely Yes", "Presumed Yes", "Indirect"), na.rm = TRUE),
+      n_state_victim_hi = sum(str_detect(sr_text, "^State victim"), na.rm = TRUE),
+      n_state_separate_hi = sum(str_detect(sr_text, "Separate from state"), na.rm = TRUE),
+      n_unfiltered = dplyr::n(),
+      .groups = "drop"
+    )
+  return(counts_unfiltered)
+}
+
+calculate_counts_unfiltered_from_factored_data <- function(data, by) {
+  counts_unfiltered <- data %>%
+    dplyr::filter(!is.na({{by}}), {{by}} != "") %>%
+    group_by({{by}}) %>%
+    summarize(
+      n_unconfirmed = sum(unconfirmed == TRUE, na.rm = TRUE),
+      n_collateral = sum(intentionality == "Collateral", na.rm = TRUE),
+      n_nonconflict = sum(str_detect(intentionality, "Nonconflict"), na.rm = TRUE),
+      n_state_perp_hi = sum(state_perpetrator == "Yes", na.rm = TRUE),
+      n_state_victim_hi = sum((state_responsibility=="Victim"), na.rm = TRUE),
+      n_state_separate_hi = sum((state_responsibility=="Separate"), na.rm = TRUE),
+      n_unfiltered = dplyr::n(),
+      .groups = "drop"
+    )
+  return(counts_unfiltered)
+}
 
 
 #' Produce a Range Summary Table for Deaths by Responsibility
@@ -52,33 +157,29 @@ count_range_by <- function(deaths, deaths_unfiltered, by,
                            complete = TRUE, blank_hi = TRUE,
                            .disqualified=FALSE,
                            .verbose = FALSE){
-  counts <- deaths %>% dplyr::filter(!is.na({{by}})) %>%
-    dplyr::filter({{by}} != "") %>%
-    group_by( {{ by }} ) %>%
-    summarize(
-      n = dplyr::n(),
-      n_state_perp = sum(state_perpetrator=="Yes", na.rm = TRUE),
-      n_state_victim = sum(str_detect(state_responsibility, "^State victim") &      # detect State victim only at beginning of string
-                             !str_detect(intentionality, "cident"), na.rm = TRUE),
-      n_state_separate = sum(str_detect(state_responsibility, "Separate from state"), na.rm = TRUE),
-      .groups = "drop"
-    )
-  if (.verbose) cat("Counts: ", nrow(counts), "\n")
 
-  counts_unfiltered <- deaths_unfiltered %>%
-    dplyr::filter(!is.na({{by}})) %>%
-    dplyr::filter({{by}} != "") %>%
-    group_by( {{ by }} ) %>%
-    summarize(
-      n_unconfirmed = sum(unconfirmed == TRUE, na.rm = TRUE),
-      n_collateral = sum(intentionality == "Collateral", na.rm = TRUE),
-      n_nonconflict = sum(str_detect(intentionality, "Nonconflict"), na.rm = TRUE),
-      n_state_perp_hi = sum(state_perpetrator %in% c("Yes", "Disputed", "Likely Yes", "Presumed Yes", "Indirect"), na.rm = TRUE),
-      n_state_victim_hi = sum(str_detect(state_responsibility, "^State victim"), na.rm = TRUE),
-      n_state_separate_hi = sum(str_detect(state_responsibility, "Separate from state"), na.rm = TRUE),
-      n_unfiltered = dplyr::n(),
-      .groups = "drop"
-    )
+  # We want to operate on the unfactored text, if possible
+
+
+  # First case: unfactored state_responsibility, state_perpetrator
+  if(("sp_text" %in% names(deaths)) & ("sr_text" %in% names(deaths))){
+    # First Case: SP, SR text available
+    counts <- calculate_counts(deaths, {{by}})
+    counts_unfiltered <- calculate_counts_unfiltered(deaths_unfiltered, {{by}})
+
+  }else if(rlang::is_character(deaths$state_responsibility) &
+           rlang::is_character(deaths$state_perpetrator)) {
+    # Second Case: Unfactored sr, sp, use as text
+    # — This is done internal to these functions, so same code as first case
+    counts <- calculate_counts(deaths, {{by}})
+    counts_unfiltered <- calculate_counts_unfiltered(deaths_unfiltered, {{by}})
+    # Third case, calculate based on factored data
+  }else{
+    counts <- calculate_counts_from_factored_data(deaths, {{by}})
+    counts_unfiltered <- calculate_counts_unfiltered_from_factored_data(deaths_unfiltered, {{by}})
+  }
+
+  if (.verbose) cat("Counts: ", nrow(counts), "\n")
   if (.verbose) cat("Counts unfiltered: ", nrow(counts_unfiltered), "\n")
 
   # merge the event/campaign table with the corresponding data from the unfiltered counts
