@@ -42,6 +42,7 @@
 #' @importFrom tidyselect any_of
 #' @importFrom tidyselect last_col
 #' @importFrom transcats translated_join_vars
+#' @importFrom utils head
 #' @importFrom zoo as.Date.yearmon
 ## usethis namespace: end
 NULL

@@ -142,3 +142,17 @@
       10 Evo Morales               Contraband               1 Chipaya customs raid (1)
       # i 67 more rows
 
+# top_values_string works correctly
+
+    Code
+      top_values_string(event_counts_by(deaths_aug24, department), 8)
+    Output
+      [1] "La Paz, Cochabamba, Oruro, Santa Cruz, Potosí, Beni, Pando, Chuquisaca"
+
+---
+
+    Code
+      top_values_string(evco, 5, incl_counts = TRUE, by = "n_events")
+    Output
+      [1] "Coca (46), Mining (29), Partisan Politics (27), Rural Land (24), Labor (14)"
+

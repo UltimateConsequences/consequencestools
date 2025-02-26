@@ -1,4 +1,4 @@
-globalVariables(c("count", "total", "events"))
+globalVariables(c("count", "total", "events", "value_string"))
 
 
 #' Produce Table of Events by a Custom Set of Variables
@@ -105,4 +105,45 @@ truncate_event_list <- function(dataframe, variable = "events", num_events=4, se
     dplyr::select(-"nth_comma_position")
 
   dataframe %>% dplyr::rename({{variable}} := events)
+}
+
+
+
+#' Get Top Values as a String
+#'
+#' @param freq_table A data frame containing frequency data
+#' @param n_values Integer. Number of top values to return. Default is 3.
+#' @param incl_counts Logical. Whether to include counts in the output string. Default is FALSE.
+#' @param by Name of the frequency column
+#'
+#' @return A string containing the top values, separated by commas
+#'
+#' @import dplyr
+#'
+#' @examples
+#' freq_table <- data.frame(protest_domain = c("A", "B", "C"), total = c(10, 5, 3))
+#' top_values_string(freq_table)
+#' top_values_string(freq_table, n_values = 2, incl_counts = TRUE)
+#' evco <- event_counts_by(deaths_aug24, protest_domain, count_events=TRUE)
+#' top_values_string(evco, 5, incl_counts = TRUE, by="n_events")
+#'
+#' @export
+top_values_string <- function(freq_table, n_values=3, incl_counts = FALSE, by = "total") {
+  value_column <- names(freq_table)[1]
+  freq_table <- freq_table %>%
+    arrange(desc(!!sym(by))) %>%
+    rowwise() %>%
+    mutate(
+      value_string = if_else(
+        incl_counts,
+        paste0(!!sym(value_column), " (", !!sym(by), ")"),
+        !!sym(value_column)
+      )
+    )
+
+  result <- freq_table %>% head(n = n_values) %>%
+    pull(value_string) %>%
+    paste(collapse = ", ")
+
+  return(result)
 }
