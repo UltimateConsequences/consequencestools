@@ -114,7 +114,7 @@ truncate_event_list <- function(dataframe, variable = "events", num_events=4, se
 #' @param freq_table A data frame containing frequency data
 #' @param n_values Integer. Number of top values to return. Default is 3.
 #' @param incl_counts Logical. Whether to include counts in the output string. Default is FALSE.
-#' @param by Name of the frequency column
+#' @param by Name of the frequency column, "total" by default
 #'
 #' @return A string containing the top values, separated by commas
 #'

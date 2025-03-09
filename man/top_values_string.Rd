@@ -13,7 +13,7 @@ top_values_string(freq_table, n_values = 3, incl_counts = FALSE, by = "total")
 
 \item{incl_counts}{Logical. Whether to include counts in the output string. Default is FALSE.}
 
-\item{by}{Name of the frequency column}
+\item{by}{Name of the frequency column, "total" by default}
 }
 \value{
 A string containing the top values, separated by commas
