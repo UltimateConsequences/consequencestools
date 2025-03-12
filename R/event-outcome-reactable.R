@@ -114,6 +114,7 @@ wide_event_outcomes_reactable <- function(dataset, static=FALSE, max_larger=0) {
                                   n_unconfirmed = colDef (name="Unconfirmed", defaultSortOrder = "desc"),
                                   outcome = colDef (name="Outcome", defaultSortOrder = "asc",  minWidth=40,
                                                     maxWidth = 90,
+                                                    filterable=!static,
                                                     cell = function(value) {
                                                       badge <- switch(
                                                         value,
@@ -135,7 +136,9 @@ wide_event_outcomes_reactable <- function(dataset, static=FALSE, max_larger=0) {
                                                       }
                                                     }
                                   ),
-                                  outcome_summary = colDef (name="Outcome Summary", defaultSortOrder = "asc", minWidth=50, maxWidth = 140,
+                                  outcome_summary = colDef (name="Outcome Summary", defaultSortOrder = "asc",
+                                                            minWidth=50, maxWidth = 140,
+                                                            filterable=!static,
                                                             style = function(value, index) {
                                                               if(is.na(dataset$outcome[index])){
 
