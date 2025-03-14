@@ -51,7 +51,7 @@ state_resp$colors_es <-  c(
 
 usethis::use_data(state_resp, overwrite=TRUE)
 
-mat_color <- read_csv("data-raw/MaterialColour.csv")
+mat_color <- readr::read_csv("data-raw/MaterialColour.csv")
 
 mat_color_hex <- mat_color$hexvalue
 names(mat_color_hex) <- mat_color$name
@@ -111,3 +111,29 @@ protest_domain$levels <- protest_domain.grouped
 protest_domain$colors <- assign_protest_domain.colors()
 
 usethis::use_data(protest_domain)
+
+departments <- list()
+
+departments$title <- "Department"
+
+departments$levels <- c("Beni", "Chuquisaca", "Cochabamba", "La Paz", "Oruro", "Pando",
+                        "Potosí", "Santa Cruz", "Tarija", "Unknown")
+departments$levels_es <- c("Beni", "Chuquisaca", "Cochabamba", "La Paz", "Oruro", "Pando",
+                        "Potosí", "Santa Cruz", "Tarija", "Desconocido")
+
+assign_department_colors <- function() {
+  c(
+    "Beni" = mat_color_hex[['green-800']],
+    "Chuquisaca" = mat_color_hex[['blue-800']],
+    "Cochabamba" = mat_color_hex[['blue-400']],
+    "La Paz" = mat_color_hex[['orange-500']],
+    "Oruro" = mat_color_hex[['red-700']],
+    "Pando" = mat_color_hex[['green-400']],
+    "Potosí" = mat_color_hex[['red-400']],
+    "Santa Cruz" = mat_color_hex[['lime-700']],
+    "Tarija" = mat_color_hex[['pink-500']],
+    "Unknown" = mat_color_hex[['grey-300']])
+}
+departments$colors <- assign_department_colors()
+
+usethis::use_data(departments, overwrite = TRUE)

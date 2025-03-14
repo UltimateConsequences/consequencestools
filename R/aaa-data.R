@@ -95,6 +95,15 @@
 #' and color pairs for these levels in English).
 "protest_domain"
 
+#' Helper Variable for Levels of Department
+#'
+#' @format A list with members `departments$title` (the string
+#' "Department"), `departments$levels` (an ordered list of
+#' department levels, with unknown in English), `departments$levels`
+#' (an ordered list of department levels, with unknown in Spanish), and
+#' `departments$colors` (name and color pairs for these levels).
+"departments"
+
 #' Table of Month Names in Spanish
 #'
 #' @format A list with twelve lower-case names as members from "enero"
