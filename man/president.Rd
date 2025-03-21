@@ -6,8 +6,11 @@
 \title{Helper variable for levels of presidential administration}
 \format{
 A list with members `president$levels` (a chronological list of
-names for each presidency in English), `president$initials` (two-
-or three-letter initials for display in shortened contexts).
+names for each presidency in English), `president$levels_es` (a chronological
+list of names for each presidency in Spanish), `president$id_presidency`
+(a sequence of unique ID's beginning with "p101" in October 1982), and
+`president$initials` (two-
+or three-letter initials for display in shortened contexts)
 }
 \usage{
 president

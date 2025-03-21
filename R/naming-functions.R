@@ -199,12 +199,23 @@ add_detailed_label <- function(dataframe){
 
   if (!("name_line" %in% de_variables)){
     # repair name_line
-    dataframe <- repair_name_line_es(dataframe)
+    dataframe <- repair_name_line(dataframe)
   }
 
   if (!("incident_line" %in% de_variables)) {
     dataframe <-  repair_incident_line(dataframe)
   }
+
+  if (!("sr_text" %in% de_variables)) {
+    if ("state_responsibility" %in% de_variables) {
+      dataframe <- mutate(dataframe, sr_text = state_responsibility) %>% # add a new column with original text in "state_responsibility"
+        relocate(sr_text, .after=state_responsibility)
+    } else {
+      dataframe <- dataframe %>% mutate(sr_text = "")
+      warning("State responsibility information missing from data table.")
+    }
+  }
+
 
   dataframe <- dataframe %>% rowwise() %>% mutate(
     protest_domain_color = consequencestools::protest_domain$colors[protest_domain],
@@ -380,7 +391,8 @@ fully_annotate <- function(dataframe){
     add_nameline() %>%
     dplyr::mutate(age_text = render_age(dec_age)) %>%
     add_dateline() %>%
-    add_simple_label()
+    add_simple_label() %>%
+    add_detailed_label()
 }
 
 #' Add Simple Label in Spanish to Dataframe

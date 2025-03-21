@@ -18,6 +18,12 @@ president$levels_es <- c(
   "Gonzalo Sanchez de Lozada (2do)", "Carlos Diego Mesa Gisbert",
   "Eduardo Rodríguez", "Evo Morales", "Interim military government",
   "Jeanine Áñez", "Luis Arce")
+president$id_presidency <- c(
+  "p101", "p102", "p103",
+  "p104", "p105", "p106",
+  "p107", "p108", "p109",
+  "p110", "p111", "p112",
+  "p113")
 
 usethis::use_data(president, overwrite=TRUE)
 

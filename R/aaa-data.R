@@ -67,9 +67,39 @@
 #' Helper variable for levels of presidential administration
 #'
 #' @format A list with members `president$levels` (a chronological list of
-#' names for each presidency in English), `president$initials` (two-
-#' or three-letter initials for display in shortened contexts).
+#' names for each presidency in English), `president$levels_es` (a chronological
+#' list of names for each presidency in Spanish), `president$id_presidency`
+#' (a sequence of unique ID's beginning with "p101" in October 1982), and
+#' `president$initials` (two-
+#' or three-letter initials for display in shortened contexts)
 "president"
+
+#' Helper variable for names for presidential administrations
+#'
+#' A look-up table for presidential administrations in Bolivia from
+#' 1964 to the present. Columns are as follows:
+#' - presidency: Name of the presidential administration in English
+#' - id_presidency: Unique identifier for the presidential administration
+#' - presidency_year: Common name for the president, plus years in office
+#'     in parentheses
+#' - presidency_commonname: Common name for the president
+#' - presidency_fullname: Full name of the president
+#' - presidency_surnames: Surnames of the president
+#' - presidency_year_es, presidency_commonname_es, presidency_fullname_es:
+#'     As above but with text (besides the name) in Spanish
+#' - presidency_initials: Initials of the president
+#' - presidency_initials_num: Initials of the president with multiple
+#'     terms distinguished by numbers and years of Junta labeled
+#' - first_day: Date of the first day of the presidential term
+#' - last_day: Date of the last day of the presidential term
+#'
+#' @format A tibble with multiple columns including unqiue identifiers in
+#'   `presidency` (the levels of pres_admin in English) and `presidency_id`
+#'   (a unique identifier in the format "p104"). `first_day` and `last_day`
+#'   are dates indicating the term of offfice of each president.
+#'
+"presidency_name_table"
+
 
 #' Helper variable for levels of location precision
 #'
