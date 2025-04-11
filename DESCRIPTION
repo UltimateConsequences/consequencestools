@@ -40,7 +40,7 @@ Imports:
     stringr,
     tidyr,
     tidyselect,
-    transcats,
+    transcats (>= 0.0.0.9002),
     utils,
     zoo
 Depends: 
@@ -48,3 +48,5 @@ Depends:
 URL: https://github.com/CarwilB/consequencestools
 BugReports: https://github.com/CarwilB/consequencestools/issues
 VignetteBuilder: knitr
+Remotes:  
+    CarwilB/transcats
