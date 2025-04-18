@@ -111,8 +111,8 @@ add_days_between <- function(event_date_table){
 #'
 #' @examples
 #' assign_state_responsibility_levels(deaths_aug24, simplify=TRUE) |>
-#'   event_responsibilty_summary_table()
-event_responsibilty_summary_table <- function(dataframe) {
+#'   event_responsibility_summary_table()
+event_responsibility_summary_table <- function(dataframe) {
   de <- dataframe
 
   msg_fixfactor <- paste0("The function event_responsibility_summary_table requires factoring ",
