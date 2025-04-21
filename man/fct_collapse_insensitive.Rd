@@ -28,8 +28,7 @@ df2 <- data.frame(
 )
 df2$quality <- factor(df2$quality, levels = c("yes", "LIKELY YES", "no",
   "Presumed yes", "likely no"))
-df2$quality <- fct_collapse_insensitive(df2$quality, list(
- Yes = c("Yes", "Likely Yes", "Presumed Yes"),
- No = c("No", "Likely No", "Presumed No")
-))
+df2$quality <- fct_collapse_insensitive(df2$quality,
+                               Yes = c("Yes", "Likely Yes", "Presumed Yes"),
+                               No = c("No", "Likely No", "Presumed No"))
 }
