@@ -107,3 +107,31 @@ test_that("assign_state_responsibility_levels works correctly", {
   expect_equal(as.character(result_intent$state_responsibility[1]), "Incidental")
   expect_equal(as.character(result_intent$state_responsibility[2]), "Accidental")
 })
+
+test_that("assign_levels works correctly", {
+  # Test with all variables
+  result <- assign_levels(deaths_aug24, "pres_admin", "state_responsibility", "state_perpetrator", "protest_domain", "location_precision")
+  expect_snapshot(str(result))
+
+  # Test with missing variable in dataframe
+  df_no_protest <- select(deaths_aug24, -protest_domain)
+  expect_warning(
+    assign_levels(df_no_protest, "pres_admin", "protest_domain"),
+    "Variable not found in dataframe: protest_domain"
+  )
+
+  # Test with non-existent function
+  expect_warning(
+    assign_levels(deaths_aug24, "non_existent_var"),
+    "No corresponding function for variable: non_existent_var"
+  )
+
+  # Test with subset of variables
+  result_subset <- assign_levels(deaths_aug24, "pres_admin", "state_responsibility")
+  expect_snapshot(str(result_subset))
+
+  # Test that unspecified variables remain unchanged
+  original_protest_domain <- deaths_aug24$protest_domain
+  result_partial <- assign_levels(deaths_aug24, "pres_admin", "state_responsibility")
+  expect_equal(result_partial$protest_domain, original_protest_domain)
+})

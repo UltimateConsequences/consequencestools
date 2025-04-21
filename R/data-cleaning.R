@@ -53,6 +53,9 @@ assign_presidency_levels <- function(dataframe){
 #' assign_state_perpetrator_levels(df, simplify = TRUE)
 assign_state_perpetrator_levels <- function(dataframe, simplify=FALSE){
   de <- dataframe
+  de <- mutate(de, sp_text = state_perpetrator) %>% # add a new column with original text in "state_perpetrator"
+    relocate(sp_text, .after=state_perpetrator)
+
   de$state_perpetrator <- str_to_title(de$state_perpetrator)
   de$state_perpetrator <- fct_na_value_to_level(de$state_perpetrator, level = "Unknown")
   if (simplify){
@@ -185,16 +188,61 @@ assign_protest_domain_levels <- function(dataframe, na.level = "Unknown"){
   if (!("protest_domain" %in% colnames(dataframe))) return(dataframe)
 
   # factor protest_domain
-  if(is.character(dataframe$protest_domain))
-  {
+
+  if(is.character(dataframe$protest_domain)) {
     dataframe <- dataframe %>%
+                # rowwise() %>%
                 mutate(protest_domain = string_to_listcase(protest_domain))
   }
+
+  existing_levels <- protest_domain$levels[protest_domain$levels %in% dataframe$protest_domain]
+  dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, existing_levels)
   dataframe$protest_domain <- fct_na_value_to_level(dataframe$protest_domain, level = na.level)
-  dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, protest_domain$levels)
   return(dataframe)
 }
 
+#' Assign Levels to Multiple Variables
+#'
+#' @param dataframe A dataframe to which levels will be assigned
+#' @param ... Variable names to which levels should be assigned
+#' @param .simplify Logical, whether to simplify the levels, where this
+#'   applies (default: TRUE)
+#'
+#' @return A dataframe with assigned levels
+#'
+#' @details This function applies level assignment to specified variables in the dataframe.
+#' It only processes variables that exist in both the input list and the dataframe.
+#'
+#' @examples
+#' de <- assign_levels(de, "pres_admin", "state_responsibility", "state_perpetrator")
+#'
+#' @export
+assign_levels <- function(dataframe, ..., .simplify = TRUE) {
+  var_list <- rlang::list2(...)
 
+  functions <- list(
+    pres_admin = assign_presidency_levels,
+    state_responsibility = assign_state_responsibility_levels,
+    state_perpetrator = assign_state_perpetrator_levels,
+    protest_domain = assign_protest_domain_levels,
+    location_precision = assign_location_precision_levels
+  )
+
+  for (var in var_list) {
+    if (!(var %in% names(functions))) {
+      warning(paste("No corresponding function for variable:", var))
+    } else if (!(var %in% names(dataframe))) {
+      warning(paste("Variable not found in dataframe:", var))
+    } else {
+      if (var == "state_responsibility" || var == "state_perpetrator") {
+        dataframe <- functions[[var]](dataframe, simplify = .simplify )
+      } else {
+        dataframe <- functions[[var]](dataframe)
+      }
+    }
+  }
+
+  return(dataframe)
+}
 
 
