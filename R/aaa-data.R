@@ -64,6 +64,17 @@
 #' "navarro_2006_number", "narrative")
 "deaths_raw_sep24"
 
+#' A list of helper variables
+#'
+#' @format A list of helper variables for the package. The list contains:
+#' `lev$pres_admin` (a list of levels of presidential administration),
+#' `lev$location_precision` (a list of levels of location precision),
+#' `lev$state_resp` (a list of levels of state responsibility),
+#' `lev$protest_domain` (a list of levels of protest domain),
+#' `lev$department` (a list of levels of department). These names
+#' correspond to columns in the `deaths_aug24` data frame.
+"lev"
+
 #' Helper variable for levels of presidential administration
 #'
 #' @format A list with members `president$levels` (a chronological list of
@@ -72,7 +83,7 @@
 #' (a sequence of unique ID's beginning with "p101" in October 1982), and
 #' `president$initials` (two-
 #' or three-letter initials for display in shortened contexts)
-"president"
+"lev$president"
 
 #' Helper variable for names for presidential administrations
 #'

@@ -1,3 +1,5 @@
+lev <- list()
+
 president <- list()
 
 president$levels <- c(
@@ -25,7 +27,9 @@ president$id_presidency <- c(
   "p110", "p111", "p112",
   "p113")
 
-usethis::use_data(president, overwrite=TRUE)
+lev$pres_admin <- president
+
+# usethis::use_data(president, overwrite=TRUE)
 
 location_precision <- list()
 location_precision$levels <- c(
@@ -35,9 +39,11 @@ location_precision$levels <- c(
   "municipality", "province",
   "region", "department")
 
-usethis::use_data(location_precision)
+lev$location_precision <- location_precision
+# usethis::use_data(location_precision)
 
 state_resp <- list()
+state_resp$title <- "State Responsibility"
 state_resp$levels <- c("Perpetrator", "Victim", "Involved", "Separate", "Unintentional", "Unknown")
 state_resp$colors <-  c(
   Perpetrator = "forestgreen",
@@ -55,7 +61,8 @@ state_resp$colors_es <-  c(
   "No Intencional" = "darkgray",
   Desconocido = "lightgray")
 
-usethis::use_data(state_resp, overwrite=TRUE)
+lev$state_responsibility <- state_resp
+# usethis::use_data(state_resp, overwrite=TRUE)
 
 mat_color <- readr::read_csv("data-raw/MaterialColour.csv")
 
@@ -116,7 +123,8 @@ protest_domain$title <- "Protest Domain"
 protest_domain$levels <- protest_domain.grouped
 protest_domain$colors <- assign_protest_domain.colors()
 
-usethis::use_data(protest_domain)
+lev$protest_domain <- protest_domain
+# usethis::use_data(protest_domain)
 
 departments <- list()
 
@@ -142,4 +150,8 @@ assign_department_colors <- function() {
 }
 departments$colors <- assign_department_colors()
 
-usethis::use_data(departments, overwrite = TRUE)
+lev$department <- departments
+
+# usethis::use_data(departments, overwrite = TRUE)
+
+usethis::use_data(lev, overwrite = TRUE)
