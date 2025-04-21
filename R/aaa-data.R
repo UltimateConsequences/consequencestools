@@ -83,7 +83,7 @@
 #' (a sequence of unique ID's beginning with "p101" in October 1982), and
 #' `president$initials` (two-
 #' or three-letter initials for display in shortened contexts)
-"lev$president"
+"president"
 
 #' Helper variable for names for presidential administrations
 #'
