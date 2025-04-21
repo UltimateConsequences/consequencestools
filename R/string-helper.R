@@ -21,17 +21,53 @@ string_to_listcase <- function(string) {
 }
 
 
-capitalize_sentences <- function(text) {
-  # Split the text into sentences
-  sentences <- strsplit(text, "(?<=\\.|\\?|\\!)\\s*", perl = TRUE)
+# capitalize_sentences <- function(text_vector) {
+#   sapply(text_vector, function(text) {
+#     # Split the text into sentences
+#     sentences <- strsplit(text, "(?<=\\.|\\?|\\!)\\s*", perl = TRUE)[[1]]
+#
+#     # Capitalize the first letter of the first word in each sentence
+#     capitalized_sentences <- sapply(sentences, function(sentence) {
+#       first_char <- substr(sentence, 1, 1)
+#       rest_of_sentence <- substr(sentence, 2, nchar(sentence))
+#       paste0(toupper(first_char), rest_of_sentence)
+#     })
+#
+#     # Join the sentences back together
+#     paste(capitalized_sentences, collapse = " ")
+#   })
+# }
 
-  # Capitalize the first letter of the first word in each sentence
-  capitalized_sentences <- sapply(sentences, function(sentence) {
-    first_char <- substr(sentence, 1, 1)
-    rest_of_sentence <- substr(sentence, 2, nchar(sentence))
-    paste0(toupper(first_char), rest_of_sentence)
+# capitalize_sentences <- function(text_vector) {
+#   purrr::map_chr(text_vector, function(text) {
+#     # Split the text into sentences
+#     sentences <- stringr::str_extract_all(text, "(?s).*?[.!?](?:\\s+|$)")[[1]]
+#
+#     # Capitalize the first letter of the first word in each sentence
+#     capitalized_sentences <- purrr::map_chr(sentences, function(sentence) {
+#       first_char <- stringr::str_sub(sentence, 1, 1)
+#       rest_of_sentence <- stringr::str_sub(sentence, 2)
+#       stringr::str_c(toupper(first_char), rest_of_sentence)
+#     })
+#
+#     # Join the sentences back together
+#     stringr::str_c(capitalized_sentences, collapse = "")
+#   })
+# }
+
+capitalize_sentences <- function(text_vector) {
+  purrr::map_chr(text_vector, function(text) {
+    # Split the text into sentences, including the last part without punctuation
+    sentences <- stringr::str_match_all(text, "(?s)(.*?[.!?](?:\\s+|$)|.+$)")[[1]][,2]
+
+    # Capitalize the first letter of the first word in each sentence
+    capitalized_sentences <- purrr::map_chr(sentences, function(sentence) {
+      first_char <- stringr::str_sub(sentence, 1, 1)
+      rest_of_sentence <- stringr::str_sub(sentence, 2)
+      stringr::str_c(toupper(first_char), rest_of_sentence)
+    })
+
+    # Join the sentences back together
+    stringr::str_c(capitalized_sentences, collapse = "")
   })
-
-  # Join the sentences back together
-  paste(capitalized_sentences, collapse = " ")
 }
