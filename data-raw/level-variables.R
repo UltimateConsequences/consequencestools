@@ -171,7 +171,6 @@ affiliation.grouped_es <- c(
   "Terrateniente",
   "Movimiento urbano",
   "Empleado público",          # governance
-  "Gobernanza nacional",
   "Funcionario público",
   "Partidista",
   "Narcotraficante",              # armed
