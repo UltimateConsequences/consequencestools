@@ -132,6 +132,134 @@ protest_domain$colors <- assign_protest_domain.colors()
 lev$protest_domain <- protest_domain
 usethis::use_data(protest_domain, overwrite=TRUE)
 
+# Affiliations
+
+affiliation.grouped <- c(
+  "Factory Worker",               # labor
+  "Transport Worker",
+  "Student",
+  "Teacher",
+  "Miner",                        # mining
+  "Cocalero",                     # rural/indigenous
+  "Campesino",
+  "Highland Indigenous",
+  "Lowland Indigenous",
+  "Landowner",
+  "Urban Movement",
+  "Government Employee",          # governance
+  "Government Officeholder",
+  "Partisan",
+  "Narcotrafficker",              # armed
+  "Armed Actor",
+  "Security Force",
+  "Protester",
+  "Journalist",                   # civilians
+  "Civilian",
+  "Unknown"
+)
+
+affiliation.grouped_es <- c(
+  "Trabajador de fábrica",               # labor
+  "Trabajador del transporte",
+  "Estudiante",
+  "Docente",
+  "Minero",                        # mining
+  "Cocalero",                     # rural/indigenous
+  "Campesino",
+  "Indígena de tierras altas",
+  "Indígena de tierras bajas",
+  "Terrateniente",
+  "Movimiento urbano",
+  "Empleado público",          # governance
+  "Gobernanza nacional",
+  "Funcionario público",
+  "Partidista",
+  "Narcotraficante",              # armed
+  "Actor armado",
+  "Fuerza de seguridad",
+  "Manifestante",
+  "Periodista",                   # civilians
+  "Civil",
+  "Desconocido"
+)
+
+assign_affiliation.colors <- function() {
+  c(
+    #"Gas wars" = mat_color_hex[['blue-900']],
+    #"Economic policies" = mat_color_hex[['blue-700']],
+    #"Labor" = mat_color_hex[['blue-500']],
+    "Factory Worker" = mat_color_hex[['blue-300']],
+    "Transport Worker" = mat_color_hex[['blue-100']],
+
+    # "Education" = mat_color_hex[['light blue-900']],
+    "Student" = mat_color_hex[['light blue-700']],
+    "Teacher" = mat_color_hex[['light blue-500']],
+
+    "Miner" = mat_color_hex[['red-500']],
+    # "Mining" = mat_color_hex[['red-700']],
+
+    "Cocalero" = mat_color_hex[['green-700']],
+    #"Coca" = mat_color_hex[['green-900']],
+
+    "Campesino" = mat_color_hex[['green-300']],
+    # "Peasant" = mat_color_hex[['green-500']],
+
+    "Highland Indigenous" = mat_color_hex[['light green-700']],
+    #"Rural land" = mat_color_hex[['light green-500']],
+    #"Rural land, Partisan politics" = mat_color_hex[['light green-300']],
+
+    "Lowland Indigenous" = mat_color_hex[['teal-500']],
+    #"Ethno-ecological" = mat_color_hex[['teal-300']],
+    "Landowner" = mat_color_hex[['cyan-500']],
+
+    "Government Employee" = mat_color_hex[['deep purple-300']],
+
+    #"Municipal governance" = mat_color_hex[['deep purple-900']],
+    "Government Officeholder" = mat_color_hex[['deep purple-700']],
+    #"Local development" = mat_color_hex[['deep purple-500']],
+
+    "Partisan" = mat_color_hex[['pink-500']],
+    #"Partisan politics" = mat_color_hex[['pink-300']],
+
+    #"Disabled" = mat_color_hex[['blue grey-600']],
+
+    "Narcotrafficker" = mat_color_hex[['lime-500']],
+    #"Drug trade" = mat_color_hex[['lime-700']],
+    #"Contraband" = mat_color_hex[['lime-300']],
+
+    "Armed Actor" = mat_color_hex[['brown-600']],
+    #"Guerrilla" = mat_color_hex[['brown-800']],
+    #"Paramilitary" = mat_color_hex[['brown-400']],
+
+    "Security Force" = mat_color_hex[['red-800']],
+
+    #"Urban land" = mat_color_hex[['yellow-700']],
+    "Urban Movement" = mat_color_hex[['yellow-500']],
+
+    "Protester" = mat_color_hex[['amber-500']],
+
+    "Journalist" = mat_color_hex[['indigo-500']],
+    "Civilian" = mat_color_hex[['blue grey-600']],
+    "Unknown" = mat_color_hex[['grey-300']]
+  )
+}
+
+affiliations <- list()
+affiliations$title <- "Affiliation"
+affiliations$r_variable <- "affiliation"
+affiliations$levels <- affiliation.grouped
+affiliations$levels_es <- affiliation.grouped_es
+affiliations$colors <- assign_affiliation.colors()
+
+usethis::use_data(affiliations, overwrite = TRUE)
+
+lev$dec_affiliation <- affiliations
+lev$dec_affilation$title <- "Deceased Affiliation"
+lev$dec_affilation$r_variable <- "dec_affiliation"
+lev$perp_affiliation <- affiliations
+lev$perp_affilation$title <- "Perpetrator Affiliation"
+lev$perp_affilation$r_variable <- "perp_affiliation"
+
 departments <- list()
 
 departments$title <- "Department"
