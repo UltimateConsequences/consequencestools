@@ -35,7 +35,8 @@ assign_presidency_levels <- function(dataframe){
   # This complicated construction ensures that no errors will be generated if there is no pres_admin column
   if (!("pres_admin" %in% colnames(dataframe))) return(dataframe)
 
-  dataframe <- dataframe %>% mutate(pres_admin = factor(pres_admin, levels= consequencestools::president$levels))
+  dataframe <- dataframe %>%
+    mutate(pres_admin = factor(pres_admin, levels= lev$pres_admin$levels))
   return(dataframe)
 }
 
@@ -131,7 +132,8 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Unknown  = c("Unknown", "Unclear", "Disputed") ) %>%
                                  suppressWarnings()
 
-    de$state_responsibility <- fct_relevel(de$state_responsibility, consequencestools::state_resp$levels) %>%
+    de$state_responsibility <- fct_relevel(de$state_responsibility,
+                                           lev$state_responsibility$levels) %>%
       suppressWarnings()
   }
   return(de)
@@ -163,7 +165,7 @@ assign_location_precision_levels <- function(dataframe){
   # This complicated construction ensures that no errors will be generated if there is no location_precision column
   if (!("location_precision" %in% colnames(dataframe))) return(dataframe)
 
-  lp_levels <- location_precision$levels
+  lp_levels <- lev$location_precision$levels
 
   dataframe <- dataframe %>% mutate(location_precision = factor(location_precision, levels=lp_levels))
   return(dataframe)
@@ -195,9 +197,47 @@ assign_protest_domain_levels <- function(dataframe, na.level = "Unknown"){
                 mutate(protest_domain = string_to_listcase(protest_domain))
   }
 
-  existing_levels <- protest_domain$levels[protest_domain$levels %in% dataframe$protest_domain]
+  existing_levels <- lev$protest_domain$levels[lev$protest_domain$levels %in% dataframe$protest_domain]
   dataframe$protest_domain <- fct_relevel(dataframe$protest_domain, existing_levels)
   dataframe$protest_domain <- fct_na_value_to_level(dataframe$protest_domain, level = na.level)
+  return(dataframe)
+}
+
+#' Assign Levels for Affiliation
+#'
+#' These functions factor the variable `dec_affiliation` and `perp_affiliation`.
+#'
+#' @param dataframe A dataframe containing a the relevant affiliation column
+#' @param na.level The name of the level to which NA is assigned
+#'
+#' @return A dataframe with the affiliation column turned into an
+#'   ordered factor
+#' @export
+#'
+#' @examples
+#' assign_dec_affiliation_levels(deaths_aug24)
+#' assign_perp_affiliation_levels(deaths_aug24)
+assign_dec_affiliation_levels <- function(dataframe, na.level = "Unknown"){
+
+  if ("dec_affiliation" %in% colnames(dataframe)) {
+    existing_levels <- lev$dec_affiliation$levels[lev$dec_affiliation$levels %in% dataframe$dec_affiliation]
+    dataframe$dec_affiliation <- fct_relevel(dataframe$dec_affiliation, existing_levels)
+    dataframe$dec_affiliation <- fct_na_value_to_level(dataframe$dec_affiliation, level = na.level)
+  }
+
+  return(dataframe)
+}
+
+#' @rdname assign_dec_affiliation_levels
+#' @export
+assign_perp_affiliation_levels <- function(dataframe, na.level = "Unknown"){
+
+  if ("perp_affiliation" %in% colnames(dataframe)) {
+    existing_levels <- lev$perp_affiliation$levels[lev$perp_affiliation$levels %in% dataframe$perp_affiliation]
+    dataframe$perp_affiliation <- fct_relevel(dataframe$perp_affiliation, existing_levels)
+    dataframe$perp_affiliation <- fct_na_value_to_level(dataframe$perp_affiliation, level = na.level)
+  }
+
   return(dataframe)
 }
 
@@ -225,7 +265,9 @@ assign_levels <- function(dataframe, ..., .simplify = TRUE) {
     state_responsibility = assign_state_responsibility_levels,
     state_perpetrator = assign_state_perpetrator_levels,
     protest_domain = assign_protest_domain_levels,
-    location_precision = assign_location_precision_levels
+    location_precision = assign_location_precision_levels,
+    dec_affiliation = assign_dec_affiliation_levels,
+    perp_affiliation = assign_perp_affiliation_levels
   )
 
   for (var in var_list) {
@@ -244,5 +286,7 @@ assign_levels <- function(dataframe, ..., .simplify = TRUE) {
 
   return(dataframe)
 }
+
+
 
 

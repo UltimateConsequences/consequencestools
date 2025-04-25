@@ -71,8 +71,8 @@
 #' `lev$location_precision` (a list of levels of location precision),
 #' `lev$state_resp` (a list of levels of state responsibility),
 #' `lev$protest_domain` (a list of levels of protest domain),
-#' `lev$department` (a list of levels of department), `lev$dec_affilation`
-#' and `lev$perp_affilation` (a list of levels of affiliation).
+#' `lev$department` (a list of levels of department), `lev$dec_affiliation`
+#' and `lev$perp_affiliation` (a list of levels of affiliation).
 #' These names correspond to columns in the `deaths_aug24` data frame.
 "lev"
 
@@ -225,7 +225,8 @@ utils::globalVariables(
     "later_month_notes",
     "later_year_notes",
     "date_text",
-    "sr_text"
+    "sr_text",
+    "lev"
   )
 )
 

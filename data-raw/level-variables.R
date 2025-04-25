@@ -254,11 +254,11 @@ affiliations$colors <- assign_affiliation.colors()
 usethis::use_data(affiliations, overwrite = TRUE)
 
 lev$dec_affiliation <- affiliations
-lev$dec_affilation$title <- "Deceased Affiliation"
-lev$dec_affilation$r_variable <- "dec_affiliation"
+lev$dec_affiliation$title <- "Deceased Affiliation"
+lev$dec_affiliation$r_variable <- "dec_affiliation"
 lev$perp_affiliation <- affiliations
-lev$perp_affilation$title <- "Perpetrator Affiliation"
-lev$perp_affilation$r_variable <- "perp_affiliation"
+lev$perp_affiliation$title <- "Perpetrator Affiliation"
+lev$perp_affiliation$r_variable <- "perp_affiliation"
 
 departments <- list()
 
