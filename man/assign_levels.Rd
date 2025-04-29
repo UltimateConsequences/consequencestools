@@ -18,13 +18,15 @@ applies (default: TRUE)}
 A dataframe with assigned levels
 }
 \description{
-Assign Levels to Multiple Variables
+This function assigns levels to multiple variables in a dataframe,
+deploying the relevant functions. You can use "standard" (or)
+to use the default list `standard_factoring_variables`.
 }
 \details{
 This function applies level assignment to specified variables in the dataframe.
 It only processes variables that exist in both the input list and the dataframe.
 }
 \examples{
-de <- assign_levels(de, "pres_admin", "state_responsibility", "state_perpetrator")
+de <- assign_levels(deaths_aug24, "pres_admin", "state_responsibility", "state_perpetrator")
 
 }

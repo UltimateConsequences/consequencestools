@@ -243,6 +243,10 @@ assign_perp_affiliation_levels <- function(dataframe, na.level = "Unknown"){
 
 #' Assign Levels to Multiple Variables
 #'
+#' This function assigns levels to multiple variables in a dataframe,
+#' deploying the relevant functions. You can use "standard" (or)
+#' to use the default list `standard_factoring_variables`.
+#'
 #' @param dataframe A dataframe to which levels will be assigned
 #' @param ... Variable names to which levels should be assigned
 #' @param .simplify Logical, whether to simplify the levels, where this
@@ -254,11 +258,21 @@ assign_perp_affiliation_levels <- function(dataframe, na.level = "Unknown"){
 #' It only processes variables that exist in both the input list and the dataframe.
 #'
 #' @examples
-#' de <- assign_levels(de, "pres_admin", "state_responsibility", "state_perpetrator")
+#' de <- assign_levels(deaths_aug24, "pres_admin", "state_responsibility", "state_perpetrator")
 #'
 #' @export
 assign_levels <- function(dataframe, ..., .simplify = TRUE) {
-  var_list <- rlang::list2(...)
+  var_list <- rlang::ensyms(...)
+
+  if (length(var_list) == 1){
+    if (var_list[[1]] == "standard") {
+    var_list <- standard_factoring_variables
+    }
+  }
+
+  if (length(var_list) == 0) {
+    stop("No variables provided for level assignment. Use assign_levels(dataframe, \"standard\") to assign levels to the standard factoring set.")
+  }
 
   functions <- list(
     pres_admin = assign_presidency_levels,
@@ -271,12 +285,13 @@ assign_levels <- function(dataframe, ..., .simplify = TRUE) {
   )
 
   for (var in var_list) {
-    if (!(var %in% names(functions))) {
+    var_name <- rlang::as_string(var)
+    if (!(var_name %in% names(functions))) {
       warning(paste("No corresponding function for variable:", var))
-    } else if (!(var %in% names(dataframe))) {
+    } else if (!(var_name %in% names(dataframe))) {
       warning(paste("Variable not found in dataframe:", var))
     } else {
-      if (var == "state_responsibility" || var == "state_perpetrator") {
+      if (var_name == "state_responsibility" || var_name == "state_perpetrator") {
         dataframe <- functions[[var]](dataframe, simplify = .simplify )
       } else {
         dataframe <- functions[[var]](dataframe)
