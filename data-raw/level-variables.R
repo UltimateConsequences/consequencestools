@@ -44,7 +44,6 @@ location_precision$levels <- c(
   "region", "department")
 
 lev$location_precision <- location_precision
-usethis::use_data(location_precision, overwrite = TRUE)
 
 state_resp <- list()
 state_resp$title <- "State Responsibility"
@@ -123,14 +122,14 @@ assign_protest_domain.colors <- function() {
   )
 }
 
-protest_domain <- list()
-protest_domain$title <- "Protest Domain"
-protest_domain$r_variable <- "protest_domain"
-protest_domain$levels <- protest_domain.grouped
-protest_domain$colors <- assign_protest_domain.colors()
+protest_domains <- list()
+protest_domains$title <- "Protest Domain"
+protest_domains$r_variable <- "protest_domain"
+protest_domains$levels <- protest_domain.grouped
+protest_domains$colors <- assign_protest_domain.colors()
 
 lev$protest_domain <- protest_domain
-usethis::use_data(protest_domain, overwrite=TRUE)
+usethis::use_data(protest_domains, overwrite=TRUE)
 
 # Affiliations
 
@@ -286,5 +285,17 @@ departments$colors <- assign_department_colors()
 lev$department <- departments
 
 usethis::use_data(departments, overwrite = TRUE)
+
+standard_factoring_variables <- c(
+  "pres_admin",
+  "state_responsibility",
+  "state_perpetrator",
+  "protest_domain",
+  "dec_affiliation",
+  "perp_affiliation",
+  "location_precision"
+)
+
+usethis::use_data(standard_factoring_variables)
 
 usethis::use_data(lev, overwrite = TRUE)

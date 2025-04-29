@@ -120,15 +120,6 @@
 #'
 "presidency_name_table"
 
-
-#' Helper variable for levels of location precision
-#'
-#' @format A list with members `location_precision$levels`, a small-to-large
-#' list of levels in English: c("address", "poi_small", "intersection",
-#' "block", "poi_large", "road", "community", "town", "rural_zone",
-#' "municipality", "province", "region", "department")
-"location_precision"
-
 #' Helper variable for levels of state responsibility
 #'
 #' @format A list with members `state_resp$levels` (an ordered list of
@@ -143,7 +134,7 @@
 #' Domain"), `protest_domain$levels` (an ordered list of
 #' state responsibility levels in English), `protest_domain$colors` (name
 #' and color pairs for these levels in English).
-"protest_domain"
+"protest_domains"
 
 #' Helper Variable for Levels of Department
 #'
@@ -153,6 +144,15 @@
 #' (an ordered list of department levels, with unknown in Spanish), and
 #' `departments$colors` (name and color pairs for these levels).
 "departments"
+
+#' List of variables to be factored
+#'
+#' @format A list of variables to be factored in the data set. The list
+#' contains:
+#'   "pres_admin", "state_responsibility", "state_perpetrator",
+#'   "protest_domain", "dec_affiliation", "perp_affiliation",
+#'   "location_precision."
+"standard_factoring_variables"
 
 #' Table of Month Names in Spanish
 #'
@@ -211,6 +211,7 @@ utils::globalVariables(
     "pres_admin",
     "protest_campaign",
     "protest_domain",
+    "protest_domains",
     "pol_assassination",
     "state_perpetrator",
     "sp_notes",
@@ -226,7 +227,8 @@ utils::globalVariables(
     "later_year_notes",
     "date_text",
     "sr_text",
-    "lev"
+    "lev",
+    "standard_factoring_variables"
   )
 )
 
