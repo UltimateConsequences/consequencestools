@@ -28,6 +28,6 @@ Each event will also have the following characteristics recorded:
 date (of first death), year, protest_domain, and presidential administration.
 }
 \examples{
-assign_state_responsibility_levels(deaths_aug24, simplify=TRUE) |>
+assign_state_responsibility_levels(deaths_aug24, simplify=TRUE) \%>\%
   event_responsibility_summary_table()
 }

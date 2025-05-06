@@ -96,3 +96,53 @@
       10 Cable cut through neck      1            0              0                0
       # i 50 more rows
 
+---
+
+    Code
+      n_responsibility_by(deaths_aug24, department, dec_gender, complete = FALSE)
+    Output
+      # A tibble: 16 x 6
+         department dec_gender     n n_state_perp n_state_victim n_state_separate
+         <chr>      <chr>      <int>        <int>          <int>            <int>
+       1 Beni       F              3            1              0                1
+       2 Beni       M             18            5              1                7
+       3 Chuquisaca F              1            0              0                0
+       4 Chuquisaca M              9            8              1                0
+       5 Cochabamba F             12            6              1                3
+       6 Cochabamba M            159          102             29               17
+       7 La Paz     F             29           10              0                6
+       8 La Paz     M            220          125             25               41
+       9 Oruro      F             14            2              0               11
+      10 Oruro      M             42           10              1               30
+      11 Pando      M             14            2              1               11
+      12 Potosí     F             19            1              0               15
+      13 Potosí     M             33           13              1               18
+      14 Santa Cruz F              5            1              1                2
+      15 Santa Cruz M             51           15              2               30
+      16 Tarija     M              9            2              0                7
+
+---
+
+    Code
+      n_categorized_by(deaths_aug24, pres_admin, protest_domain, complete = TRUE)
+    Output
+      # A tibble: 240 x 17
+         pres_admin              protest_domain     n n_coca n_armedactor n_state_perp
+         <chr>                   <chr>          <int>  <int>        <int>        <int>
+       1 Carlos Diego Mesa Gisb~ Coca               7      7            0            2
+       2 Carlos Diego Mesa Gisb~ Contraband         0      0            0            0
+       3 Carlos Diego Mesa Gisb~ Disabled           0      0            0            0
+       4 Carlos Diego Mesa Gisb~ Drug trade         0      0            0            0
+       5 Carlos Diego Mesa Gisb~ Economic poli~     0      0            0            0
+       6 Carlos Diego Mesa Gisb~ Education          0      0            0            0
+       7 Carlos Diego Mesa Gisb~ Ethno-ecologi~     0      0            0            0
+       8 Carlos Diego Mesa Gisb~ Gas Wars           1      0            0            1
+       9 Carlos Diego Mesa Gisb~ Guerrilla          0      0            0            0
+      10 Carlos Diego Mesa Gisb~ Labor              0      0            0            0
+      # i 230 more rows
+      # i 11 more variables: n_state_perp_coca <int>, n_state_perp_armedactor <int>,
+      #   n_state_victim <int>, n_state_victim_coca <int>,
+      #   n_state_victim_armedactor <int>, n_state_separate <int>,
+      #   n_state_perp_ordinary <int>, n_state_victim_ordinary <int>,
+      #   n_remaining <int>, n_remaining_coca <int>, n_remaining_armedactor <int>
+
