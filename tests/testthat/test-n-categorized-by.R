@@ -17,9 +17,14 @@ test_that("Appropriately sized table for n_responsibility_by()", {
                nrow(unique(na.omit(deaths_aug24[,"department"]))))
   expect_equal(ncol(n_responsibility_by(deaths_aug24, protest_domain, complete=TRUE)),
                n_calculated_columns+1)
+  expect_equal(ncol(n_responsibility_by(deaths_aug24, pres_admin, protest_domain, complete=TRUE)),
+               n_calculated_columns+2)
   expect_equal(ncol(n_responsibility_by(deaths_aug24, department,
                                      complete=TRUE)),
                n_calculated_columns+1)
+  expect_equal(ncol(n_responsibility_by(deaths_aug24, department, dec_gender,
+                                        complete=TRUE)),
+               n_calculated_columns+2)
 })
 
 test_that("Results table is consistent with past runs", {
@@ -28,4 +33,6 @@ test_that("Results table is consistent with past runs", {
   expect_snapshot(n_categorized_by(deaths_aug24, pres_admin, complete=TRUE))
   expect_snapshot(n_categorized_by(deaths_aug24, pres_admin, complete=TRUE, sp_binary = TRUE))
   expect_snapshot(n_responsibility_by(deaths_aug24, cause_death, complete=TRUE))
+  expect_snapshot(n_responsibility_by(deaths_aug24, department, dec_gender, complete=FALSE))
+  expect_snapshot(n_categorized_by(deaths_aug24, pres_admin, protest_domain, complete=TRUE))
 })

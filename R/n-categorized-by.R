@@ -25,7 +25,7 @@ utils::globalVariables(c("n", "n_coca", "n_armedactor", "n_state_perp",
 #' called Ordinary deaths.
 #'
 #' @param def A data frame detailing deaths
-#' @param by A variable to summarize by
+#' @param ... One or more variables to summarize by
 #' @param complete A logical value stating whether to fill in zero values
 #' @param sp_binary A logical value. If TRUE, partial values for state_perpetrator
 #'   (e.g., "Likely Yes") are counted. Only used in n_categorized_by
@@ -37,15 +37,17 @@ utils::globalVariables(c("n", "n_coca", "n_armedactor", "n_state_perp",
 #' n_categorized_by(deaths_aug24, pres_admin, complete=TRUE)
 #' n_categorized_by(deaths_aug24, pres_admin, complete=TRUE)
 #' n_responsibility_by(deaths_aug24, protest_domain, complete=TRUE)
-n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
+n_categorized_by <- function(def, ..., complete = FALSE, sp_binary = FALSE){
   if (sp_binary){
     def$state_perpetrator <- consequencestools::quasilogical_as_binary(def$state_perpetrator)
   }
 
   output <- def %>%
-    dplyr::filter(!is.na({{by}})) %>%
-    dplyr::filter({{by}} != "") %>%
-    dplyr::group_by( {{ by }} ) %>%
+    # Filter for all provided variables
+    dplyr::filter(if_all(c(...), ~!is.na(.x))) %>%
+    dplyr::filter(if_all(c(...), ~.x != "")) %>%
+    # Group by all provided variables
+    dplyr::group_by(across(c(...))) %>%
     dplyr::summarize(
       n = dplyr::n(),
       n_coca = sum(str_detect(protest_domain, "Coca"), na.rm = TRUE),
@@ -64,10 +66,11 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
       n_remaining = n - n_state_perp - n_state_victim,
       n_remaining_coca = n_coca - n_state_perp_coca - n_state_victim_coca,
       n_remaining_armedactor = n_armedactor - n_state_perp_armedactor - n_state_victim_armedactor
-    )
+    ) %>%
+    ungroup()
 
   if (complete) {
-    fill_values <- stats::setNames(rep(0, 15), c(
+    fill_values <- stats::setNames(rep(0, 14), c(
       "n", "n_coca", "n_armedactor", "n_state_perp", "n_state_perp_coca",
       "n_state_perp_armedactor", "n_state_perp_ordinary", "n_state_victim",
       "n_state_victim_coca", "n_state_victim_armedactor", "n_state_separate",
@@ -75,7 +78,7 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
     ))
 
     output <- output %>%
-      tidyr::complete({{by}}, fill = as.list(fill_values))
+      tidyr::complete(..., fill = as.list(fill_values))
   }
 
   return(output)
@@ -83,20 +86,23 @@ n_categorized_by <- function(def, by, complete = FALSE, sp_binary = FALSE){
 
 #' @rdname n_categorized_by
 #' @export
-n_responsibility_by <- function(def, by, complete = FALSE){
+n_responsibility_by <- function(def, ..., complete = FALSE){
   def <- assign_state_responsibility_levels(def, simplify = TRUE)
 
   output <- def %>%
-    dplyr::filter(!is.na({{by}})) %>%
-    dplyr::filter({{by}} != "") %>%
-    dplyr::group_by( {{ by }} ) %>%
+    # Filter for all provided variables
+    dplyr::filter(if_all(c(...), ~!is.na(.x))) %>%
+    dplyr::filter(if_all(c(...), ~.x != "")) %>%
+    # Group by all provided variables
+    dplyr::group_by(across(c(...))) %>%
     dplyr::summarize(
       n = dplyr::n(),
       n_state_perp = sum(state_responsibility=="Perpetrator", na.rm = TRUE),
       n_state_victim = sum(state_responsibility=="Victim", na.rm = TRUE),
       n_state_separate = sum(stringr::str_detect(state_responsibility, "Separate"), na.rm = TRUE),
       .groups='drop'
-    )
+    ) %>%
+    ungroup()
 
   if (complete) {
     fill_values <- stats::setNames(rep(0, 4), c(
@@ -104,7 +110,7 @@ n_responsibility_by <- function(def, by, complete = FALSE){
     ))
 
     output <- output %>%
-      tidyr::complete({{by}}, fill = as.list(fill_values))
+      tidyr::complete(..., fill = as.list(fill_values))
   }
 
   return(output)
