@@ -5,14 +5,14 @@
 \alias{n_responsibility_by}
 \title{Produce a Summary Table for Deaths by Responsibility and Major Domains}
 \usage{
-n_categorized_by(def, by, complete = FALSE, sp_binary = FALSE)
+n_categorized_by(def, ..., complete = FALSE, sp_binary = FALSE)
 
-n_responsibility_by(def, by, complete = FALSE)
+n_responsibility_by(def, ..., complete = FALSE)
 }
 \arguments{
 \item{def}{A data frame detailing deaths}
 
-\item{by}{A variable to summarize by}
+\item{...}{One or more variables to summarize by}
 
 \item{complete}{A logical value stating whether to fill in zero values}
 
