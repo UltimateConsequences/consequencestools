@@ -222,7 +222,7 @@ add_detailed_label <- function(dataframe){
     styled_protest_domain =
       str_glue("<span style=\"color:{protest_domain_color};\"><b>",
                "{protest_domain}</b></span>")
-  )
+  ) %>% ungroup()
 
   dataframe <- dataframe %>%  mutate(detailed_label=paste("<b>", event_title, "</b><br>",
                                        styled_protest_domain, "<br><br>",
@@ -278,7 +278,7 @@ add_detailed_label_es <- function(dataframe){
     styled_protest_domain_es =
       str_glue("<span style=\"color:{protest_domain_color};\"><b>",
                "{protest_domain_es}</b></span>")
-  )
+  ) %>% ungroup()
 
   variables_to_print <- c("event_title_es", "name_line_es", "dec_affiliation_es",
                          "state_responsibility_es", "intentionality_es", "cause_death_es",
