@@ -104,6 +104,5 @@ generate_examples_with_results <- function(calls, format = "examples") {
   # Collapse the output into a single string
   output <- paste(output, collapse = "\n")
   cat(output)
-  output
 }
 
