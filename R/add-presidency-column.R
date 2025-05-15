@@ -18,15 +18,15 @@
 #' @export
 #'
 #' @examples
-#' pres_freq_table <- count(assign_presidency_levels(deaths_aug24), pres_admin)
-#' add_presidency_column(pres_freq_table, pres_admin, dest_var= "presidency_surnames")
-#' add_presidency_column(pres_freq_table, pres_admin, dest_var= "presidency_surnames",
+#' pres_freq_table <- dplyr::count(assign_presidency_levels(deaths_aug24), pres_admin)
+#' add_presidency_column(pres_freq_table, "pres_admin", dest_var= "presidency_surnames")
+#' add_presidency_column(pres_freq_table, "pres_admin", dest_var= "presidency_surnames",
 #'   .location="replace")
-#' add_presidency_column(pres_freq_table, pres_admin, dest_var= "id_presidency",
+#' add_presidency_column(pres_freq_table, "pres_admin", dest_var= "id_presidency",
 #'   .location="beside")
-#' add_presidency_column(pres_freq_table, pres_admin, dest_var= "presidency_year_es",
+#' add_presidency_column(pres_freq_table, "pres_admin", dest_var= "presidency_year_es",
 #'   .location="left")
-#' add_presidency_column(pres_freq_table, pres_admin, dest_var= "presidency_initials_num",
+#' add_presidency_column(pres_freq_table, "pres_admin", dest_var= "presidency_initials_num",
 #'   .location="right")
 add_presidency_column <- function(dataframe, variable,
                                   dest_var,

@@ -21,6 +21,6 @@ verified the results as correct for the function.
 \examples{
 generate_examples_with_results("sqrt(4)", "examples") #  "# examples #' sqrt(4) # \"2\""
 calls <- 'n_filter(dplyr::starwars, (species=="Droid") & height<120)'
-cat(generate_examples_with_results(calls, format = "tests"))
-cat(generate_examples_with_results(calls, format = "examples"))
+generate_examples_with_results(calls, format = "tests")
+generate_examples_with_results(calls, format = "examples")
 }

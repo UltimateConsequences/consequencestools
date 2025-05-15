@@ -11,11 +11,13 @@
 #' @param format A string indicating the format of the output.
 #'   "examples" for Roxygen `@examples` or "tests" for `testthat`.
 #'
+#' @export
+#'
 #' @examples
 #' generate_examples_with_results("sqrt(4)", "examples") #  "# examples #' sqrt(4) # \"2\""
 #' calls <- 'n_filter(dplyr::starwars, (species=="Droid") & height<120)'
-#' cat(generate_examples_with_results(calls, format = "tests"))
-#' cat(generate_examples_with_results(calls, format = "examples"))
+#' generate_examples_with_results(calls, format = "tests")
+#' generate_examples_with_results(calls, format = "examples")
 generate_examples_with_results <- function(calls, format = "examples") {
   # Split the input string into individual lines
   call_lines <- strsplit(calls, "\n")[[1]]
