@@ -102,7 +102,7 @@ assign_protest_domain.colors <- function() {
     "Economic policies" = mat_color_hex[['blue-700']],
     "Labor" = mat_color_hex[['blue-500']],
     "Education" = mat_color_hex[['blue-200']],
-    "Mining" = mat_color_hex[['red-700']],
+    "Mining" = mat_color_hex[['brown-500']],
     "Coca" = mat_color_hex[['green-900']],
     "Peasant" = mat_color_hex[['green-700']],
     "Rural land" = mat_color_hex[['green-500']],
@@ -116,8 +116,8 @@ assign_protest_domain.colors <- function() {
     "National governance" = mat_color_hex[['deep purple-300']],
     "Partisan politics" = mat_color_hex[['orange-500']],
     "Disabled" = mat_color_hex[['blue grey-600']],
-    "Guerrilla" = mat_color_hex[['brown-800']],
-    "Paramilitary" = mat_color_hex[['brown-400']],
+    "Guerrilla" = mat_color_hex[['pink-400']],
+    "Paramilitary" = mat_color_hex[['pink-800']],
     "Unknown" = mat_color_hex[['grey-300']]
   )
 }
@@ -193,7 +193,7 @@ assign_affiliation.colors <- function() {
     "Student" = mat_color_hex[['light blue-700']],
     "Teacher" = mat_color_hex[['light blue-500']],
 
-    "Miner" = mat_color_hex[['red-500']],
+    "Miner" = mat_color_hex[['brown-500']],
     # "Mining" = mat_color_hex[['red-700']],
 
     "Cocalero" = mat_color_hex[['green-700']],
@@ -225,7 +225,7 @@ assign_affiliation.colors <- function() {
     #"Drug trade" = mat_color_hex[['lime-700']],
     #"Contraband" = mat_color_hex[['lime-300']],
 
-    "Armed Actor" = mat_color_hex[['brown-600']],
+    "Armed Actor" = mat_color_hex[['pink-600']],
     #"Guerrilla" = mat_color_hex[['brown-800']],
     #"Paramilitary" = mat_color_hex[['brown-400']],
 
