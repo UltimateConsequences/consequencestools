@@ -16,3 +16,16 @@ test_that("Testing add_presidency_column", {
                                         .location="right"))
 })
 
+test_that("Testing render_presidency", {
+  names <- names(presidency_name_table)
+  for (i in names) {
+    expect_snapshot(render_presidency("p104", i, source_var = "id_presidency"))
+  }
+})
+
+test_that("Testing render_presidency", {
+  expect_equal(as.character(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "first_day")), "2002-08-06")
+  expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "id_presidency"), "p107")
+  expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_surnames"), "Sánchez de Lozada")
+  expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_year_es"), "Gonzalo Sánchez de Lozada (2002-2003)")
+})

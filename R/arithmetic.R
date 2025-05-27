@@ -20,7 +20,7 @@
 #'
 #' @export
 share_of_largest_n <- function(datavector, rank=1) {
-  sum_all <- sum(datavector, na.rm=TRUE)
+  sum_all <- sum(datavector, na.rm = TRUE)
   stopifnot(rank <= length(datavector))
   if(sum_all == 0)
     stop("Sum of datavector is zero. Cannot calculate share.")

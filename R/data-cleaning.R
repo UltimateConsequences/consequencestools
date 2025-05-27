@@ -11,6 +11,10 @@
 #'
 clean_pt_variables <- function(pt){
   stopifnot(is.tbl(pt))
+
+  # check if already converted
+  if (("first_day" %in% colnames(pt)) & ("days_in_office" %in% colnames(pt))) return(pt)
+
   pt <- rename_with(pt, ~ sub(" \\(.*", "", .x))
   pt <- rename_with(pt, ~ tolower(gsub(" ", "_", .x, fixed = TRUE)))
   pt <- rename_with(pt, ~ gsub("frequency_of_", "", .x, fixed = TRUE))

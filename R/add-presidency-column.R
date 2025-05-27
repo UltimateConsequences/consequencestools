@@ -70,3 +70,48 @@ add_presidency_column <- function(dataframe, variable,
   }
   return(dataframe)
 }
+
+
+#' Render Presidency Information
+#'
+#' This function retrieves specific information about a presidency from the
+#' presidency lookup table based on a given presidency name.
+#'
+#' @param value The name of the presidency to look up.
+#' @param dest_var The specific information to retrieve (e.g., "first_day",
+#'   "id_presidency", "presidency_surnames", "presidency_year_es").
+#' @param lookup_table The table containing presidency information (defaults to
+#'   presidency_name_table).
+#' @param source_var The column name in the lookup table to use as values
+#'  (defaults to "presidency").
+#'
+#' @return The requested information about the presidency.
+#' @export
+#'
+#' @examples
+#' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "first_day") # "2002-08-06"
+#' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "id_presidency") # "p107"
+#' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_surnames")
+#' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_year_es")
+render_presidency <- function(value,
+                                  dest_var,
+                                  lookup_table = presidency_name_table,
+                                  source_var = "presidency") {
+  assertthat::assert_that(source_var %in% names(lookup_table))
+  assertthat::assert_that(dest_var %in% names(lookup_table))
+
+  key_column <- lookup_table[, c(source_var)] %>% as.vector()
+  dest_column <- lookup_table[, c(dest_var)]
+
+  index <- which(sapply(key_column, str_equivalent, y = value))
+  if (length(index) == 0){
+    warning("Value not found in lookup table")
+    return(NA)
+  }
+  if (length(index) > 1){
+    warning("Multiple matches found in lookup table; returning first match")
+    index <- index[1]
+  }
+
+  dest_column[[index, 1]]
+}

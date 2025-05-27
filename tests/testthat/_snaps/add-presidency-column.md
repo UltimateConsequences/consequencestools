@@ -107,3 +107,94 @@
       11 Jeanine Áñez                       26 JÁ                     
       12 Luis Arce                          42 LA                     
 
+# Testing render_presidency
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sanchez de Lozada (1st)"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "p104"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada (1993-1997)"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Sánchez de Lozada"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada (1993-1997)"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "Gonzalo Sánchez de Lozada"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "GSL"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "GSL 1"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "1993-08-06"
+
+---
+
+    Code
+      render_presidency("p104", i, source_var = "id_presidency")
+    Output
+      [1] "1997-08-06"
+
