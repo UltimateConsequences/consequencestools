@@ -128,6 +128,7 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Involved = c("State involved", "Political victim",
                                                          "Political victim / political perpetrator",
                                                          "Political victim / unknown perpetrator",
+                                                         "Political victim, Unknown perpetrator",
                                                          "Possibly state involved"),
                                             Victim = c("State victim",
                                                        "State victim, State perpetrator in mutiny"),
@@ -135,6 +136,11 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Unintentional = c("Incidental", "Accidental"),
                                             Unknown  = c("Unknown", "Unclear", "Disputed") ) %>%
                                  suppressWarnings()
+
+    if(length(levels(de$state_responsibility)) > length(lev$state_responsibility$levels)) {
+      warning(paste("Unknown state-responsibility level:",
+                    setdiff(levels(de$state_responsibility), lev$state_responsibility$levels), "\n"))
+    }
 
     de$state_responsibility <- fct_relevel(de$state_responsibility,
                                            lev$state_responsibility$levels) %>%
