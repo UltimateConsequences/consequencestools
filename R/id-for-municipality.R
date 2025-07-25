@@ -1,6 +1,3 @@
-anexo_municipios <- readr::read_csv(here::here("data", "anexo_municipios_de_bolivia.csv"))
-# anexo_municipios <- read_rds("data/anexo_municipios.rds")
-
 #' Rename Columns in a Dataframe for Standardization
 #'
 #' This function renames specific columns in a dataframe to standardize their names.
@@ -26,7 +23,7 @@ anexo_municipios <- readr::read_csv(here::here("data", "anexo_municipios_de_boli
 #'   departamento = c("La Paz", "Cochabamba"),
 #'   codigo123 = c(101, 102)
 #' )
-#' 
+#'
 #' # Rename columns
 #' renamed_df <- rename_anexo_columns(df)
 #' print(names(renamed_df)) # Should include "municipality", "province", "department", "cod.mun"
@@ -47,35 +44,35 @@ rename_anexo_columns <- function(dataframe) {
     dataframe <- dataframe %>%
       dplyr::rename(department = departamento)
   }
-  
+
   # Rename "codigo" columns to "cod.mun" without suffix
   dataframe <- dataframe %>%
     dplyr::rename_with(~ gsub("^codigo.*$", "cod.mun", .), .cols = dplyr::starts_with("codigo"))
-  
+
   return(dataframe)
 }
 
 #' Get the ID of a municipality based on its name
-#' 
-#' Returns the unique identifier for a municipality based on its name and 
+#'
+#' Returns the unique identifier for a municipality based on its name and
 #' optionally the department. These identifiers are the codes used
-#' in the Bolivian government databases, known as INE codes for the 
+#' in the Bolivian government databases, known as INE codes for the
 #' Instituto Nacional de Estadística.
-#' 
+#'
 #' The function will warn the user if a municipality name without
 #' department corresponds to multiple municipalities. In this case, the first
 #' municipality found will be returned. (There are about a dozen such cases in Bolivia.)
-#' 
+#'
 #' `id_for_municipality_2` is a version of the function that handles lookup
 #'   tables with lists of municipalities. It is relies on `muni_id_lookup_table`.
-#' 
+#'
 #' @param municipality_i Name of the municipality to search for.
 #' @param department_i Optional name of the department to filter by.
 #' @param muni_list_table A data frame containing the municipality list table.
-#' 
+#'
 #' @return The unique identifier for the municipality as listed in the `code` =
 #'   column of the `muni_list_table`. If no match is found, returns an empty string.
-#' 
+#'
 #' @export
 #' @examples
 #'  id_for_municipality("La Paz") # 020101
@@ -86,7 +83,7 @@ rename_anexo_columns <- function(dataframe) {
 #'  id_for_municipality("San Ramón") # 071103
 #'  id_for_municipality("San Ramón", "Santa Cruz") # 071103
 #'  id_for_municipality("San Ramón", "Beni") # 080702
-#'  
+#'
 #'  id_for_municipality_2("zudanez") # "010301"
 #'  id_for_municipality_2("villa montes") # "060303"
 #'  id_for_municipality_2("villamontes") # "060303"
@@ -96,12 +93,12 @@ id_for_municipality <- function(municipality_i, department_i = "", muni_list_tab
   if (is.na(municipality_i)){
     return(as.character(NA))
   }
-  
+
   # Rename columns if necessary
   if ("municipio" %in% names(muni_list_table) && !"municipality" %in% names(muni_list_table)) {
     muni_list_table <- rename_anexo_columns(muni_list_table)
   }
-  
+
   # Ensure the first column is named "code" and formatted as character with leading zeros
   names(muni_list_table)[1] <- "code"
   # reformat first column as a character with leading zero
@@ -109,54 +106,54 @@ id_for_municipality <- function(municipality_i, department_i = "", muni_list_tab
     muni_list_table <- muni_list_table %>%
       mutate(code = as.character(sprintf("%06d", code)))
   }
-  
+
   # Filter by municipality
-  municipality_row <- muni_list_table %>% 
+  municipality_row <- muni_list_table %>%
     dplyr::filter(str_equivalent(municipality, municipality_i))
   #  print((municipality_row))
-  
+
   if (nrow(municipality_row) == 0) {
     warning(paste("Municipality", municipality_i, "not found. Returning empty string."))
     return("")
   }
-  
+
   # Further filter by department if provided
   if (department_i != "") {
-    municipality_row <- municipality_row %>% 
+    municipality_row <- municipality_row %>%
       dplyr::filter(str_equivalent(department, department_i))
     if (nrow(municipality_row) == 0) {
       warning(paste("Municipality", municipality_i, "not found in department", department_i, ". Returning empty string."))
       return("")
     }
   }
-  
+
   # Handle multiple results
   if (nrow(municipality_row) > 1) {
-    warning(paste("Multiple municipalities found for", municipality_i, 
-                  if (department_i != "") paste("in department", department_i) else "without department", 
+    warning(paste("Multiple municipalities found for", municipality_i,
+                  if (department_i != "") paste("in department", department_i) else "without department",
                   ". Returning first ID found."))
   }
-  
+
   return(unname(municipality_row$code[1]))
 }
 
 #' Add an unique identifier for municipality (id_muni) column to a dataset
-#' 
-#' @param dataset A dataframe with a column containing the name of the 
+#'
+#' @param dataset A dataframe with a column containing the name of the
 #'   municipality, named `municipality`.
 #' @param id_variable_name The name of the new column to be created. Default is
 #'   `id_muni`.
 #' @param muni_table A data frame containing the municipality list table.
 #' @param overwrite A boolean indicating whether to overwrite an existing
 #'   column.
-#'   
+#'
 #' @return A dataframe with a new column `id_muni` containing the unique
 #'   identifier for the municipality, placed before the `municipality` column.
-#'   
+#'
 #' @export
-add_id_for_municipality <- function(dataset, 
+add_id_for_municipality <- function(dataset,
                                     id_variable_name = "id_muni",
-                                    muni_table = anexo_municipios, 
+                                    muni_table = anexo_municipios,
                                     overwrite = FALSE){
   if (!"municipality" %in% names(dataset)) {
     stop("The dataset does not contain the 'municipality' column.")
@@ -167,7 +164,7 @@ add_id_for_municipality <- function(dataset,
                   "Call add_id_for_event() with overwrite = TRUE to replace it."))
     return(dataset)
   }
-  
+
   # dataset[[id_variable_name]] <- vapply(dataset$municipality, function(x) id_for_municipality(x, "", muni_table),
   #                                       FUN.VALUE = character(1))
   if ("muni_list" %in% names(muni_table)) {
@@ -181,14 +178,13 @@ add_id_for_municipality <- function(dataset,
       id_for_municipality(dataset$municipality[i], dataset$department[i], muni_table)
     }, FUN.VALUE = character(1))
   }
-  
-  dataset <- dataset %>% 
+
+  dataset <- dataset %>%
     dplyr::relocate(!!rlang::sym(id_variable_name), .before = municipality)
-  
+
   return(dataset)
 }
 
-muni_id_lookup_table <- readr::read_rds(here::here("data", "muni_id_lookup_table.rds")) 
 
 #' @rdname id_for_municipality
 #' @export
@@ -196,25 +192,25 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
   if (is.na(municipality_i)){
     return(as.character(NA))
   }
-  
+
   assertthat::assert_that(
     is.character(municipality_i),
     is.character(department_i),
-    is.data.frame(muni_list_table), 
+    is.data.frame(muni_list_table),
     "muni_list" %in% names(muni_list_table)
   )
-  
+
   # Filter by municipality
   municipality_row <- muni_list_table %>%
     rowwise() %>%
     dplyr::filter(str_equivalent_list(municipality_i, muni_list))
-  
+
   # Check if no rows match the municipality
   if (nrow(municipality_row) == 0) {
     warning(paste("Municipality", municipality_i, "not found. Returning empty string."))
     return("")
   }
-  
+
   # Further filter by department if provided
   if (department_i != "") {
     municipality_row <- municipality_row %>%
@@ -224,14 +220,14 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
       return("")
     }
   }
-  
+
   # Handle multiple results
   if (nrow(municipality_row) > 1) {
-    warning(paste("Multiple municipalities found for", municipality_i, 
-                  if (department_i != "") paste("in department", department_i) else "without department", 
+    warning(paste("Multiple municipalities found for", municipality_i,
+                  if (department_i != "") paste("in department", department_i) else "without department",
                   ". Returning first ID found."))
   }
-  
+
   # Return the first matching id_muni
   return(unname(municipality_row$id_muni[1]))
 }
@@ -263,20 +259,20 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
 #'   province = c("Oropeza", "Oropeza", "Oropeza"),
 #'   department = c("Chuquisaca", "Chuquisaca", "Chuquisaca")
 #' )
-#' 
+#'
 #' # Lookup municipality details
 #' ids <- c("010101", "010102", "010999")
 #' result <- municipality_from_id_muni(ids, anexo_municipios)
 #' print(result)
-#' 
+#'
 #' @export
 municipality_vector_from_id <- function(id_muni, muni_list_table=anexo_municipios) {
-  
+
   # Rename columns if necessary
   if ("municipio" %in% names(muni_list_table) && !"municipality" %in% names(muni_list_table)) {
     muni_list_table <- rename_anexo_columns(muni_list_table)
   }
-  
+
   # Ensure the first column is named "code" and formatted as character with leading zeros
   names(muni_list_table)[1] <- "code"
   # reformat first column as a character with leading zero
@@ -288,20 +284,20 @@ municipality_vector_from_id <- function(id_muni, muni_list_table=anexo_municipio
   if (is.numeric(id_muni)) {
     id_muni <- as.character(sprintf("%06d", id_muni))
   }
-  
+
   # Perform a lookup for each ID in the id_muni
   matched_rows <- muni_list_table[match(id_muni, muni_list_table$code), ]
-  
+
   # Extract the required columns and handle missing matches
   municipality <- matched_rows$municipality
   province <- matched_rows$province
   department <- matched_rows$department
-  
+
   # Replace missing values (rows not found) with NA
   municipality[is.na(matched_rows$code)] <- NA
   province[is.na(matched_rows$code)] <- NA
   department[is.na(matched_rows$code)] <- NA
-  
+
   # Return the result as a list
   list(
     municipality = municipality,
@@ -315,15 +311,15 @@ municipality_vector_from_id <- function(id_muni, muni_list_table=anexo_municipio
 #' from the unique identifier (ID) of a municipality. The ID is a code used
 #' in the Bolivian government databases, known as INE codes for the
 #' Instituto Nacional de Estadística.
-#' 
+#'
 #' @param id_muni A character vector of municipality IDs to look up.
 #' @param muni_list_table A lookup dataframe containing municipality information.
-#' 
+#'
 #' @return A string with the name of the municipality, province, or department.
 #'
 #' @rdname municipality_vector_from_id
 #' @export
-#' 
+#'
 #' @examples
 #' municipality_name_from_id("020101") # "La Paz"
 #' municipality_name_from_id("050101") # "Potosí"
@@ -368,16 +364,6 @@ department_name_from_id <- function(id_muni, muni_list_table=anexo_municipios) {
   vector$department
 }
 
-# This code produces a substantial lookup table for changes needed between 
-# our standard municipalities and gb2014.
-muni_gb2014_conversion <- muni_id_lookup_table %>% 
-  filter(muni_gb2014 != muni_anexo) %>% 
-  select(1, 3, 2) %>% 
-  mutate(recode = str_glue("mutate(municipality = recode(municipality, \"{muni_anexo}\"",
-                         " = ",
-                         "\"{muni_gb2014}\")) %>% "))
-# muni_gb2014_conversion$recode
-
 add_muni_gb2014_from_id <- function(dataframe, muni_table = muni_id_lookup_table){
   # Check if the dataframe has a column named "id_muni"
   if (!"id_muni" %in% names(dataframe)) {
@@ -390,33 +376,30 @@ add_muni_gb2014_from_id <- function(dataframe, muni_table = muni_id_lookup_table
   if (!"muni_gb2014" %in% names(muni_table)) {
     stop("The lookup does not contain a column named 'muni_gb2014'.")
   }
-  
+
   lookup_table <- muni_table %>%
     dplyr::select(id_muni, muni_gb2014) %>%
     dplyr::distinct()
-  
+
   # Join the lookup table with the dataframe
   dataframe <- dataframe %>%
-    dplyr::left_join(lookup_table, by = "id_muni") 
-  
+    dplyr::left_join(lookup_table, by = "id_muni")
+
   return(dataframe)
 }
 
-# de %>% add_id_for_municipality() %>% 
-#   add_muni_gb2014_from_id() %>% 
-#   select(event_title, municipality, muni_gb2014) %>% 
+# de %>% add_id_for_municipality() %>%
+#   add_muni_gb2014_from_id() %>%
+#   select(event_title, municipality, muni_gb2014) %>%
 #   filter(municipality != muni_gb2014)
-# de %>% add_id_for_municipality() %>% 
-#   add_muni_gb2014_from_id() %>% 
-#   select(event_title, municipality, muni_gb2014) %>% 
+# de %>% add_id_for_municipality() %>%
+#   add_muni_gb2014_from_id() %>%
+#   select(event_title, municipality, muni_gb2014) %>%
 #   filter(municipality != muni_gb2014) %>%
 #   distinct(municipality, muni_gb2014)
 
-muni_gb2014_lookup <- muni_id_lookup_table %>% 
-  select(id_muni, muni_gb2014, department) %>% 
-  rename(municipality = muni_gb2014)
 
 # id_for_municipality("Villa Ricardo Mugia - Icla", muni_list_table = muni_gb2014_lookup)
 # add_id_for_municipality(all_municipalities_new_full, muni_table = muni_gb2014_lookup)
-# 
+#
 
