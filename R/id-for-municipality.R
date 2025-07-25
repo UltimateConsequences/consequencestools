@@ -28,7 +28,7 @@
 #' renamed_df <- rename_anexo_columns(df)
 #' print(names(renamed_df)) # Should include "municipality", "province", "department", "cod.mun"
 #'
-#' @importFrom dplyr rename rename_with starts_with
+#' @importFrom dplyr rename rename_with starts_with pull mutate rowwise
 #' @export
 rename_anexo_columns <- function(dataframe) {
   # Check if destination columns are missing and perform renaming accordingly
@@ -102,9 +102,9 @@ id_for_municipality <- function(municipality_i, department_i = "", muni_list_tab
   # Ensure the first column is named "code" and formatted as character with leading zeros
   names(muni_list_table)[1] <- "code"
   # reformat first column as a character with leading zero
-  if (is.numeric(pull(muni_list_table,1))){
+  if (is.numeric(dplyr::pull(muni_list_table,1))){
     muni_list_table <- muni_list_table %>%
-      mutate(code = as.character(sprintf("%06d", code)))
+      dplyr::mutate(code = as.character(sprintf("%06d", code)))
   }
 
   # Filter by municipality
@@ -202,7 +202,7 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
 
   # Filter by municipality
   municipality_row <- muni_list_table %>%
-    rowwise() %>%
+    dplyr::rowwise() %>%
     dplyr::filter(str_equivalent_list(municipality_i, muni_list))
 
   # Check if no rows match the municipality
@@ -276,9 +276,9 @@ municipality_vector_from_id <- function(id_muni, muni_list_table=anexo_municipio
   # Ensure the first column is named "code" and formatted as character with leading zeros
   names(muni_list_table)[1] <- "code"
   # reformat first column as a character with leading zero
-  if (is.numeric(pull(muni_list_table,1))){
+  if (is.numeric(dplyr::pull(muni_list_table,1))){
     muni_list_table <- muni_list_table %>%
-      mutate(code = as.character(sprintf("%06d", code)))
+      dplyr::mutate(code = as.character(sprintf("%06d", code)))
   }
   # Check if id_muni is a character vector
   if (is.numeric(id_muni)) {
