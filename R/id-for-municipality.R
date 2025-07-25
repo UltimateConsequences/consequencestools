@@ -151,6 +151,10 @@ id_for_municipality <- function(municipality_i, department_i = "", muni_list_tab
 #'   identifier for the municipality, placed before the `municipality` column.
 #'
 #' @export
+#'
+#' @examples
+#' id_for_municipality("Villa Ricardo Mugia - Icla", muni_list_table = muni_gb2014_lookup)
+#' id_for_municipality_2("Villa Ricardo Mugia - Icla", "Chuquisaca")
 add_id_for_municipality <- function(dataset,
                                     id_variable_name = "id_muni",
                                     muni_table = anexo_municipios,
@@ -364,6 +368,16 @@ department_name_from_id <- function(id_muni, muni_list_table=anexo_municipios) {
   vector$department
 }
 
+#' Add Municipality GB2014 Code from ID
+#'
+#' This function adds a column `muni_gb2014` to a dataframe based on the `id_muni` column.
+#' It uses a lookup table to map `id_muni` to `muni_gb2014`.
+#'
+#' @param dataframe A dataframe containing a column `id_muni`.
+#' @param muni_table A lookup table containing `id_muni` and `muni_gb2014` columns.
+#' @return A dataframe with an additional column `muni_gb2014` containing the corresponding GB2014 codes.
+#'
+#' @export
 add_muni_gb2014_from_id <- function(dataframe, muni_table = muni_id_lookup_table){
   # Check if the dataframe has a column named "id_muni"
   if (!"id_muni" %in% names(dataframe)) {
@@ -388,7 +402,7 @@ add_muni_gb2014_from_id <- function(dataframe, muni_table = muni_id_lookup_table
   return(dataframe)
 }
 
-# de %>% add_id_for_municipality() %>%
+# deaths_aug24 %>% add_id_for_municipality() %>%
 #   add_muni_gb2014_from_id() %>%
 #   select(event_title, municipality, muni_gb2014) %>%
 #   filter(municipality != muni_gb2014)
@@ -397,9 +411,4 @@ add_muni_gb2014_from_id <- function(dataframe, muni_table = muni_id_lookup_table
 #   select(event_title, municipality, muni_gb2014) %>%
 #   filter(municipality != muni_gb2014) %>%
 #   distinct(municipality, muni_gb2014)
-
-
-# id_for_municipality("Villa Ricardo Mugia - Icla", muni_list_table = muni_gb2014_lookup)
-# add_id_for_municipality(all_municipalities_new_full, muni_table = muni_gb2014_lookup)
-#
 
