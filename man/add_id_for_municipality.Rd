@@ -30,3 +30,7 @@ A dataframe with a new column `id_muni` containing the unique
 \description{
 Add an unique identifier for municipality (id_muni) column to a dataset
 }
+\examples{
+id_for_municipality("Villa Ricardo Mugia - Icla", muni_list_table = muni_gb2014_lookup)
+id_for_municipality_2("Villa Ricardo Mugia - Icla", "Chuquisaca")
+}

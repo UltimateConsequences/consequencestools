@@ -15,7 +15,6 @@
 #' - Any column name starting with `codigo` is renamed to `cod.mun`.
 #'
 #' @examples
-#' library(dplyr)
 #' # Example dataframe
 #' df <- data.frame(
 #'   municipio = c("La Paz", "Cochabamba"),
@@ -255,7 +254,6 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
 #' If an ID is not found, the corresponding entries in the output list will be `NA`.
 #'
 #' @examples
-#' library(dplyr)
 #' # Example `muni_list_table`
 #' anexo_municipios <- tibble::tibble(
 #'   cod.mun = c("010101", "010102", "010103"),
@@ -266,7 +264,7 @@ id_for_municipality_2 <- function(municipality_i, department_i = "", muni_list_t
 #'
 #' # Lookup municipality details
 #' ids <- c("010101", "010102", "010999")
-#' result <- municipality_from_id_muni(ids, anexo_municipios)
+#' result <- municipality_name_from_id(ids, anexo_municipios)
 #' print(result)
 #'
 #' @export

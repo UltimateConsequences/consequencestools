@@ -8,10 +8,13 @@
 A data frame with columns:
 \describe{
   \item{id_muni}{Municipal ID (INE code)}
-  \item{muni_list}{List of alternative municipality names}
+  \item{muni_gb2014}{Municipality name in GB2014 map format}
   \item{muni_anexo}{Standard municipality name from anexo}
-  \item{muni_gb2014}{Municipality name in GB2014 format}
+  \item{muni_ine}{Municipality name in INE table}
+  \item{muni_census}{Municipality name in census table}
   \item{department}{Department name}
+  \item{muni_list}{List of alternative municipality names}
+  \item{n_unique}{Number of unique names for the municipality}
 }
 }
 \usage{

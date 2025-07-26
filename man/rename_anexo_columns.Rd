@@ -24,7 +24,6 @@ to `cod.mun`.
 - Any column name starting with `codigo` is renamed to `cod.mun`.
 }
 \examples{
-library(dplyr)
 # Example dataframe
 df <- data.frame(
   municipio = c("La Paz", "Cochabamba"),

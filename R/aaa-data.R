@@ -167,10 +167,14 @@
 #'
 #' @format A data frame with columns:
 #' \describe{
-#'   \item{codigo/cod.mun}{Municipal code (INE code)}
-#'   \item{municipio/municipality}{Municipality name}
-#'   \item{provincia/province}{Province name}
-#'   \item{departamento/department}{Department name}
+#'   \item{codigo_ine}{Municipal code (INE code)}
+#'   \item{municipio}{Municipality name}
+#'   \item{provincia}{Province name}
+#'   \item{departamento}{Department name}
+#'   \item{superficie}{Area of the municipality in square kilometers}
+#'   \item{poblacion}{Population of the municipality}
+#'   \item{densidad}{Population density (people per square kilometer)}
+#'   \item{municipio_alt}{Alternative municipality name}
 #' }
 #'
 #' @details
@@ -188,10 +192,13 @@
 #' @format A data frame with columns:
 #' \describe{
 #'   \item{id_muni}{Municipal ID (INE code)}
-#'   \item{muni_list}{List of alternative municipality names}
+#'   \item{muni_gb2014}{Municipality name in GB2014 map format}
 #'   \item{muni_anexo}{Standard municipality name from anexo}
-#'   \item{muni_gb2014}{Municipality name in GB2014 format}
+#'   \item{muni_ine}{Municipality name in INE table}
+#'   \item{muni_census}{Municipality name in census table}
 #'   \item{department}{Department name}
+#'   \item{muni_list}{List of alternative municipality names}
+#'   \item{n_unique}{Number of unique names for the municipality}
 #' }
 #'
 #' @details
@@ -310,7 +317,14 @@ utils::globalVariables(
     "standard_factoring_variables",
     "muni_list",
     "muni_anexo",
-    "muni_gb2014"
+    "muni_gb2014",
+    "anexo_municipios",
+    "muni_id_lookup_table",
+    "code",
+    "id_muni",
+    "municipio",
+    "provincia",
+    "departamento"
   )
 )
 

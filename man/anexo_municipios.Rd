@@ -7,10 +7,14 @@
 \format{
 A data frame with columns:
 \describe{
-  \item{codigo/cod.mun}{Municipal code (INE code)}
-  \item{municipio/municipality}{Municipality name}
-  \item{provincia/province}{Province name}
-  \item{departamento/department}{Department name}
+  \item{codigo_ine}{Municipal code (INE code)}
+  \item{municipio}{Municipality name}
+  \item{provincia}{Province name}
+  \item{departamento}{Department name}
+  \item{superficie}{Area of the municipality in square kilometers}
+  \item{poblacion}{Population of the municipality}
+  \item{densidad}{Population density (people per square kilometer)}
+  \item{municipio_alt}{Alternative municipality name}
 }
 }
 \usage{
