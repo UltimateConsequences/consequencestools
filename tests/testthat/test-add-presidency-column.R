@@ -28,4 +28,8 @@ test_that("Testing render_presidency", {
   expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "id_presidency"), "p107")
   expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_surnames"), "Sánchez de Lozada")
   expect_equal(render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_year_es"), "Gonzalo Sánchez de Lozada (2002-2003)")
+
+  expect_equal(render_presidency("p111", "presidency_commonname_es", source_var="id_presidency"), "Gobierno interino militar (2019)")
+  expect_equal(render_presidency("p111", "presidency_initials_num", source_var="id_presidency"), "Mil")
+  expect_equal(render_presidency("p111", "presidency_commonname", source_var="id_presidency"), "Military government (2019)")
 })

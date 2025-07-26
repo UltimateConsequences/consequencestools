@@ -160,6 +160,92 @@
 #'   to "diciembre"
 "month.name.es"
 
+#' Municipal Reference Table for Bolivia
+#'
+#' A reference table containing municipality information for Bolivia,
+#' read from the official anexo of municipalities.
+#'
+#' @format A data frame with columns:
+#' \describe{
+#'   \item{codigo_ine}{Municipal code (INE code)}
+#'   \item{municipio}{Municipality name}
+#'   \item{provincia}{Province name}
+#'   \item{departamento}{Department name}
+#'   \item{superficie}{Area of the municipality in square kilometers}
+#'   \item{poblacion}{Population of the municipality}
+#'   \item{densidad}{Population density (people per square kilometer)}
+#'   \item{municipio_alt}{Alternative municipality name}
+#' }
+#'
+#' @details
+#' This table contains the official list of municipalities in Bolivia
+#' with their corresponding INE (Instituto Nacional de Estadística) codes,
+#' provinces, and departments. The table is used for municipality lookup
+#' and ID assignment functions.
+"anexo_municipios"
+
+#' Municipality ID Lookup Table
+#'
+#' A comprehensive lookup table for municipality IDs and names in Bolivia,
+#' including alternative municipality names and mappings.
+#'
+#' @format A data frame with columns:
+#' \describe{
+#'   \item{id_muni}{Municipal ID (INE code)}
+#'   \item{muni_gb2014}{Municipality name in GB2014 map format}
+#'   \item{muni_anexo}{Standard municipality name from anexo}
+#'   \item{muni_ine}{Municipality name in INE table}
+#'   \item{muni_census}{Municipality name in census table}
+#'   \item{department}{Department name}
+#'   \item{muni_list}{List of alternative municipality names}
+#'   \item{n_unique}{Number of unique names for the municipality}
+#' }
+#'
+#' @details
+#' This table provides comprehensive municipality lookup functionality,
+#' including alternative spellings and name variations. It supports
+#' the id_for_municipality_2() function and other advanced municipality
+#' matching operations.
+"muni_id_lookup_table"
+
+#' Municipality Name Conversion Table for GB2014 Format
+#'
+#' A lookup table for converting between standard municipality names
+#' and GB2014 format municipality names in Bolivia.
+#'
+#' @format A data frame with columns:
+#' \describe{
+#'   \item{id_muni}{Municipal ID (INE code)}
+#'   \item{muni_gb2014}{Municipality name in GB2014 format}
+#'   \item{muni_anexo}{Standard municipality name from anexo}
+#'   \item{recode}{R code string for recoding municipality names}
+#' }
+#'
+#' @details
+#' This table contains only municipalities where the GB2014 format name
+#' differs from the standard anexo name. It includes generated R code
+#' strings that can be used to perform the name conversions automatically.
+"muni_gb2014_conversion"
+
+#' Municipality Lookup Table in GB2014 Format
+#'
+#' A simplified lookup table using GB2014 format municipality names
+#' for municipality ID and department lookup.
+#'
+#' @format A data frame with columns:
+#' \describe{
+#'   \item{id_muni}{Municipal ID (INE code)}
+#'   \item{municipality}{Municipality name in GB2014 format}
+#'   \item{department}{Department name}
+#' }
+#'
+#' @details
+#' This table provides a streamlined lookup mechanism using GB2014
+#' format municipality names. It's derived from muni_id_lookup_table
+#' and can be used when working with data that uses GB2014 naming
+#' conventions.
+"muni_gb2014_lookup"
+
 # This list produced by colnames(deaths_aug24) %>% dput()
 # Needed for dplyr references to variables
 # See: https://www.r-bloggers.com/2019/08/no-visible-binding-for-global-variable/
@@ -228,7 +314,17 @@ utils::globalVariables(
     "date_text",
     "sr_text",
     "lev",
-    "standard_factoring_variables"
+    "standard_factoring_variables",
+    "muni_list",
+    "muni_anexo",
+    "muni_gb2014",
+    "anexo_municipios",
+    "muni_id_lookup_table",
+    "code",
+    "id_muni",
+    "municipio",
+    "provincia",
+    "departamento"
   )
 )
 
