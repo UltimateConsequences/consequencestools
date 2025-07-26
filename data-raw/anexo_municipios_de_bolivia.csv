@@ -1,0 +1,341 @@
+"codigo_ine","municipio","provincia","departamento","superficie","poblacion","densidad","municipio_alt"
+"010101","Sucre","Oropeza","Chuquisaca",1820,296125,162.71,NA
+"010102","Yotala","Oropeza","Chuquisaca",452.9,9241,20.4,NA
+"010103","Poroma","Oropeza","Chuquisaca",1395,13640,9.78,NA
+"010201","Azurduy","Azurduy","Chuquisaca",1700,7861,4.62,NA
+"010202","Tarvita","Azurduy","Chuquisaca",1334,16470,12.35,NA
+"010301","Villa Zudáñez","Zudáñez","Chuquisaca",701.1,12687,18.1,NA
+"010302","Presto","Zudáñez","Chuquisaca",1329,12023,9.05,NA
+"010303","Villa Mojocoya","Zudáñez","Chuquisaca",1247,8971,7.19,NA
+"010304","Icla","Zudáñez","Chuquisaca",846.3,8854,10.46,NA
+"010401","Padilla","Tomina","Chuquisaca",1620,7542,4.66,NA
+"010402","Tomina","Tomina","Chuquisaca",826.9,8341,10.09,NA
+"010403","Sopachuy","Tomina","Chuquisaca",620.4,6886,11.1,NA
+"010404","Villa Alcalá","Tomina","Chuquisaca",312.8,3752,11.99,NA
+"010405","El Villar","Tomina","Chuquisaca",895.5,5636,6.29,NA
+"010501","Monteagudo","Hernando Siles","Chuquisaca",3387,24487,7.23,NA
+"010502","Huacareta","Hernando Siles","Chuquisaca",2962,7201,2.43,NA
+"010601","Tarabuco","Yamparáez","Chuquisaca",1029,13251,12.88,NA
+"010602","Yamparáez","Yamparáez","Chuquisaca",598.8,8537,14.26,NA
+"010701","Camargo","Nor Cinti","Chuquisaca",1990,14712,7.39,NA
+"010702","San Lucas","Nor Cinti","Chuquisaca",3872,26486,6.84,NA
+"010703","Incahuasi","Nor Cinti","Chuquisaca",870,16311,18.75,NA
+"010704","Villa Charcas","Nor Cinti","Chuquisaca",1000,13924,13.92,NA
+"010801","Villa Serrano","Belisario Boeto","Chuquisaca",1713,8961,5.23,NA
+"010901","Villa Abecia","Sud Cinti","Chuquisaca",707.3,5371,7.59,NA
+"010902","Culpina","Sud Cinti","Chuquisaca",3910,14868,3.8,NA
+"010903","Las Carreras","Sud Cinti","Chuquisaca",994.6,5007,5.03,NA
+"011001","Villa Vaca Guzmán","Luis Calvo","Chuquisaca",3793,13196,3.48,"Muyupampa"
+"011002","Huacaya","Luis Calvo","Chuquisaca",1186,2546,2.15,NA
+"011003","Macharetí","Luis Calvo","Chuquisaca",7880,7245,0.92,NA
+"020101","La Paz","Murillo","La Paz",2001,755732,377.68,NA
+"020102","Palca","Murillo","La Paz",743.7,21641,29.1,NA
+"020103","Mecapaca","Murillo","La Paz",533.1,20455,38.37,NA
+"020104","Achocalla","Murillo","La Paz",196.2,46068,234.8,NA
+"020105","El Alto","Murillo","La Paz",351.3,885035,2519.31,NA
+"020201","Achacachi","Omasuyos","La Paz",700,47064,67.23,NA
+"020202","Ancoraimes","Omasuyos","La Paz",329.5,16900,51.29,NA
+"020203","Chua Cocani","Omasuyos","La Paz",17.5,8657,494.69,NA
+"020204","Huarina","Omasuyos","La Paz",205,9258,45.16,NA
+"020205","Santiago de Huata","Omasuyos","La Paz",125,5096,40.77,NA
+"020206","Huatajata","Omasuyos","La Paz",31,7183,231.71,NA
+"020301","Coro Coro","Pacajes","La Paz",1145,13395,11.7,NA
+"020302","Caquiaviri","Pacajes","La Paz",1586,15464,9.75,NA
+"020303","Calacoto","Pacajes","La Paz",3958,12057,3.05,NA
+"020304","Comanche","Pacajes","La Paz",436.9,5201,11.9,NA
+"020305","Charaña","Pacajes","La Paz",2925,4124,1.41,NA
+"020306","Waldo Ballivián","Pacajes","La Paz",123.5,6557,53.09,NA
+"020307","Nazacara de Pacajes","Pacajes","La Paz",19.2,3990,207.81,NA
+"020308","Callapa","Pacajes","La Paz",1236,7965,6.44,NA
+"020401","Puerto Acosta","Camacho","La Paz",260,13940,53.62,NA
+"020402","Mocomoco","Camacho","La Paz",531.6,17653,33.21,NA
+"020403","Puerto Carabuco","Camacho","La Paz",415,17248,41.56,NA
+"020404","Humanata","Camacho","La Paz",450,5615,12.48,NA
+"020405","Escoma","Camacho","La Paz",130,8810,67.77,NA
+"020501","Chuma","Muñecas","La Paz",599.8,17671,29.46,NA
+"020502","Ayata","Muñecas","La Paz",671.4,8957,13.34,NA
+"020503","Aucapata","Muñecas","La Paz",243.1,6720,27.64,NA
+"020601","Sorata","Larecaja","La Paz",2087,30020,14.38,NA
+"020602","Guanay","Larecaja","La Paz",3965,16373,4.13,NA
+"020603","Tacacoma","Larecaja","La Paz",826.9,9705,11.74,NA
+"020604","Quiabaya","Larecaja","La Paz",133.6,4221,31.59,NA
+"020605","Combaya","Larecaja","La Paz",99.5,3502,35.2,NA
+"020606","Tipuani","Larecaja","La Paz",300.9,7640,25.39,NA
+"020607","Mapiri","Larecaja","La Paz",1381,21805,15.79,NA
+"020608","Teoponte","Larecaja","La Paz",1599,13469,8.42,NA
+"020701","Apolo","Franz Tamayo","La Paz",13970,19047,1.36,NA
+"020702","Pelechuco","Franz Tamayo","La Paz",2549,8993,3.53,NA
+"020801","Viacha","Ingavi","La Paz",857.3,113453,132.34,NA
+"020802","Guaqui","Ingavi","La Paz",191.6,8599,44.88,NA
+"020803","Tiahuanaco","Ingavi","La Paz",352.2,13568,38.52,NA
+"020804","Desaguadero","Ingavi","La Paz",91.3,7867,86.17,NA
+"020805","San Andrés de Machaca","Ingavi","La Paz",1528,7832,5.13,NA
+"020806","Jesús de Machaca","Ingavi","La Paz",970,16957,17.48,NA
+"020807","Taraco","Ingavi","La Paz",110.2,7511,68.16,NA
+"020901","Luribay","Loayza","La Paz",509,10581,20.79,NA
+"020902","Sapahaqui","Loayza","La Paz",846.8,16420,19.39,NA
+"020903","Yaco","Loayza","La Paz",599.1,12303,20.54,NA
+"020904","Malla","Loayza","La Paz",329.7,4866,14.76,NA
+"020905","Cairoma","Loayza","La Paz",543.8,13657,25.11,NA
+"021001","Inquisivi","Inquisivi","La Paz",3277,18764,5.73,NA
+"021002","Quime","Inquisivi","La Paz",878.5,11184,12.73,NA
+"021003","Cajuata","Inquisivi","La Paz",971.1,15485,15.95,NA
+"021004","Colquiri","Inquisivi","La Paz",1060,23456,22.13,NA
+"021005","Ichoca","Inquisivi","La Paz",852,9536,11.19,NA
+"021006","Licoma Pampa","Inquisivi","La Paz",150.1,7791,51.91,NA
+"021101","Chulumani","Sud Yungas","La Paz",286.6,18278,63.78,NA
+"021102","Irupana","Sud Yungas","La Paz",1389,23076,16.61,NA
+"021103","Yanacachi","Sud Yungas","La Paz",579.8,7583,13.08,NA
+"021104","Palos Blancos","Sud Yungas","La Paz",3605,26995,7.49,NA
+"021105","La Asunta","Sud Yungas","La Paz",2832,45586,16.1,NA
+"021201","Pucarani","Los Andes","La Paz",940.8,49701,52.83,NA
+"021202","Laja","Los Andes","La Paz",690.4,38612,55.93,NA
+"021203","Batallas","Los Andes","La Paz",993.9,20503,20.63,NA
+"021204","Puerto Pérez","Los Andes","La Paz",126.8,7874,62.1,NA
+"021301","Sica Sica","Aroma","La Paz",1742,33546,19.26,NA
+"021302","Umala","Aroma","La Paz",860.4,9021,10.48,NA
+"021303","Ayo Ayo","Aroma","La Paz",491.6,11251,22.89,NA
+"021304","Calamarca","Aroma","La Paz",495.6,15279,30.83,NA
+"021305","Patacamaya","Aroma","La Paz",570.9,25049,43.88,NA
+"021306","Colquencha","Aroma","La Paz",305.3,12344,40.43,NA
+"021307","Collana","Aroma","La Paz",125.6,5525,43.99,NA
+"021401","Coroico","Nor Yungas","La Paz",952.1,27531,28.92,NA
+"021402","Coripata","Nor Yungas","La Paz",346.2,23910,69.06,NA
+"021501","Ixiamas","Iturralde","La Paz",37453,12487,0.33,NA
+"021502","San Buenaventura","Iturralde","La Paz",2839,10115,3.56,NA
+"021601","Charazani","Bautista Saavedra","La Paz",2592,15854,6.12,NA
+"021602","Curva","Bautista Saavedra","La Paz",601.2,6423,10.68,NA
+"021701","Copacabana","Manco Kapac","La Paz",177.1,17431,98.42,NA
+"021702","San Pedro de Tiquina","Manco Kapac","La Paz",61.2,9097,148.64,NA
+"021703","Tito Yupanqui","Manco Kapac","La Paz",14.9,7512,504.16,NA
+"021801","San Pedro de Curahuara","Gualberto Villarroel","La Paz",733.3,9044,12.33,NA
+"021802","Papel Pampa","Gualberto Villarroel","La Paz",914.1,6222,6.81,NA
+"021803","Chacarilla","Gualberto Villarroel","La Paz",370,2031,5.49,NA
+"021901","Santiago de Machaca","General José Manuel Pando","La Paz",1276,6766,5.3,NA
+"021902","Catacora","General José Manuel Pando","La Paz",563.2,5326,9.46,NA
+"022001","Caranavi","Caranavi","La Paz",2100,59034,28.11,NA
+"022002","Alto Beni","Caranavi","La Paz",950,10499,11.05,NA
+"030101","Cochabamba","Cercado","Cochabamba",289.3,661484,2286.5,NA
+"030201","Aiquile","Campero","Cochabamba",2723,23000,8.45,NA
+"030202","Pasorapa","Campero","Cochabamba",2389,6468,2.71,NA
+"030203","Omereque","Campero","Cochabamba",759.3,6678,8.79,NA
+"030301","Independencia","Ayopaya","Cochabamba",1514,21717,14.34,NA
+"030302","Morochata","Ayopaya","Cochabamba",600,14598,24.33,NA
+"030303","Cocapata","Ayopaya","Cochabamba",6800,19467,2.86,NA
+"030401","Tarata","Esteban Arze","Cochabamba",338.4,11235,33.2,NA
+"030402","Anzaldo","Esteban Arze","Cochabamba",646.6,7322,11.32,NA
+"030403","Arbieto","Esteban Arze","Cochabamba",147.2,30454,206.89,NA
+"030404","Sacabamba","Esteban Arze","Cochabamba",185.7,4953,26.67,NA
+"030501","Arani","Arani","Cochabamba",216.3,11411,52.76,NA
+"030502","Vacas","Arani","Cochabamba",360.9,8425,23.34,NA
+"030601","Arque","Arque","Cochabamba",516.8,10635,20.58,NA
+"030602","Tacopaya","Arque","Cochabamba",554.9,10549,19.01,NA
+"030701","Capinota","Capinota","Cochabamba",542.9,19291,35.53,NA
+"030702","Santiváñez","Capinota","Cochabamba",307.3,7868,25.6,NA
+"030703","Sicaya","Capinota","Cochabamba",132.7,3949,29.76,NA
+"030801","Cliza","Germán Jordán","Cochabamba",54.3,20877,384.48,NA
+"030802","Toco","Germán Jordán","Cochabamba",63.8,7208,112.98,NA
+"030803","Tolata","Germán Jordán","Cochabamba",84,7372,87.76,NA
+"030901","Quillacollo","Quillacollo","Cochabamba",565.3,165830,293.35,NA
+"030902","Sipe Sipe","Quillacollo","Cochabamba",480.5,55601,115.71,NA
+"030903","Tiquipaya","Quillacollo","Cochabamba",344.4,61600,178.86,NA
+"030904","Vinto","Quillacollo","Cochabamba",217.9,55773,255.96,NA
+"030905","Colcapirhua","Quillacollo","Cochabamba",28.8,66235,2299.83,NA
+"031001","Sacaba","Chapare","Cochabamba",701.8,218502,311.35,NA
+"031002","Colomi","Chapare","Cochabamba",559.7,19318,34.51,NA
+"031003","Villa Tunari","Chapare","Cochabamba",14561,95588,6.56,NA
+"031101","Tapacarí","Tapacarí","Cochabamba",1651,24534,14.86,NA
+"031201","Totora","Carrasco","Cochabamba",2157,14766,6.85,NA
+"031202","Pojo","Carrasco","Cochabamba",2392,11840,4.95,NA
+"031203","Pocona","Carrasco","Cochabamba",838.6,12216,14.57,NA
+"031204","Chimoré","Carrasco","Cochabamba",2740,27374,9.99,NA
+"031205","Puerto Villarroel","Carrasco","Cochabamba",2241,64345,28.71,NA
+"031206","Entre Ríos","Carrasco","Cochabamba",2101,45520,21.67,NA
+"031301","Mizque","Mizque","Cochabamba",1895,19846,10.47,NA
+"031302","Vila Vila","Mizque","Cochabamba",601.6,5220,8.68,NA
+"031303","Alalay","Mizque","Cochabamba",423.1,3461,8.18,NA
+"031401","Punata","Punata","Cochabamba",85.9,34813,405.27,NA
+"031402","Villa Rivero","Punata","Cochabamba",103,8551,83.02,NA
+"031403","San Benito","Punata","Cochabamba",141.7,12924,91.21,NA
+"031404","Tacachi","Punata","Cochabamba",12.4,1276,102.9,NA
+"031405","Cuchumuela","Punata","Cochabamba",63.6,3818,60.03,NA
+"031501","Bolívar","Bolívar","Cochabamba",724,8197,11.32,NA
+"031601","Tiraque","Tiraque","Cochabamba",2650,18190,6.86,NA
+"031602","Shinahota","Tiraque","Cochabamba",737.81,27067,36.69,NA
+"040101","Oruro","Cercado","Oruro",276.2,297497,1077.11,NA
+"040102","Caracollo","Cercado","Oruro",2364,23068,9.76,NA
+"040103","El Choro","Cercado","Oruro",1119,10393,9.29,NA
+"040104","Paria","Cercado","Oruro",1373,15675,11.42,NA
+"040201","Challapata","Abaroa","Oruro",2586,35339,13.67,NA
+"040202","Quillacas","Abaroa","Oruro",921.7,5105,5.54,NA
+"040301","Corque","Carangas","Oruro",3380,16020,4.74,NA
+"040302","Choquecota","Carangas","Oruro",849.9,2980,3.51,NA
+"040401","Curahuara de Carangas","Sajama","Oruro",2866,6671,2.33,NA
+"040402","Turco","Sajama","Oruro",4895,5277,1.08,NA
+"040501","Huachacalla","Litoral","Oruro",20.8,3974,191.06,NA
+"040502","Escara","Litoral","Oruro",1166,4194,3.6,NA
+"040503","Cruz de Machacamarca","Litoral","Oruro",524.5,1511,2.88,NA
+"040504","Yunguyo de Litoral","Litoral","Oruro",176.8,882,4.99,NA
+"040505","Esmeralda","Litoral","Oruro",606.1,3883,6.41,NA
+"040601","Poopó","Poopó","Oruro",704.2,9152,13,NA
+"040602","Pazña","Poopó","Oruro",740,4220,5.7,NA
+"040603","Antequera","Poopó","Oruro",283.9,3614,12.73,NA
+"040701","Huanuni","Dalence","Oruro",553.1,20028,36.21,NA
+"040702","Machacamarca","Dalence","Oruro",306.8,6096,19.87,NA
+"040801","Salinas de Garci Mendoza","Ladislao Cabrera","Oruro",4924,15906,3.23,NA
+"040802","Pampa Aullagas","Ladislao Cabrera","Oruro",1062,3180,2.99,NA
+"040901","Sabaya","Sabaya","Oruro",3384,15387,4.55,NA
+"040902","Coipasa","Sabaya","Oruro",204.2,1405,6.88,NA
+"040903","Chipaya","Sabaya","Oruro",300.1,2366,7.88,NA
+"041001","Toledo","Saucarí","Oruro",2928,12115,4.14,NA
+"041101","Eucaliptus","Tomás Barrón","Oruro",333.8,5443,16.31,NA
+"041201","Santiago de Andamarca","Sud Carangas","Oruro",2321,6300,2.71,NA
+"041202","Belén de Andamarca","Sud Carangas","Oruro",1080,2996,2.77,NA
+"041301","Totora","San Pedro de Totora","Oruro",1443,6570,4.55,NA
+"041401","Santiago de Huari","Sebastián Pagador","Oruro",2407,13439,5.58,NA
+"041501","La Rivera","Mejillones","Oruro",198.2,1266,6.39,NA
+"041502","Todos Santos","Mejillones","Oruro",238.1,1132,4.75,NA
+"041503","Carangas","Mejillones","Oruro",257.7,1130,4.38,NA
+"041601","Huayllamarca","Nor Carangas","Oruro",876.7,5980,6.82,NA
+"050101","Potosí","Tomás Frías","Potosí",1233,218336,177.08,NA
+"050102","Tinguipaya","Tomás Frías","Potosí",1464,28829,19.69,NA
+"050103","Yocalla","Tomás Frías","Potosí",880.7,11119,12.63,NA
+"050104","Urmiri","Tomás Frías","Potosí",1304,3162,2.42,NA
+"050201","Uncía","Rafael Bustillo","Potosí",1000,22673,22.67,NA
+"050202","Chayanta","Rafael Bustillo","Potosí",614.5,16008,26.05,NA
+"050203","Llallagua","Rafael Bustillo","Potosí",536,41571,77.56,NA
+"050204","Chuquihuta","Rafael Bustillo","Potosí",150,8170,54.47,NA
+"050301","Betanzos","Cornelio Saavedra","Potosí",1909,31772,16.64,NA
+"050302","Chaquí","Cornelio Saavedra","Potosí",454.1,9262,20.4,NA
+"050303","Tacobamba","Cornelio Saavedra","Potosí",833.9,14208,17.04,NA
+"050401","Colquechaca","Chayanta","Potosí",800,16163,20.2,NA
+"050402","Ravelo","Chayanta","Potosí",1241,16728,13.48,NA
+"050403","Pocoata","Chayanta","Potosí",1192,32307,27.1,NA
+"050404","Ocurí","Chayanta","Potosí",941.7,14367,15.26,NA
+"050405","San Pedro de Macha","Chayanta","Potosí",842,20933,24.86,NA
+"050501","San Pedro de Buena Vista","Charcas","Potosí",2170,27961,12.89,NA
+"050502","Toro Toro","Charcas","Potosí",1176,10719,9.11,NA
+"050601","Cotagaita","Nor Chichas","Potosí",6435,29070,4.52,NA
+"050602","Vitichi","Nor Chichas","Potosí",1756,10102,5.75,NA
+"050701","Sacaca","Alonso de Ibáñez","Potosí",892.5,17188,19.26,NA
+"050702","Caripuyo","Alonso de Ibáñez","Potosí",518.1,8427,16.27,NA
+"050801","Tupiza","Sud Chichas","Potosí",6204,45531,7.34,NA
+"050802","Atocha","Sud Chichas","Potosí",2108,9364,4.44,NA
+"050901","Colcha K","Nor Lípez","Potosí",15904,12638,0.79,NA
+"050902","San Pedro de Quemes","Nor Lípez","Potosí",4403,1603,0.36,NA
+"051001","San Pablo de Lípez","Sud Lípez","Potosí",15321,3136,0.2,NA
+"051002","Mojinete","Sud Lípez","Potosí",407.2,1022,2.51,NA
+"051003","San Antonio de Esmoruco","Sud Lípez","Potosí",2512,1941,0.77,NA
+"051101","Puna","Linares","Potosí",1400,16350,11.68,NA
+"051102","Caiza D","Linares","Potosí",1376,12891,9.37,NA
+"051103","Ckochas","Linares","Potosí",2100,14301,6.81,NA
+"051201","Uyuni","Quijarro","Potosí",7784,35118,4.51,NA
+"051202","Tomave","Quijarro","Potosí",8239,7811,0.95,NA
+"051203","Porco","Quijarro","Potosí",1149,14626,12.73,NA
+"051301","Arampampa","General Bilbao","Potosí",424.7,3623,8.53,NA
+"051302","Acasio","General Bilbao","Potosí",345.3,4434,12.84,NA
+"051401","Llica","Daniel Campos","Potosí",5812,4150,0.71,NA
+"051402","Tahua","Daniel Campos","Potosí",1105,1561,1.41,NA
+"051501","Villazón","Modesto Omiste","Potosí",2469,49312,19.97,NA
+"051601","San Agustín","Enrique Baldivieso","Potosí",2116,2119,1,NA
+"060101","Tarija","Cercado","Tarija",2132,238942,112.07,NA
+"060201","Padcaya","Arce","Tarija",4431,17783,4.01,NA
+"060202","Bermejo","Arce","Tarija",381,36967,97.03,NA
+"060301","Yacuiba","Gran Chaco","Tarija",3641,97577,26.8,NA
+"060302","Caraparí","Gran Chaco","Tarija",3126,15650,5.01,NA
+"060303","Villa Montes","Gran Chaco","Tarija",11784,46010,3.9,NA
+"060401","Uriondo","José María Avilés","Tarija",801.6,15954,19.9,NA
+"060402","Yunchará","José María Avilés","Tarija",1834,4763,2.6,NA
+"060501","San Lorenzo","Méndez","Tarija",1969,30352,15.41,NA
+"060502","El Puente","Méndez","Tarija",2057,9504,4.62,NA
+"060601","Entre Ríos","O'Connor","Tarija",5033,20846,4.14,NA
+"070101","Santa Cruz de la Sierra","Andrés Ibáñez","Santa Cruz",1269,1606671,1266.09,NA
+"070102","Cotoca","Andrés Ibáñez","Santa Cruz",619.5,106292,171.58,NA
+"070103","Porongo","Andrés Ibáñez","Santa Cruz",943.5,23016,24.39,NA
+"070104","La Guardia","Andrés Ibáñez","Santa Cruz",953.2,147622,154.87,NA
+"070105","El Torno","Andrés Ibáñez","Santa Cruz",959.5,55558,57.9,NA
+"070201","Warnes","Warnes","Santa Cruz",1315,150803,114.68,NA
+"070202","Okinawa Uno","Warnes","Santa Cruz",1042,10508,10.08,NA
+"070301","San Ignacio de Velasco","Velasco","Santa Cruz",49102,67610,1.38,NA
+"070302","San Miguel de Velasco","Velasco","Santa Cruz",9544,15177,1.59,NA
+"070303","San Rafael de Velasco","Velasco","Santa Cruz",9731,8786,0.9,NA
+"070401","Buena Vista","Ichilo","Santa Cruz",2250,13586,6.04,NA
+"070402","San Carlos","Ichilo","Santa Cruz",1212,18998,15.67,NA
+"070403","Villa Yapacaní","Ichilo","Santa Cruz",9514,57683,6.06,NA
+"070404","San Juan de Yapacaní","Ichilo","Santa Cruz",1578,10206,6.47,NA
+"070501","San José de Chiquitos","Chiquitos","Santa Cruz",19121,40961,2.14,NA
+"070502","Pailón","Chiquitos","Santa Cruz",13726,54357,3.96,NA
+"070503","Roboré","Chiquitos","Santa Cruz",7353,18701,2.54,NA
+"070601","Portachuelo","Sara","Santa Cruz",1076,20709,19.25,NA
+"070602","Santa Rosa del Sara","Sara","Santa Cruz",4114,17984,4.37,NA
+"070603","Colpa Bélgica","Sara","Santa Cruz",291.5,6020,20.65,NA
+"070701","Lagunillas","Cordillera","Santa Cruz",1122,5910,5.27,NA
+"070702","Charagua","Cordillera","Santa Cruz",71360,39262,0.55,NA
+"070703","Cabezas","Cordillera","Santa Cruz",5058,31160,6.16,NA
+"070704","Cuevo","Cordillera","Santa Cruz",872.5,4953,5.68,NA
+"070705","Gutiérrez","Cordillera","Santa Cruz",2871,15169,5.28,"Kereimba Iyambae"
+"070706","Camiri","Cordillera","Santa Cruz",1036,32656,31.52,NA
+"070707","Boyuibe","Cordillera","Santa Cruz",1660,5603,3.38,NA
+"070801","Vallegrande","Vallegrande","Santa Cruz",3188,17172,5.39,NA
+"070802","El Trigal","Vallegrande","Santa Cruz",398.5,2367,5.94,NA
+"070803","Moro Moro","Vallegrande","Santa Cruz",673.9,2811,4.17,NA
+"070804","Postrervalle","Vallegrande","Santa Cruz",1157,1796,1.55,NA
+"070805","Pucará","Vallegrande","Santa Cruz",682.3,2009,2.94,NA
+"070901","Samaipata","Florida","Santa Cruz",2188,11814,5.4,NA
+"070902","Pampagrande","Florida","Santa Cruz",1429,9650,6.75,NA
+"070903","Mairana","Florida","Santa Cruz",922.4,12732,13.8,NA
+"070904","Quirusillas","Florida","Santa Cruz",286.6,3095,10.8,NA
+"071001","Montero","Obispo Santistevan","Santa Cruz",315,127544,404.9,NA
+"071002","General Saavedra","Obispo Santistevan","Santa Cruz",529.4,16043,30.3,NA
+"071003","Mineros","Obispo Santistevan","Santa Cruz",420.1,22731,54.11,NA
+"071004","Fernández Alonso","Obispo Santistevan","Santa Cruz",760.1,14625,19.24,NA
+"071005","San Pedro","Obispo Santistevan","Santa Cruz",3081,15158,4.92,NA
+"071101","Concepción","Ñuflo de Chaves","Santa Cruz",35109,30109,0.86,NA
+"071102","San Javier","Ñuflo de Chaves","Santa Cruz",3381,14897,4.41,NA
+"071103","San Ramón","Ñuflo de Chaves","Santa Cruz",492.3,6346,12.89,NA
+"071104","San Julián","Ñuflo de Chaves","Santa Cruz",5726,44635,7.8,NA
+"071105","San Antonio de Lomerío","Ñuflo de Chaves","Santa Cruz",2503,8427,3.37,NA
+"071106","Cuatro Cañadas","Ñuflo de Chaves","Santa Cruz",4486,25260,5.63,NA
+"071201","San Matías","Ángel Sandóval","Santa Cruz",27082,15336,0.57,NA
+"071301","Comarapa","Caballero","Santa Cruz",2900,17132,5.91,NA
+"071302","Saipina","Caballero","Santa Cruz",489.5,6057,12.37,NA
+"071401","Puerto Suárez","Germán Busch","Santa Cruz",12982,17378,1.34,NA
+"071402","Puerto Quijarro","Germán Busch","Santa Cruz",1450,17826,12.29,NA
+"071403","El Carmen Rivero Tórrez","Germán Busch","Santa Cruz",11011,8731,0.79,NA
+"071501","Ascensión de Guarayos","Guarayos","Santa Cruz",8674,34002,3.92,NA
+"071502","Urubichá","Guarayos","Santa Cruz",10470,6528,0.62,NA
+"071503","El Puente","Guarayos","Santa Cruz",6745,17214,2.55,NA
+"080101","Trinidad","Cercado","Beni",2539,124357,48.98,NA
+"080102","San Javier","Cercado","Beni",8173,7654,0.94,NA
+"080201","Riberalta","Vaca Díez","Beni",9726,107141,11.02,NA
+"080202","Guayaramerín","Vaca Díez","Beni",6502,40759,6.27,NA
+"080301","Reyes","General José Ballivián","Beni",12642,11274,0.89,NA
+"080302","San Borja","General José Ballivián","Beni",13489,45562,3.38,NA
+"080303","Santa Rosa","General José Ballivián","Beni",12106,10910,0.9,NA
+"080304","Rurrenabaque","General José Ballivián","Beni",2529,21018,8.31,NA
+"080401","Santa Ana del Yacuma","Yacuma","Beni",20093,18102,0.9,NA
+"080402","Exaltación","Yacuma","Beni",24973,7890,0.32,NA
+"080501","San Ignacio de Moxos","Moxos","Beni",20011,21578,1.08,NA
+"080601","Loreto","Marbán","Beni",5364,4263,0.79,NA
+"080602","San Andrés","Marbán","Beni",9355,15635,1.67,NA
+"080701","San Joaquín","Mamoré","Beni",8692,6851,0.79,NA
+"080702","San Ramón","Mamoré","Beni",10079,5441,0.54,NA
+"080703","Puerto Siles","Mamoré","Beni",2071,1095,0.53,NA
+"080801","Magdalena","Iténez","Beni",13634,12769,0.94,NA
+"080802","Baures","Iténez","Beni",17616,6564,0.37,NA
+"080803","Huacaraje","Iténez","Beni",4464,4628,1.04,NA
+"090101","Cobija","Nicolás Suárez","Pando",451.1,54386,120.56,NA
+"090102","Porvenir","Nicolás Suárez","Pando",10967,8970,0.82,NA
+"090103","Bolpebra","Nicolás Suárez","Pando",2592,2390,0.92,NA
+"090104","Bella Flor","Nicolás Suárez","Pando",5793,3632,0.63,NA
+"090201","Puerto Rico","Manuripi","Pando",5320,7217,1.36,NA
+"090202","San Pedro","Manuripi","Pando",2636,3239,1.23,NA
+"090203","Filadelfia","Manuripi","Pando",11886,7941,0.67,NA
+"090301","Puerto Gonzalo Moreno","Madre de Dios","Pando",1293,12006,9.29,NA
+"090302","San Lorenzo","Madre de Dios","Pando",3171,9203,2.9,NA
+"090303","Sena","Madre de Dios","Pando",7634,10264,1.34,NA
+"090401","Santa Rosa del Abuná","Abuná","Pando",3890,2855,0.73,NA
+"090402","Ingavi","Abuná","Pando",5430,2584,0.48,NA
+"090501","Nueva Esperanza","General Federico Román","Pando",3651,1390,0.38,NA
+"090502","Villa Nueva","General Federico Román","Pando",2823,2500,0.89,NA
+"090503","Santos Mercado","General Federico Román","Pando",6623,2184,0.33,NA

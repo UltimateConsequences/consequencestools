@@ -93,6 +93,9 @@ add_presidency_column <- function(dataframe, variable,
 #' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "id_presidency") # "p107"
 #' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_surnames")
 #' render_presidency("Gonzalo Sanchez de Lozada (2nd)", "presidency_year_es")
+#' render_presidency("p111", "presidency_commonname_es", source_var="id_presidency")
+#' render_presidency("p111", "presidency_initials_num", source_var="id_presidency")
+#' render_presidency("p111", "presidency_commonname", source_var="id_presidency")
 render_presidency <- function(value,
                                   dest_var,
                                   lookup_table = presidency_name_table,

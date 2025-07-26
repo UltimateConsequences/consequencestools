@@ -64,14 +64,22 @@ assign_state_perpetrator_levels <- function(dataframe, simplify=FALSE){
   de$state_perpetrator <- str_to_title(de$state_perpetrator)
   de$state_perpetrator <- fct_na_value_to_level(de$state_perpetrator, level = "Unknown")
   if (simplify){
+    sp_levels_in_order <- c("Unknown", "No", "Indirect", "Mutiny", "Yes")
+
     de$state_perpetrator <- fct_collapse(de$state_perpetrator,
                                          Yes = c("Yes", "Likely Yes", "Presumed Yes"),
                                          Indirect = c("Indirect"),
                                          No = c("No", "Likely No"),
                                          Mutiny = c("In Mutiny"),
                                          Unknown  = c("Unknown", "Disputed", "Suspected") ) %>% suppressWarnings()
+
+    if(length(levels(de$state_responsibility)) > length(lev$state_responsibility$levels)) {
+      warning(paste("Unknown state_perpetrator level:",
+                    setdiff(levels(de$state_perpetrator), sp_levels_in_order), "\n"))
+    }
+
     de$state_perpetrator <- fct_relevel(de$state_perpetrator,
-                                        c("Unknown", "No", "Indirect", "Mutiny", "Yes")) # default ordering
+                                        sp_levels_in_order) # default ordering
   }
   return(de)
 }
@@ -135,6 +143,12 @@ assign_state_responsibility_levels <- function(dataframe, simplify=FALSE){
                                             Unintentional = c("Incidental", "Accidental"),
                                             Unknown  = c("Unknown", "Unclear", "Disputed") ) %>%
                                  suppressWarnings()
+
+
+    if(length(levels(de$state_responsibility)) > length(lev$state_responsibility$levels)) {
+      warning(paste("Unknown state_responsibility level:",
+                    setdiff(levels(de$state_responsibility), lev$state_responsibility$levels), "\n"))
+    }
 
     de$state_responsibility <- fct_relevel(de$state_responsibility,
                                            lev$state_responsibility$levels) %>%
