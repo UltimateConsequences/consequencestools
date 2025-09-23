@@ -53,7 +53,10 @@ deaths_column <- function(maxWidth = 60, class = NULL, maxValue = 100, ...) {
 #' wetable <- wide_event_outcomes_table(deaths_aug24_filtered,
 #'   deaths_aug24_unfiltered, event_status_aug24, drop_extra=TRUE, drop_separate=TRUE)
 #' wide_event_outcomes_reactable(wetable)
-wide_event_outcomes_reactable <- function(dataset, static=FALSE, max_larger=0) {
+wide_event_outcomes_reactable <- function(dataset, static=FALSE, max_larger=0,
+                                          include_domain_colors=TRUE,
+                                          include_domain_links=TRUE
+                                          ) {
   deathcount.columns<- c("n","n_state_perp", "n_state_perp_hi",
                          "n_state_victim", "n_state_victim_hi",
                          "n_state_separate", "n_state_separate_hi",
