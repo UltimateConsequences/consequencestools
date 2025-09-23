@@ -25,6 +25,8 @@ domain_filename <- function(protest_domain){
 #' @return The corresponding filename for the Spanish domain page,
 #'   relative to the root of the website.
 #'
+#' @export
+#'
 #' @examples
 #' domain_filename_es("Campesino")
 domain_filename_es <- function(protest_domain){
