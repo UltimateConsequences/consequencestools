@@ -1,3 +1,36 @@
+#' Create a Column Definition for Death Counts
+#'
+#' Provides the necessary colum definition settings for a
+#' death count column, including shaiding.
+#'
+#' @param maxWidth Maximum width of the column (default: 60)
+#' @param class CSS class for the column (default: NULL)
+#' @param maxValue Maximum value for scaling the background color (default: 100)
+#' @param ... Additional arguments passed to colDef
+#'
+#' @returns  A column definition for use in reactable
+
+deaths_column <- function(maxWidth = 60, class = NULL, maxValue = 100, ...) {
+  alt_pal <- gray_pal
+
+  colDef(
+    maxWidth = maxWidth,
+    defaultSortOrder = "desc",
+    style = function(value) {
+      # Lighter color for <1%
+      if (value / maxValue < 0.01) {
+        list(color = "#888", background="#fff")
+      } else {
+        list(color = case_when(sqrt(value/ maxValue) < .4 ~ "#111",
+                               TRUE ~ "#eee"),
+             background = alt_pal(sqrt(value/ maxValue)),
+             fontWeight = "bold")
+      }
+    },
+    ...
+  )
+}
+
 #' Display the Detailed Event Outcomes Table as an Interactive Reactable
 #'
 #' Creates an interactive table to display event, death total, and outcome

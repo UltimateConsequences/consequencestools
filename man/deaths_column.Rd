@@ -19,6 +19,6 @@ deaths_column(maxWidth = 60, class = NULL, maxValue = 100, ...)
 A column definition for use in reactable
 }
 \description{
-Create a Column Definition for Death Counts
+Provides the necessary colum definition settings for a
+death count column, including shaiding.
 }
-\keyword{internal}
