@@ -51,7 +51,7 @@ state_resp$r_variable <- "state_responsibility"
 state_resp$levels <- c("Perpetrator", "Victim", "Involved", "Separate", "Unintentional", "Unknown")
 state_resp$colors <-  c(
   Perpetrator = "forestgreen",
-  Victim = "#cd6600",                  # "darkorange3",
+  Victim = "#8B1A1A",                  # "firebrick4",
   Involved = "#90ee90",                # "lightgreen",
   Separate = "#eeb422",                # "goldenrod2",
   Unintentional = "darkgray",
@@ -59,7 +59,7 @@ state_resp$colors <-  c(
 
 state_resp$colors_es <-  c(
   Perpetrador = "forestgreen",
-  Victima = "#cd6600",                  # "darkorange3",
+  Victima = "#8B1A1A",                  # "firebrick4",
   Involucrado = "#90ee90",                # "lightgreen",
   Separado = "#eeb422",                # "goldenrod2",
   "No Intencional" = "darkgray",
