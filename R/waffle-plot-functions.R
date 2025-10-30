@@ -144,10 +144,15 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
                               n_columns = 5,
                               waffle_width = 10,
                               complete_x = FALSE,
+                              lang = "en",
                               .verbose = FALSE) {
   # Get the color palette from the corresponding description variable
   fill_colors <- fill_var_description$colors
   fill_legend <- fill_colors
+  if (lang=="es" & "colors_es" %in% names(fill_var_description)){
+    fill_legend <- fill_var_description$colors_es
+    fill_var_description$title <- fill_var_description$title_es
+  }
 
   x_var_name <- quo_name(enquo(x_var))
   range_of_x_levels <- list()
@@ -187,6 +192,7 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
     scale_fill_manual(name = fill_var_description$title,
                       values = fill_colors,
                       limits = names(fill_colors),
+                      labels = names(fill_legend),  # Language specific
                       breaks = names(fill_colors)) +
     theme_minimal(base_family = "Roboto Condensed") +
     theme(panel.grid = element_blank(), axis.ticks.y = element_line(),
@@ -227,12 +233,22 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #'    x_var = pres_admin, fill_var = state_responsibility,
 #'    fill_var_description = lev$state_responsibility,
 #'    complete_x = FALSE, n_columns = 6)
+#'  make_waffle_chart_tall(deaths,
+#'    x_var = pres_admin, fill_var = state_responsibility,
+#'    fill_var_description = lev$state_responsibility,
+#'    complete_x = FALSE, n_columns = 6, lang="es')
 make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_description,
                                    n_columns = 5,
                                    complete_x = FALSE,
+                                   lang = "en",
                                    .verbose = FALSE) {
   # Get the color palette from the corresponding description variable
   fill_colors <- fill_var_description$colors
+  fill_legend <- fill_colors
+  if (lang=="es" & "colors_es" %in% names(fill_var_description)){
+    fill_legend <- fill_var_description$colors_es
+    fill_var_description$title <- fill_var_description$title_es
+  }
 
   x_var_name <- quo_name(enquo(x_var))
   range_of_x_levels <- list()
@@ -283,6 +299,7 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
     scale_fill_manual(name = fill_var_description$title,
                       values = fill_colors,
                       breaks = names(fill_colors),
+                      labels = names(fill_legend),  # Language specific
                       guide = guide_legend(reverse = FALSE)) +
     theme_minimal(base_family = "Roboto Condensed") +
     # Change axis.ticks.y to axis.ticks.x
