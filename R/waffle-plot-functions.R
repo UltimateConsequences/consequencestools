@@ -1,4 +1,4 @@
-# Helper function to create counts dataframe for waffle charts
+#' Helper function to create counts dataframe for waffle charts
 #'
 #' @param dataframe The input dataframe containing the data.
 #' @param x_var The variable to facet the waffle chart by (e.g., year).
@@ -44,7 +44,10 @@ waffle_counts <- function(dataframe, x_var,
 #' @param .verbose Logical indicating whether to print debug information
 #' @return The counts dataframe with missing x values added
 #'
+#' @export
+#'
 #' @examples
+#' \donttest{
 #' deaths <- assign_levels(deaths_aug24, "standard", .simplify=TRUE)  %>%
 #'   dplyr::filter(year != 2012)  # Remove 2012
 #' waffle_counts_df <- waffle_counts(deaths,
@@ -56,6 +59,7 @@ waffle_counts <- function(dataframe, x_var,
 #'                                                 fill_var = protest_domain,
 #'                                                 all_levels = NULL,
 #'                                                 .verbose = FALSE)
+#' }
 complete_x_values <- function(counts_df, x_var, fill_var,
                               all_levels = NULL, .verbose = FALSE) {
   x_var_name <- quo_name(enquo(x_var))
@@ -105,7 +109,7 @@ complete_x_values <- function(counts_df, x_var, fill_var,
   }
 
   if (.verbose) {
-    print(str(counts_df))
+    print(utils::str(counts_df))
   }
 
   return(counts_df)
@@ -127,18 +131,23 @@ complete_x_values <- function(counts_df, x_var, fill_var,
 #' @param waffle_width Number of rows in each waffle chart (default 10).
 #' @param complete_x Logical indicating whether to complete missing x values
 #'   with a single null block. Only implemented for year and pres_admin.
+#' @param lang Language for the legend labels ("en" or "es"). Default is "en".
+#'   Only affects the legend and not the x-axis label, which should be
+#'   handled before calling the function.
 #' @param .verbose Logical indicating whether to print debug information.
 #'
 #' @return A ggplot object representing the waffle chart.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' deaths <- assign_levels(deaths_aug24, "standard", .simplify = TRUE)
 #' make_waffle_chart(deaths,
 #'   x_var = pres_admin,
 #'   fill_var = state_responsibility,
 #'   fill_var_description = state_resp,
 #'   complete_x = TRUE, n_columns = 7)
+#' }
 make_waffle_chart <- function(dataframe, x_var, fill_var,
                               fill_var_description,
                               n_columns = 5,
@@ -174,6 +183,7 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 
       # Add null to the color set but not to the legend
       fill_colors <- c(fill_colors, ' ' = "white")
+      fill_legend <- c(fill_legend, ' ' = "white")
     }
   }
 
@@ -217,12 +227,16 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #' @param n_columns Number of rows for the facet wrap (displayed vertically).
 #' @param complete_x Logical indicating whether to complete missing x values
 #'   with a single null block. Only implemented for year and pres_admin.
+#' @param lang Language for the legend labels ("en" or "es"). Default is "en".
+#'   Only affects the legend and not the x-axis label, which should be
+#'   handled before calling the function.
 #' @param .verbose Logical indicating whether to print debug information.
 #'
 #' @return A ggplot object representing the tall waffle chart.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' deaths <- assign_levels(deaths_aug24, "standard", .simplify = TRUE)
 #' make_waffle_chart_tall(deaths,
 #'   x_var = pres_admin,
@@ -236,7 +250,8 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #'  make_waffle_chart_tall(deaths,
 #'    x_var = pres_admin, fill_var = state_responsibility,
 #'    fill_var_description = lev$state_responsibility,
-#'    complete_x = FALSE, n_columns = 6, lang="es')
+#'    complete_x = FALSE, n_columns = 6, lang="es")
+#' }
 make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_description,
                                    n_columns = 5,
                                    complete_x = FALSE,
@@ -270,6 +285,7 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
 
       # Add null to the color set but not to the legend
       fill_colors <- c(fill_colors, ' ' = "white")
+      fill_legend <- c(fill_legend, ' ' = "white")
     }
   }
 

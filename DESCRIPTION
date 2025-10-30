@@ -2,7 +2,7 @@ Package: consequencestools
 Type: Package
 Title: Provides Support Tools for Data Analysis and Visualization 
     from the Ultimate Consequences Database
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
     person(
     "Carwil", "Bjork-James",
@@ -37,7 +37,6 @@ Imports:
     reactable,
     reactablefmtr,
     rlang,
-    scales,
     stringi,
     stringr,
     tidyr,

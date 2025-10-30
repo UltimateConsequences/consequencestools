@@ -85,7 +85,7 @@ create_calendar_heatmap <- function(year) {
 
   plot_month <- function(month_num) {
     month_data <- df %>% filter(month == month_num)
-    ggplot(month_data, aes(x = wday, y = week, fill = events)) +
+    ggplot2::ggplot(month_data, aes(x = wday, y = week, fill = events)) +
       geom_tile(color = "white") +
       scale_fill_gradient(low = "white", high = "red") +
       scale_x_continuous(breaks = 1:7, labels = c("S", "M", "T", "W", "T", "F", "S")) +
