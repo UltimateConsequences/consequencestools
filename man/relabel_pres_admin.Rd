@@ -17,6 +17,9 @@ relabel_pres_admin(
 \item{output_column}{The column from presidency_name_table to use for new labels
 (unquoted column name)}
 
+\item{.input_column}{The column from presidency_name_table to match against
+pres_admin (default "presidency")}
+
 \item{keep_original}{Logical indicating whether to keep the original pres_admin
 column as pres_admin_original (default TRUE)}
 }
@@ -25,10 +28,11 @@ The dataframe with pres_admin relabeled according to output_column
 }
 \description{
 Replaces pres_admin values with corresponding values from a specified column
-in presidency_name_table (e.g., presidency_year, presidency_short, etc.)
+in presidency_name_table (e.g., presidency_year, presidency_initials, etc.)
 }
 \examples{
+def <- assign_presidency_levels(deaths_aug24)
 def_labeled <- relabel_pres_admin(def, presidency_year)
-def_labeled <- relabel_pres_admin(def, presidency_short)
-def_labeled <- relabel_pres_admin(def, presidency_full, keep_original = FALSE)
+def_labeled <- relabel_pres_admin(def, presidency_initials)
+def_labeled <- relabel_pres_admin(def, presidency_fullname_es, keep_original = TRUE)
 }
