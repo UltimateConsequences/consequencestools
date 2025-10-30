@@ -28,6 +28,7 @@ Imports:
     assertthat,
     dplyr,
     forcats,
+    ggplot2,
     grDevices,
     incase,
     lubridate,
@@ -36,12 +37,14 @@ Imports:
     reactable,
     reactablefmtr,
     rlang,
+    scales,
     stringi,
     stringr,
     tidyr,
     tidyselect,
     transcats (>= 0.0.0.9002),
     utils,
+    waffle (>= 1.0.2),
     zoo
 Depends: 
     R (>= 3.5)
