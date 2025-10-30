@@ -25,6 +25,7 @@
 #' @importFrom grDevices col2rgb
 #' @importFrom grDevices colorRamp
 #' @importFrom grDevices rgb
+#' @importFrom htmltools tags
 #' @importFrom incase in_case
 #' @importFrom lubridate days
 #' @importFrom reactable colDef
