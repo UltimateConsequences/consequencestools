@@ -1,4 +1,4 @@
-#' Helper function to create counts dataframe for waffle charts
+# Helper function to create counts dataframe for waffle charts
 #'
 #' @param dataframe The input dataframe containing the data.
 #' @param x_var The variable to facet the waffle chart by (e.g., year).
@@ -100,9 +100,8 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
   fill_legend <- fill_colors
 
   x_var_name <- quo_name(enquo(x_var))
-  range_of_x_levels <- NULL
-
-  if (is.factor(dataframe[[x_var_name]])) {
+  range_of_x_levels <- list()
+  if(is.factor(dataframe[[x_var_name]])){
     all_levels <- levels(dataframe[[x_var_name]])
     range_of_x_levels <- all_levels
   }
@@ -110,26 +109,78 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
   counts_df <- waffle_counts(dataframe, {{x_var}}, {{fill_var}},
                              {{fill_var_description}})
 
-  # Complete with null blocks if requested
+  # complete with a single null block
   if (complete_x) {
-    counts_df <- complete_x_values(counts_df, {{x_var}}, {{fill_var}},
-                                   all_levels = range_of_x_levels,
-                                   .verbose = .verbose)
+    null_x_values <- list() # if not recognized below, add nothing
 
-    # Add null to the color set but not to the legend
-    fill_colors <- c(fill_colors, ' ' = "white")
+    if (x_var_name == "year") {
+      null_x_values <- {
+        existing_values <- unique(counts_df[[x_var_name]])
+
+        # Find min and max indices of existing values in the levels vector
+        min_val <- min(existing_values)
+        max_val <- max(existing_values)
+
+        # Get only the levels that are between min and max (inclusive)
+        range_of_x_levels <- min_val:max_val
+
+        # Find which of these middle levels are missing from counts_df
+        setdiff(range_of_x_levels, existing_values)
+      }
+      if(.verbose){
+        print(paste("Null values: ", null_x_values))}
+    }
+
+    if (x_var_name =="pres_admin") {
+      null_x_values <- {
+
+        existing_values <- unique(counts_df[[x_var_name]])
+
+        # Find min and max indices of existing values in the levels vector
+        min_idx <- min(match(existing_values, all_levels))
+        max_idx <- max(match(existing_values, all_levels))
+
+        # Get only the levels that are between min and max (inclusive)
+        range_of_x_levels <- all_levels[min_idx:max_idx]
+
+        # Find which of these middle levels are missing from counts_df
+        setdiff(range_of_x_levels, existing_values)
+      }
+    }
+
+
+    # Add a row for each null x value
+    if ( length(null_x_values) > 0){
+      null_rows <- tibble(
+        {{ x_var }} := null_x_values,
+        {{ fill_var }} := " ",
+        n = 1)
+      counts_df <- bind_rows(counts_df, null_rows)
+    }
+
+    if (length(range_of_x_levels) > 0){
+      counts_df <- counts_df %>%
+        mutate(across(1, ~factor(., levels = range_of_x_levels)))
+    }
+    if(.verbose){ print(str(counts_df))}
+
+    # add null to the color set but not to the legend
+
+    fill_colors <- c(fill_colors,
+                     ' ' = "white"
+    )
   }
 
   # Create the plot
   ggplot(counts_df, aes(fill = {{ fill_var }}, values = n)) +
-    geom_waffle(color = "white", size = .25, n_rows = waffle_width,
+    waffle::geom_waffle(color = "white", size = .25, n_rows = waffle_width,
                 flip = TRUE, na.rm = TRUE) +
-    facet_wrap(vars({{ x_var }}), ncol = n_columns,
-               labeller = label_wrap_gen(20),
+    facet_wrap(ggplot2::vars({{ x_var }}), ncol = n_columns,
+               labeller = ggplot2::label_wrap_gen(20),
                strip.position = "bottom") +
     scale_x_discrete() +
     scale_y_continuous(breaks = c(0.5, 5.5, 10.5),
-                       labels = function(x) (x-0.5) * waffle_width,
+                       labels = function(x) (x-0.5) * waffle_width, # make this multiplier the same as n_rows
                        expand = c(0,0)) +
     coord_equal() +
     scale_fill_manual(name = fill_var_description$title,
@@ -141,7 +192,7 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
           legend.text = element_text(size = 12),
           axis.text = element_text(size = 12),
           strip.text.x = element_text(size = 12)) +
-    guides(fill = guide_legend(reverse = TRUE))
+    ggplot2::guides(fill = guide_legend(reverse = TRUE))
 }
 
 make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_description,
