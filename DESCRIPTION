@@ -2,7 +2,7 @@ Package: consequencestools
 Type: Package
 Title: Provides Support Tools for Data Analysis and Visualization 
     from the Ultimate Consequences Database
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
     person(
     "Carwil", "Bjork-James",
@@ -28,6 +28,7 @@ Imports:
     assertthat,
     dplyr,
     forcats,
+    ggplot2,
     grDevices,
     incase,
     lubridate,
@@ -42,6 +43,7 @@ Imports:
     tidyselect,
     transcats (>= 0.0.0.9002),
     utils,
+    waffle (>= 1.0.2),
     zoo
 Depends: 
     R (>= 3.5)

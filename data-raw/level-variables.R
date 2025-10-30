@@ -3,6 +3,7 @@ lev <- list()
 president <- list()
 
 president$title <- "Presidential Administration"
+president$title_es <- "Administración presidencial"
 president$r_variable <- "pres_admin"
 president$levels <- c(
   "Hernán Siles Zuazo", "Víctor Paz Estenssoro", "Jaime Paz Zamora",
@@ -35,6 +36,7 @@ usethis::use_data(president, overwrite=TRUE)
 
 location_precision <- list()
 location_precision$title <- "Location Precision"
+location_precision$title_es <- "Precisión de la ubicación"
 location_precision$r_variable <- "location_precision"
 location_precision$levels <- c(
   "address", "poi_small", "intersection",
@@ -47,11 +49,12 @@ lev$location_precision <- location_precision
 
 state_resp <- list()
 state_resp$title <- "State Responsibility"
+state_resp$title_es <- "Responsabilidad del Estado"
 state_resp$r_variable <- "state_responsibility"
 state_resp$levels <- c("Perpetrator", "Victim", "Involved", "Separate", "Unintentional", "Unknown")
 state_resp$colors <-  c(
   Perpetrator = "forestgreen",
-  Victim = "#cd6600",                  # "darkorange3",
+  Victim = "#8B1A1A",                  # "firebrick4",
   Involved = "#90ee90",                # "lightgreen",
   Separate = "#eeb422",                # "goldenrod2",
   Unintentional = "darkgray",
@@ -59,7 +62,7 @@ state_resp$colors <-  c(
 
 state_resp$colors_es <-  c(
   Perpetrador = "forestgreen",
-  Victima = "#cd6600",                  # "darkorange3",
+  Victima = "#8B1A1A",                  # "firebrick4",
   Involucrado = "#90ee90",                # "lightgreen",
   Separado = "#eeb422",                # "goldenrod2",
   "No Intencional" = "darkgray",
@@ -124,11 +127,12 @@ assign_protest_domain.colors <- function() {
 
 protest_domains <- list()
 protest_domains$title <- "Protest Domain"
+protest_domains$title_es <- "Dominio de protesta"
 protest_domains$r_variable <- "protest_domain"
 protest_domains$levels <- protest_domain.grouped
 protest_domains$colors <- assign_protest_domain.colors()
 
-lev$protest_domain <- protest_domain
+lev$protest_domain <- protest_domains
 usethis::use_data(protest_domains, overwrite=TRUE)
 
 # Affiliations
@@ -244,6 +248,7 @@ assign_affiliation.colors <- function() {
 
 affiliations <- list()
 affiliations$title <- "Affiliation"
+affiliations$title_es <- "Afiliación"
 affiliations$r_variable <- "affiliation"
 affiliations$levels <- affiliation.grouped
 affiliations$levels_es <- affiliation.grouped_es
@@ -253,14 +258,17 @@ usethis::use_data(affiliations, overwrite = TRUE)
 
 lev$dec_affiliation <- affiliations
 lev$dec_affiliation$title <- "Deceased Affiliation"
+lev$dec_affiliation$title_es <- "Afiliación del fallecido"
 lev$dec_affiliation$r_variable <- "dec_affiliation"
 lev$perp_affiliation <- affiliations
 lev$perp_affiliation$title <- "Perpetrator Affiliation"
+lev$perp_affiliation$title_es <- "Afiliación del perpetrador"
 lev$perp_affiliation$r_variable <- "perp_affiliation"
 
 departments <- list()
 
 departments$title <- "Department"
+departments$title_es <- "Departamento"
 departments$r_variable <- "department"
 departments$levels <- c("Beni", "Chuquisaca", "Cochabamba", "La Paz", "Oruro", "Pando",
                         "Potosí", "Santa Cruz", "Tarija", "Unknown")
