@@ -33,7 +33,29 @@ waffle_counts <- function(dataframe, x_var,
   return(counts_df)
 }
 
-# New helper function to add null/missing x values
+#' New helper function to add null/missing x values
+#'
+#' @param counts_df The counts dataframe from waffle_counts
+#' @param x_var The variable to facet the waffle chart by (e.g., year).
+#' @param fill_var The variable to color the waffle chart blocks by (e.g.,
+#'   state_responsibility).
+#' @param all_levels Optional: All possible levels for the x variable (needed
+#'   for pres_admin)
+#' @param .verbose Logical indicating whether to print debug information
+#' @return The counts dataframe with missing x values added
+#'
+#' @examples
+#' deaths <- assign_levels(deaths_aug24, "standard", .simplify=TRUE)  %>%
+#'   dplyr::filter(year != 2012)  # Remove 2012
+#' waffle_counts_df <- waffle_counts(deaths,
+#'                                  x_var = year,
+#'                                   fill_var = protest_domain,
+#'                                   fill_var_description = lev$protest_domain)
+#' waffle_counts_df_completed <- complete_x_values(waffle_counts_df,
+#'                                                 x_var = year,
+#'                                                 fill_var = protest_domain,
+#'                                                 all_levels = NULL,
+#'                                                 .verbose = FALSE)
 complete_x_values <- function(counts_df, x_var, fill_var,
                               all_levels = NULL, .verbose = FALSE) {
   x_var_name <- quo_name(enquo(x_var))
@@ -89,6 +111,34 @@ complete_x_values <- function(counts_df, x_var, fill_var,
   return(counts_df)
 }
 
+#' Create a waffle chart with facets
+#'
+#' Creates a waffle chart from an overall dataset, both calculating
+#' the relevant counts and formatting the chart.
+#'
+#' @param dataframe The input dataframe containing the data.
+#' @param x_var The variable to facet the waffle chart by (e.g., year
+#'  or pres_admin). This will name the facets.
+#' @param fill_var The variable to color the waffle chart blocks by (e.g.,
+#'   state_responsibility).
+#' @param fill_var_description A list containing the title, levels, and colors
+#'  for the fill variable. Can be taken from our level description list, lev.
+#' @param n_columns Number of columns for the facet wrap.
+#' @param waffle_width Number of rows in each waffle chart (default 10).
+#' @param complete_x Logical indicating whether to complete missing x values
+#'   with a single null block. Only implemented for year and pres_admin.
+#' @param .verbose Logical indicating whether to print debug information.
+#'
+#' @return A ggplot object representing the waffle chart.
+#' @export
+#'
+#' @examples
+#' deaths <- assign_levels(deaths_aug24, "standard", .simplify = TRUE)
+#' make_waffle_chart(deaths,
+#'   x_var = pres_admin,
+#'   fill_var = state_responsibility,
+#'   fill_var_description = state_resp,
+#'   complete_x = TRUE, n_columns = 7)
 make_waffle_chart <- function(dataframe, x_var, fill_var,
                               fill_var_description,
                               n_columns = 5,

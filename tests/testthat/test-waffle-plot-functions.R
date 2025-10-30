@@ -111,7 +111,6 @@ test_that("complete_x_values adds missing years", {
   # Check that 2012 was added
   expect_true(2012 %in% completed_counts$year)
 })
-complete_x_values()
 
 test_that("complete_x_values fixes missing years in standard data", {
   deaths <- assign_levels(deaths_aug24, "standard", .simplify=TRUE)
@@ -141,72 +140,38 @@ test_that("complete_x_values fixes missing years in standard data", {
 
   # Check that the plot data doesn't include 2012
   plot_data <- ggplot2::ggplot_build(result)$data[[1]]
-  expect_false(2012 %in% unique(df_with_gaps$year))
+  expect_false(2012 %in% plot_data$plot$data$year)
 
   result_completed <- make_waffle_chart(df_with_gaps,
                               x_var = year,
                               fill_var = protest_domain,
                               lev$protest_domain, complete_x = TRUE)
   # Check that the plot data includes 2012
-  plot_data_completed <- ggplot2::ggplot_build(result_completed)$data[[1]]
-  expect_true(2012 %in% unique(plot_data_completed$x))
-
-
+  plot_data_completed <- ggplot2::ggplot_build(result_completed)
+  expect_true(2012 %in% plot_data_completed$plot$data$year)
 })
 
-test_that("make_waffle_chart with complete_x=TRUE fills year gaps", {
-#  test_data <- setup_test_data()
+test_that("make_waffle_chart with complete_x=TRUE fills pres_admin gaps", {
+  deaths <- assign_levels(deaths_aug24, "standard", .simplify=TRUE)
 
-  # Create data with gaps in years
-  df_with_gaps <- deaths_aug24 %>%
-    assign_state_responsibility_levels(simplify = TRUE) %>%
-    dplyr::filter(year != 2012)  # Remove 2012
+  # verify that there are already missinng values
+  count(deaths, pres_admin, .drop=FALSE) %>% filter(n==0) %>% nrow() -> num_missing
+  expect_gt(num_missing, 0)
+  pres_admin_missing <- count(deaths, pres_admin, .drop=FALSE) %>%
+    filter(n==0) %>% pull(pres_admin)
 
-  # This should add a null block for 2012
-  result <- make_waffle_chart(df_with_gaps,
-                              x_var = year,
-                              fill_var = state_responsibility,
-                              lev$state_responsibility, complete_x = FALSE)
+  # Verify it's missing if not completed
+  result <- make_waffle_chart(deaths, pres_admin, protest_domain,
+                              lev$protest_domain, complete_x = FALSE)
+  plot_data <- ggplot2::ggplot_build(result)$data[[1]]
+  expect_false(any(pres_admin_missing %in% plot_data$plot$data$pres_admin))
 
-  expect_s3_class(result, "ggplot")
-
-  # Check that white color was added for null blocks
-  fill_scale <- result$scales$get_scales("fill")
-  expect_true(" " %in% names(fill_scale$palette()))
+  # This should add a null block for our missing president(s)
+  result_completed <- make_waffle_chart(deaths, pres_admin, protest_domain,
+                              lev$protest_domain, complete_x = TRUE)
+  plot_data_completed <- ggplot2::ggplot_build(result_completed)
+  expect_true(any(pres_admin_missing %in% plot_data_completed$plot$data$pres_admin))
 })
-
-# test_that("make_waffle_chart with complete_x=TRUE fills pres_admin gaps", {
-#   test_data <- setup_test_data()
-#
-#   # Create data with gaps in pres_admin (missing Admin2)
-#   df_with_gaps <- test_data$df %>%
-#     dplyr::filter(pres_admin != "Admin2")
-#
-#   # This should add a null block for Admin2
-#   result <- make_waffle_chart(df_with_gaps, pres_admin, category,
-#                               test_data$fill_desc, complete_x = TRUE)
-#
-#   expect_s3_class(result, "ggplot")
-#
-#   # Check that white color was added for null blocks
-#   fill_scale <- result$scales$get_scales("fill")
-#   expect_true(" " %in% names(fill_scale$palette()))
-# })
-
-# test_that("make_waffle_chart respects color palette from fill_var_description", {
-#   test_data <- setup_test_data()
-#
-#   result <- make_waffle_chart(test_data$df, year, category,
-#                               test_data$fill_desc, complete_x = FALSE)
-#
-#   # Get the fill scale
-#   fill_scale <- result$scales$get_scales("fill")
-#   colors <- fill_scale$palette()(length(test_data$fill_desc$colors))
-#   names(colors) <- test_data$fill_desc$levels
-#
-#   # Colors should match (order may differ)
-#   expect_setequal(names(colors), names(test_data$fill_desc$colors))
-# })
 
 test_that("make_waffle_chart_tall returns a ggplot object", {
   test_data <- setup_test_data()
