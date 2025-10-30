@@ -51,5 +51,5 @@ URL: https://github.com/CarwilB/consequencestools
 BugReports: https://github.com/CarwilB/consequencestools/issues
 VignetteBuilder: knitr
 Remotes: 
-    CarwilB/transcats
+    CarwilB/transcats,
     hrbrmstr/waffle
