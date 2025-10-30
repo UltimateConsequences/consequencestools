@@ -110,65 +110,17 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
                              {{fill_var_description}})
 
   # complete with a single null block
+  # Complete with null blocks if requested
   if (complete_x) {
-    null_x_values <- list() # if not recognized below, add nothing
+    # code only implemented for these two variables for now
+    if (x_var_name %in% c("year", "pres_admin")){
+      counts_df <- complete_x_values(counts_df, {{x_var}}, {{fill_var}},
+                                     all_levels = range_of_x_levels,
+                                     .verbose = .verbose)
 
-    if (x_var_name == "year") {
-      null_x_values <- {
-        existing_values <- unique(counts_df[[x_var_name]])
-
-        # Find min and max indices of existing values in the levels vector
-        min_val <- min(existing_values)
-        max_val <- max(existing_values)
-
-        # Get only the levels that are between min and max (inclusive)
-        range_of_x_levels <- min_val:max_val
-
-        # Find which of these middle levels are missing from counts_df
-        setdiff(range_of_x_levels, existing_values)
-      }
-      if(.verbose){
-        print(paste("Null values: ", null_x_values))}
+      # Add null to the color set but not to the legend
+      fill_colors <- c(fill_colors, ' ' = "white")
     }
-
-    if (x_var_name =="pres_admin") {
-      null_x_values <- {
-
-        existing_values <- unique(counts_df[[x_var_name]])
-
-        # Find min and max indices of existing values in the levels vector
-        min_idx <- min(match(existing_values, all_levels))
-        max_idx <- max(match(existing_values, all_levels))
-
-        # Get only the levels that are between min and max (inclusive)
-        range_of_x_levels <- all_levels[min_idx:max_idx]
-
-        # Find which of these middle levels are missing from counts_df
-        setdiff(range_of_x_levels, existing_values)
-      }
-    }
-
-
-    # Add a row for each null x value
-    if ( length(null_x_values) > 0){
-      null_rows <- tibble(
-        {{ x_var }} := null_x_values,
-        {{ fill_var }} := " ",
-        n = 1)
-      counts_df <- bind_rows(counts_df, null_rows)
-    }
-
-    if (length(range_of_x_levels) > 0){
-      counts_df <- counts_df %>%
-        mutate(across(1, ~factor(., levels = range_of_x_levels)))
-    }
-    if(.verbose){ print(str(counts_df))}
-
-    # add null to the color set but not to the legend
-
-    fill_colors <- c(fill_colors,
-                     ' ' = "white"
-    )
   }
 
   # Create the plot
