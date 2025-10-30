@@ -221,22 +221,26 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #' make_waffle_chart_tall(deaths,
 #'   x_var = pres_admin,
 #'   fill_var = state_responsibility,
-#'   fill_var_description = state_resp,
+#'   fill_var_description = lev$state_responsibility,
 #'   complete_x = TRUE, n_columns = 7)
+#'  make_waffle_chart_tall(deaths,
+#'    x_var = pres_admin, fill_var = state_responsibility,
+#'    fill_var_description = lev$state_responsibility,
+#'    complete_x = FALSE, n_columns = 6)
 make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_description,
                                    n_columns = 5,
                                    complete_x = FALSE,
                                    .verbose = FALSE) {
   # Get the color palette from the corresponding description variable
   fill_colors <- fill_var_description$colors
-  
+
   x_var_name <- quo_name(enquo(x_var))
   range_of_x_levels <- list()
   if(is.factor(dataframe[[x_var_name]])){
     all_levels <- levels(dataframe[[x_var_name]])
     range_of_x_levels <- all_levels
   }
-  
+
   counts_df <- waffle_counts(dataframe, {{x_var}}, {{fill_var}},
                              {{fill_var_description}})
 
@@ -267,7 +271,7 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
     geom_waffle(color = "white", size = .25, n_rows = waffle_width, na.rm = TRUE) +
     # Change strip.position to "left" and use nrow instead of ncol
     facet_wrap(ggplot2::vars({{ x_var }}), nrow = n_columns,
-               labeller = label_wrap_gen(20),
+               labeller = ggplot2::label_wrap_gen(20),
                strip.position = "left",
                dir = "v") +
     scale_x_continuous(breaks = c(0.5, 5.5, 10.5, 15.5, 20.5, 25.5),
