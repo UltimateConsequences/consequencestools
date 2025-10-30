@@ -52,3 +52,4 @@ BugReports: https://github.com/CarwilB/consequencestools/issues
 VignetteBuilder: knitr
 Remotes: 
     CarwilB/transcats
+    hrbrmstr/waffle
