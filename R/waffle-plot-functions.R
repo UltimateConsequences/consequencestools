@@ -159,7 +159,6 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
   counts_df <- waffle_counts(dataframe, {{x_var}}, {{fill_var}},
                              {{fill_var_description}})
 
-  # complete with a single null block
   # Complete with null blocks if requested
   if (complete_x) {
     # code only implemented for these two variables for now
@@ -197,16 +196,65 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
     ggplot2::guides(fill = guide_legend(reverse = TRUE))
 }
 
+#' Create a tall waffle chart with facets
+#'
+#' Creates a tall-oriented waffle chart from an overall dataset, both calculating
+#' the relevant counts and formatting the chart. Facets are arranged vertically.
+#'
+#' @param dataframe The input dataframe containing the data.
+#' @param x_var The variable to facet the waffle chart by (e.g., year
+#'  or pres_admin). This will name the facets.
+#' @param fill_var The variable to color the waffle chart blocks by (e.g.,
+#'   state_responsibility).
+#' @param fill_var_description A list containing the title, levels, and colors
+#'  for the fill variable. Can be taken from our level description list, lev.
+#' @param n_columns Number of rows for the facet wrap (displayed vertically).
+#' @param complete_x Logical indicating whether to complete missing x values
+#'   with a single null block. Only implemented for year and pres_admin.
+#' @param .verbose Logical indicating whether to print debug information.
+#'
+#' @return A ggplot object representing the tall waffle chart.
+#' @export
+#'
+#' @examples
+#' deaths <- assign_levels(deaths_aug24, "standard", .simplify = TRUE)
+#' make_waffle_chart_tall(deaths,
+#'   x_var = pres_admin,
+#'   fill_var = state_responsibility,
+#'   fill_var_description = state_resp,
+#'   complete_x = TRUE, n_columns = 7)
 make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_description,
-                                   n_columns = 5) {
+                                   n_columns = 5,
+                                   complete_x = FALSE,
+                                   .verbose = FALSE) {
+  # Get the color palette from the corresponding description variable
+  fill_colors <- fill_var_description$colors
+  
+  x_var_name <- quo_name(enquo(x_var))
+  range_of_x_levels <- list()
+  if(is.factor(dataframe[[x_var_name]])){
+    all_levels <- levels(dataframe[[x_var_name]])
+    range_of_x_levels <- all_levels
+  }
+  
   counts_df <- waffle_counts(dataframe, {{x_var}}, {{fill_var}},
                              {{fill_var_description}})
 
+  # Complete with null blocks if requested
+  if (complete_x) {
+    # code only implemented for these two variables for now
+    if (x_var_name %in% c("year", "pres_admin")){
+      counts_df <- complete_x_values(counts_df, {{x_var}}, {{fill_var}},
+                                     all_levels = range_of_x_levels,
+                                     .verbose = .verbose)
+
+      # Add null to the color set but not to the legend
+      fill_colors <- c(fill_colors, ' ' = "white")
+    }
+  }
+
   # Define waffle chart parameters
   waffle_width <- 5
-
-  # Get the color palette from the corresponding description variable
-  fill_colors <- fill_var_description$colors
 
   legend_orientation <- "horizontal"
   if ((nrow(counts_df) / n_columns) <= 1) {
