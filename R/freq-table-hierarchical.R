@@ -1,23 +1,42 @@
-
-
-
+#' Insert rows into a grouped table from an additional dataframe
+#'
+#' @description
+#' Insert rows from `additional_df` into `main_df` by matching groups defined
+#' by `variable1`. For each unique value of `variable1` in `main_df`, if a
+#' corresponding row exists in `additional_df` it will be appended to that
+#' group's rows. Any `variable1` values that appear only in `additional_df`
+#' will be appended as new groups at the end of the returned data frame.
+#'
+#' This function uses tidy-eval for `variable1` and `variable2` (unquoted
+#' column names).
+#'
+#' @param main_df A data.frame. The primary table containing the main groups.
+#' @param additional_df A data.frame. Rows to be inserted into `main_df` by
+#'   matching on `variable1`.
+#' @param variable1 Column name (unquoted) used as the grouping key (tidy-eval).
+#' @param variable2 Column name (unquoted) indicating the second-level variable
+#'   to be inserted (tidy-eval).
+#'
+#' @return A data.frame containing rows from `main_df` with rows from
+#'   `additional_df` inserted by group. Rows from `additional_df` whose
+#'   `variable1` values do not exist in `main_df` will appear as new groups.
+#'
+#' @examples
+#' df_main <- data.frame(group = c("A", "A", "B"), sub = c("x", "y", "z"), n = 1:3, stringsAsFactors = FALSE)
+#' df_add  <- data.frame(group = c("A", "C"), sub = c("other", "other"), n_2 = c(10, 5), stringsAsFactors = FALSE)
+#' insert_rows_by_group_vars(df_main, df_add, group, sub)
+#'
+#' @seealso two_layer_frequency_table, two_layer_frequency_kable
+#' @export
 insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variable2) {
   result <- data.frame()
   var1_name <- rlang::as_name(enquo(variable1))
   var2_name <- rlang::as_name(enquo(variable2))
 
-  # print("Varible is:")
-  # print(var1_name)
-  #
-  # print("var1 column:")
-  # print(main_df[[var1_name]])
-
   # Get unique variable1 values from the main dataframe
   unique_var1_values <- unique(main_df[[var1_name]])
-  # print("Unique variable1 values in main_df:")
-  # print(unique_var1_values)
 
-  # Process each perp_affiliation group
+  # Process each group
   for (var1_value in unique_var1_values) {
     # Get rows for this var1_value from main dataframe
     main_rows <- main_df[main_df[, var1_name] == var1_value, ]
@@ -37,7 +56,7 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
     result <- rbind(result, group_result)
   }
 
-  # Check if there are any perp_affiliations in additional_df that aren't in main_df
+  # Check if there are any values in additional_df that aren't in main_df
   unique_other_var1_values <- setdiff(unique(additional_df[[var1_name]]), unique_var1_values)
 
   # Add these as new groups
@@ -53,20 +72,13 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
 }
 
 
-#' Two-layer frequency table (hierarchical)
+#' Two-layer frequency table (data)
 #'
 #' @description
-#' Construct a two-layer frequency table with counts and percentages for
-#' `variable1` and a secondary breakdown by `variable2`. The function returns
-#' a formatted kable (HTML) object suitable for reporting.
-#'
-#' The function performs the following:
-#' - Removes rows with NA in either `variable1` or `variable2`.
-#' - Produces a primary frequency table for `variable1` (counts and percent).
-#' - Produces a secondary count table by `variable1` and `variable2`.
-#' - Optionally groups small secondary categories (below `threshold`) into
-#'   an "Other" category.
-#' - Optionally sorts the result.
+#' Compute a two-layer frequency table (unformatted data) that contains primary
+#' counts and percentages for `variable1` and the secondary breakdown by
+#' `variable2`. This function returns the combined data.frame (ft.combined)
+#' which can be further processed or passed to a kable/printing function.
 #'
 #' The `variable1` and `variable2` arguments use tidy-eval (unquoted column
 #' names).
@@ -83,26 +95,22 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
 #'   category. Secondary categories with counts below `threshold` will be
 #'   combined into an "Other" row. Default: 1.
 #'
-#' @return A kable/kableExtra HTML table (invisibly returned for knit/HTML
-#'   output) showing the hierarchical frequency table with totals.
-#'
-#' @export
+#' @return A data.frame (ft.combined) with columns for the primary variable,
+#'   counts (n), percentage (pct), secondary variable, and secondary counts
+#'   (n_2).
 #'
 #' @examples
-#' # Using mtcars as an example (treating numeric values as factors for grouping)
 #' library(dplyr)
 #' mtcars2 <- mtcars %>% mutate(cyl = as.factor(cyl), gear = as.factor(gear))
 #' two_layer_frequency_table(mtcars2, cyl, gear, sort = TRUE, threshold = 1)
-#' deaths_aug24 %>%
-#' two_layer_frequency_table(perp_affiliation, dec_affiliation, sort=TRUE, threshold=3)
 #'
+#' @export
 two_layer_frequency_table <- function(dataset=de,
                                       variable1,
                                       variable2,
                                       sort=TRUE,
-                                      threshold = 1,
-                                      unit_is_deaths=TRUE) {
-  # clear out NA values in the variables
+                                      threshold = 1) {
+  # clear out NA values in the variables (warn if present)
   if(n_filter(dataset, is.na({{variable1}}) > 0)) {
     warning(paste("The dataset contains", n_filter(dataset, is.na({{variable1}})),
                   "rows with NA values in", rlang::as_name(enquo(variable1)),
@@ -114,43 +122,32 @@ two_layer_frequency_table <- function(dataset=de,
                   "which will be excluded from the analysis."))
   }
 
-  # This filtering is handled automatically by the show_na in tabyl():
-  # dataset <- dataset %>%
-  #   filter(!is.na({{variable1}})) %>%
-  #   filter(!is.na({{variable2}}))
-
-  # Create table from full dataset
+  # Create primary table
   ft.primary <- dataset %>%
-    janitor::tabyl({{variable1}}, show_na=FALSE) %>%
-    #    janitor::adorn_totals("row") %>%
+    janitor::tabyl({{variable1}}, show_na = FALSE) %>%
     janitor::adorn_pct_formatting() %>%
-    rename(
-      "pct" = "percent"
-    ) %>%
+    rename("pct" = "percent") %>%
     filter(n >= threshold)
 
-  if (sort){
-    ft.primary <- ft.primary %>%
-      arrange(desc(n))
+  if (sort) {
+    ft.primary <- ft.primary %>% arrange(desc(n))
   }
 
-  # Create table from filtered dataset
+  # Create secondary counts
   ft.secondary <- dataset %>%
     count({{variable1}}, {{variable2}}) %>%
-    #    janitor::adorn_totals("row") %>%
-    rename(
-      "n_2" = "n",
-    )
+    rename("n_2" = "n")
 
-  # Join tables and rename the variable column
-  ft.combined <- left_join(ft.primary, ft.secondary, by=rlang::as_name(enquo(variable1)))
+  # Join tables
+  ft.combined <- left_join(ft.primary, ft.secondary, by = rlang::as_name(enquo(variable1)))
 
-  if(sort) {
-    # Recombine the sorted rows with the total row
+  if (sort) {
     ft.combined <- ft.combined %>% arrange(desc(n), desc(n_2))
   }
-  if(threshold > 1) {
-    ft.other <- ft.combined %>% filter((n_2 < threshold)) %>%
+
+  if (threshold > 1) {
+    ft.other <- ft.combined %>%
+      filter((n_2 < threshold)) %>%
       group_by({{variable1}}) %>%
       summarize(n_2 = sum(n_2)) %>%
       mutate({{variable2}} := "Other",
@@ -167,43 +164,88 @@ two_layer_frequency_table <- function(dataset=de,
     ft.combined <- ft.combined_final
   }
 
-  # # ft.combined <- add_row(ft.combined,
-  #                        {{variable1}} := "Total",
-  #                        n = sum(ft.combined$n),
-  #                        pct = "100%",
-  #                        {{variable2}} := "",
-  #                        n_2 = NA)
-  # Set NA display option and return formatted table
+  # Return the combined (unformatted) table
+  return(ft.combined)
+}
+
+
+#' Two-layer frequency table (formatted kable)
+#'
+#' @description
+#' Create a formatted HTML kable from the two-layer frequency data. This
+#' function calls two_layer_frequency_table() to compute the raw combined
+#' table and then applies labeling, translation via transcats, and kableExtra
+#' styling to produce a display-ready table.
+#'
+#' @param dataset A data.frame. The input dataset. Defaults to `de` in the
+#'   surrounding environment if not supplied.
+#' @param variable1 Column name (unquoted) for the primary grouping variable
+#'   (tidy-eval).
+#' @param variable2 Column name (unquoted) for the secondary grouping variable
+#'   (tidy-eval).
+#' @param sort Logical. If TRUE, sort groups by descending counts. Default:
+#'   TRUE.
+#' @param threshold Integer. Minimum count threshold for including a secondary
+#'   category. Secondary categories with counts below `threshold` will be
+#'   combined into an "Other" row. Default: 1.
+#' @param unit_is_deaths Logical. If TRUE, use "Deaths"/"Muertes" translation
+#'   for the secondary count label; otherwise use a generic "Número"/"Count".
+#'   Default: TRUE.
+#'
+#' @return A kableExtra kable object (HTML) styled for reporting.
+#'
+#' @examples
+#' library(dplyr)
+#' mtcars2 <- mtcars %>% mutate(cyl = as.factor(cyl), gear = as.factor(gear))
+#' two_layer_frequency_kable(mtcars2, cyl, gear, sort = TRUE, threshold = 1)
+#'
+#' @export
+two_layer_frequency_kable <- function(dataset=de,
+                                      variable1,
+                                      variable2,
+                                      sort=TRUE,
+                                      threshold = 1,
+                                      unit_is_deaths = TRUE) {
+  # Compute the combined data frame
+  ft.combined <- two_layer_frequency_table(dataset = dataset,
+                                           variable1 = {{variable1}},
+                                           variable2 = {{variable2}},
+                                           sort = sort,
+                                           threshold = threshold)
+
+  # Recompute primary table (needed for total row) using same logic as the data function
+  ft.primary <- dataset %>%
+    janitor::tabyl({{variable1}}, show_na = FALSE) %>%
+    janitor::adorn_pct_formatting() %>%
+    rename("pct" = "percent") %>%
+    filter(n >= threshold)
+
+  # Set knitr NA display option
   options(knitr.kable.NA = '')
 
-  # return(ft.combined %>%
-  #          kbl() %>%
-  #          kable_classic(full_width = F, html_font = "Minion Pro"))
-
+  # Manage translations via transcats
   old_lang <- transcats::set_title_lang("en")
   on.exit(transcats::set_title_lang(old_lang))
 
-  if(unit_is_deaths){
+  if (unit_is_deaths) {
     n_secondary_trans_table <- tribble(
       ~pct, ~n_2, ~language,
-      #--|--|----
       "% of Total", "Deaths", "en",
       "%", "Muertes", "es",
-      "pct", "n_2", "r_variable",
+      "pct", "n_2", "r_variable"
     )
   } else {
     n_secondary_trans_table <- tribble(
       ~pct, ~n_,  ~n_2, ~language,
-      #--|--|----
       "% of Total", "Count", "Count", "en",
       "%", "Número", "Número", "es",
-      "pct", "n_", "n_2", "r_variable",
+      "pct", "n_", "n_2", "r_variable"
     )
   }
 
   uc_var_table_ext_2 <- transcats::append_to_var_name_table(n_secondary_trans_table,
                                                             transcats::uc_var_table_ext,
-                                                  overwrite = TRUE)
+                                                            overwrite = TRUE)
   transcats::set_var_name_table(uc_var_table_ext_2)
 
 
@@ -248,15 +290,13 @@ two_layer_frequency_table <- function(dataset=de,
     kableExtra::kable_classic(full_width = F, html_font = "Minion Pro") %>%
     # Add horizontal lines above each new group
     kableExtra::row_spec(which(ft.combined %>%
-                     group_by({{variable1}}) %>%
-                     mutate(is_first_in_group = row_number() == 1) %>%
-                     ungroup() %>%
-                     pull(is_first_in_group)) %>%
-               c(nrow(ft.combined)+1),
-             extra_css = "border-top: 1px solid black;") %>%
-    # bold the final total line
-    kableExtra::row_spec(c(0,nrow(ft.combined)+1), bold = TRUE)
+                                 group_by({{variable1}}) %>%
+                                 mutate(is_first_in_group = row_number() == 1) %>%
+                                 ungroup() %>%
+                                 pull(is_first_in_group)) %>%
+                           c(nrow(ft.combined) + 1),
+                         extra_css = "border-top: 1px solid black;") %>%
+    kableExtra::row_spec(c(0, nrow(ft.combined) + 1), bold = TRUE)
 
   return(output_kable)
 }
-
