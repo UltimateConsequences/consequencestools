@@ -1,3 +1,5 @@
+globalVariables(c("n_2", "pct", "n", "is_first_in_group",
+                  "variable1_display", "n_display", "pct_display"))
 #' Insert rows into a grouped table from an additional dataframe
 #'
 #' @description
@@ -22,8 +24,10 @@
 #'   `variable1` values do not exist in `main_df` will appear as new groups.
 #'
 #' @examples
-#' df_main <- data.frame(group = c("A", "A", "B"), sub = c("x", "y", "z"), n = 1:3, stringsAsFactors = FALSE)
-#' df_add  <- data.frame(group = c("A", "C"), sub = c("other", "other"), n_2 = c(10, 5), stringsAsFactors = FALSE)
+#' df_main <- data.frame(group = c("A", "A", "B"),
+#'              sub = c("x", "y", "z"), n = 1:3, stringsAsFactors = FALSE)
+#' df_add  <- data.frame(group = c("A", "C"),
+#'              sub = c("other", "other"), n_2 = c(10, 5), stringsAsFactors = FALSE)
 #' insert_rows_by_group_vars(df_main, df_add, group, sub)
 #'
 #' @seealso two_layer_frequency_table, two_layer_frequency_kable
@@ -47,13 +51,13 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
       other_row <- additional_df[additional_df[, var1_name] == var1_value, ]
 
       # Append the rows together
-      group_result <- rbind(main_rows, other_row)
+      group_result <- bind_rows(main_rows, other_row)
     } else {
       group_result <- main_rows
     }
 
     # Append to the result
-    result <- rbind(result, group_result)
+    result <- bind_rows(result, group_result)
   }
 
   # Check if there are any values in additional_df that aren't in main_df
@@ -63,7 +67,7 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
   if (length(unique_other_var1_values) > 0) {
     for (var1_value in unique_other_var1_values) {
       other_row <- additional_df[additional_df[, var1_name] == var1_value, ]
-      result <- rbind(result, other_row)
+      result <- bind_rows(result, other_row)
     }
   }
 
@@ -83,8 +87,7 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
 #' The `variable1` and `variable2` arguments use tidy-eval (unquoted column
 #' names).
 #'
-#' @param dataset A data.frame. The input dataset. Defaults to `de` in the
-#'   surrounding environment if not supplied.
+#' @param dataset A data.frame. The input dataset.
 #' @param variable1 Column name (unquoted) for the primary grouping variable
 #'   (tidy-eval).
 #' @param variable2 Column name (unquoted) for the secondary grouping variable
@@ -105,7 +108,7 @@ insert_rows_by_group_vars <- function(main_df, additional_df, variable1, variabl
 #' two_layer_frequency_table(mtcars2, cyl, gear, sort = TRUE, threshold = 1)
 #'
 #' @export
-two_layer_frequency_table <- function(dataset=de,
+two_layer_frequency_table <- function(dataset,
                                       variable1,
                                       variable2,
                                       sort=TRUE,
@@ -177,8 +180,7 @@ two_layer_frequency_table <- function(dataset=de,
 #' table and then applies labeling, translation via transcats, and kableExtra
 #' styling to produce a display-ready table.
 #'
-#' @param dataset A data.frame. The input dataset. Defaults to `de` in the
-#'   surrounding environment if not supplied.
+#' @param dataset A data.frame. The input dataset.
 #' @param variable1 Column name (unquoted) for the primary grouping variable
 #'   (tidy-eval).
 #' @param variable2 Column name (unquoted) for the secondary grouping variable
@@ -189,7 +191,7 @@ two_layer_frequency_table <- function(dataset=de,
 #'   category. Secondary categories with counts below `threshold` will be
 #'   combined into an "Other" row. Default: 1.
 #' @param unit_is_deaths Logical. If TRUE, use "Deaths"/"Muertes" translation
-#'   for the secondary count label; otherwise use a generic "Número"/"Count".
+#'   for the secondary count label; otherwise use a generic "Numero"/"Count".
 #'   Default: TRUE.
 #'
 #' @return A kableExtra kable object (HTML) styled for reporting.
@@ -200,7 +202,7 @@ two_layer_frequency_table <- function(dataset=de,
 #' two_layer_frequency_kable(mtcars2, cyl, gear, sort = TRUE, threshold = 1)
 #'
 #' @export
-two_layer_frequency_kable <- function(dataset=de,
+two_layer_frequency_kable <- function(dataset,
                                       variable1,
                                       variable2,
                                       sort=TRUE,
@@ -238,7 +240,7 @@ two_layer_frequency_kable <- function(dataset=de,
     n_secondary_trans_table <- tribble(
       ~pct, ~n_,  ~n_2, ~language,
       "% of Total", "Count", "Count", "en",
-      "%", "Número", "Número", "es",
+      "%", "N\u00FAmero", "N\u00FAmero", "es",
       "pct", "n_", "n_2", "r_variable"
     )
   }
