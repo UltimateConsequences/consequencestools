@@ -83,7 +83,7 @@
        9 Evo Morales (2006-2019)               Evo Morales                       149
       10 Gobierno interino militar (2019)      Interim military government         9
       11 Jeanine Áñez (2019-2020)              Jeanine Áñez                       26
-      12 Luis Arce (2020- )                    Luis Arce                          42
+      12 Luis Arce (2020-2025)                 Luis Arce                          42
 
 ---
 
