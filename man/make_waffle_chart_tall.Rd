@@ -12,6 +12,7 @@ make_waffle_chart_tall(
   n_columns = 5,
   complete_x = FALSE,
   lang = "en",
+  text_size = 12,
   .verbose = FALSE
 )
 }
@@ -35,6 +36,8 @@ with a single null block. Only implemented for year and pres_admin.}
 \item{lang}{Language for the legend labels ("en" or "es"). Default is "en".
 Only affects the legend and not the x-axis label, which should be
 handled before calling the function.}
+
+\item{text_size}{Base size for text elements in the plot (default is 12).}
 
 \item{.verbose}{Logical indicating whether to print debug information.}
 }

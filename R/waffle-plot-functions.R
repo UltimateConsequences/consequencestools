@@ -230,6 +230,7 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #' @param lang Language for the legend labels ("en" or "es"). Default is "en".
 #'   Only affects the legend and not the x-axis label, which should be
 #'   handled before calling the function.
+#' @param text_size Base size for text elements in the plot (default is 12).
 #' @param .verbose Logical indicating whether to print debug information.
 #'
 #' @return A ggplot object representing the tall waffle chart.
