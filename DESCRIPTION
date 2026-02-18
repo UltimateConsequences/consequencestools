@@ -31,6 +31,8 @@ Imports:
     ggplot2,
     grDevices,
     incase,
+    janitor,
+    kableExtra,
     lubridate,
     magrittr,
     purrr,
