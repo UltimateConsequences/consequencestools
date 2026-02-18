@@ -8,7 +8,8 @@
 A tibble with multiple columns including unqiue identifiers in
   `presidency` (the levels of pres_admin in English) and `presidency_id`
   (a unique identifier in the format "p104"). `first_day` and `last_day`
-  are dates indicating the term of offfice of each president.
+  are dates indicating the term of office of each president. The
+  `last_day` of the most recent presidency is set to NA.
 }
 \usage{
 presidency_name_table
