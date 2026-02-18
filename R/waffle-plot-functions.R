@@ -256,6 +256,7 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
                                    n_columns = 5,
                                    complete_x = FALSE,
                                    lang = "en",
+                                   text_size = 12,
                                    .verbose = FALSE) {
   # Get the color palette from the corresponding description variable
   fill_colors <- fill_var_description$colors
@@ -272,8 +273,16 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
     range_of_x_levels <- all_levels
   }
 
+  max_y_value <- max(count(dataframe, {{ x_var }})$n, na.rm = TRUE)
+  max_y_break <- ceiling(max_y_value/(waffle_width * 5)) * (waffle_width * 5)
+  y_breaks <- seq(0, max_y_break, by = waffle_width * 5)
+  y_break_ticks <- (y_breaks / waffle_width) + 0.5
+
+
+
   counts_df <- waffle_counts(dataframe, {{x_var}}, {{fill_var}},
                              {{fill_var_description}})
+
 
   # Complete with null blocks if requested
   if (complete_x) {
@@ -293,8 +302,10 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
   waffle_width <- 5
 
   legend_orientation <- "horizontal"
-  if ((nrow(counts_df) / n_columns) <= 1) {
+  legend_position <- "top"
+  if ((length(range_of_x_levels) / n_columns) <= 1) {
     legend_orientation <- "vertical"
+    legend_position <- "right"
   }
 
   # Create the plot
@@ -306,8 +317,8 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
                labeller = ggplot2::label_wrap_gen(20),
                strip.position = "left",
                dir = "v") +
-    scale_x_continuous(breaks = c(0.5, 5.5, 10.5, 15.5, 20.5, 25.5),
-                       labels = function(x) (x-0.5) * waffle_width,
+    scale_x_continuous(breaks = y_break_ticks,
+                       labels = y_breaks,
                        expand = c(0,0)) +
     # Use scale_y_discrete() instead of scale_x_discrete()
     scale_y_discrete() +
@@ -321,16 +332,19 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
     # Change axis.ticks.y to axis.ticks.x
     theme(panel.grid = element_blank(),
           axis.ticks.x = element_line(),
-          legend.text = element_text(size = 12),
-          axis.text = element_text(size = 12),
-          legend.position = "top",
+          legend.text = element_text(size =  text_size),
+          axis.text = element_text(size =  text_size),
+          legend.position = legend_position,
           legend.direction = legend_orientation,
           # Change strip.text.x to strip.text.y
-          strip.text.y.left = element_text(size = 14,
+          strip.text.y.left = element_text(size = 7/6 * text_size,
                                            angle = 0, hjust = 0),
           strip.placement = "outside",
           plot.margin = ggplot2::margin(5, 20, 5, 35)) +
     # add a 1pt solid line at x=0.5 and 1pt grey line at x =20.5
     geom_vline(xintercept = 0.5, color = "black", linewidth = 0.5) +
-    geom_vline(xintercept = 20.5, color = "darkgrey", linewidth = 0.25)
+    # line at each 100 count interval (adjusted for waffle width and 0.5 offset)
+    geom_vline(xintercept = (seq(0,max_y_break, 100)[-1])/(waffle_width) + 0.5,
+               color = "darkgrey",
+               linewidth = 0.25)
 }
