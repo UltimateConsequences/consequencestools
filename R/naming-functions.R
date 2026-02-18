@@ -2,7 +2,7 @@ utils::globalVariables(c("cause_death_es", "date_text_es", "dec_affiliation_es",
     "dec_fullname", "detailed_label", "detailed_label_es", "event_title_es",
     "incident_line", "incident_line_es", "intentionality_es", "name_line",
     "name_line_es", "state_responsibility_es", "styled_protest_domain",
-    "styled_protest_domain_es", "month.name.es"))
+    "styled_protest_domain_es", "month.name.es", "location"))
 
 #' Add Name Line to Dataframe
 #'

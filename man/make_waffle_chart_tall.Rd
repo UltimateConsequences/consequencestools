@@ -13,6 +13,7 @@ make_waffle_chart_tall(
   complete_x = FALSE,
   lang = "en",
   text_size = 12,
+  waffle_width = 5,
   .verbose = FALSE
 )
 }
@@ -38,6 +39,8 @@ Only affects the legend and not the x-axis label, which should be
 handled before calling the function.}
 
 \item{text_size}{Base size for text elements in the plot (default is 12).}
+
+\item{waffle_width}{Number of rows in each waffle chart (default 10).}
 
 \item{.verbose}{Logical indicating whether to print debug information.}
 }

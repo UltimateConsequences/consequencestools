@@ -231,6 +231,7 @@ make_waffle_chart <- function(dataframe, x_var, fill_var,
 #'   Only affects the legend and not the x-axis label, which should be
 #'   handled before calling the function.
 #' @param text_size Base size for text elements in the plot (default is 12).
+#' @param waffle_width Number of rows in each waffle chart (default 10).
 #' @param .verbose Logical indicating whether to print debug information.
 #'
 #' @return A ggplot object representing the tall waffle chart.
@@ -258,6 +259,7 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
                                    complete_x = FALSE,
                                    lang = "en",
                                    text_size = 12,
+                                   waffle_width = 5,
                                    .verbose = FALSE) {
   # Get the color palette from the corresponding description variable
   fill_colors <- fill_var_description$colors
@@ -300,8 +302,6 @@ make_waffle_chart_tall <- function(dataframe, x_var, fill_var, fill_var_descript
   }
 
   # Define waffle chart parameters
-  waffle_width <- 5
-
   legend_orientation <- "horizontal"
   legend_position <- "top"
   if ((length(range_of_x_levels) / n_columns) <= 1) {
