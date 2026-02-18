@@ -10,25 +10,25 @@ president$levels <- c(
   "Gonzalo Sanchez de Lozada (1st)", "Hugo Banzer (2nd)", "Jorge Quiroga",
   "Gonzalo Sanchez de Lozada (2nd)", "Carlos Diego Mesa Gisbert",
   "Eduardo Rodríguez", "Evo Morales", "Interim military government",
-  "Jeanine Áñez", "Luis Arce")
+  "Jeanine Áñez", "Luis Arce", "Rodrigo Paz")
 president$initials <- c(
   "HSZ", "VPE", "JPZ",
   "GSL", "HB", "JQ",
   "GSL", "CM",
   "ER", "EM", "Mil",
-  "JA", "LA")
+  "JA", "LA", "RP")
 president$levels_es <- c(
   "Hernán Siles Zuazo", "Víctor Paz Estenssoro", "Jaime Paz Zamora",
   "Gonzalo Sanchez de Lozada (1ro)", "Hugo Banzer (2do)", "Jorge Quiroga",
   "Gonzalo Sanchez de Lozada (2do)", "Carlos Diego Mesa Gisbert",
   "Eduardo Rodríguez", "Evo Morales", "Interim military government",
-  "Jeanine Áñez", "Luis Arce")
+  "Jeanine Áñez", "Luis Arce", "Rodrigo Paz")
 president$id_presidency <- c(
   "p101", "p102", "p103",
   "p104", "p105", "p106",
   "p107", "p108", "p109",
   "p110", "p111", "p112",
-  "p113")
+  "p113", "p114")
 
 lev$pres_admin <- president
 
