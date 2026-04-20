@@ -44,7 +44,6 @@
       event_counts_by(deaths_aug24, department)
     Output
       # A tibble: 9 x 3
-      # Rowwise:  department
         department total events                                                       
         <chr>      <int> <chr>                                                        
       1 Beni          21 Santa Ana de Yacuma drug trafficking raid (4), <br>Santa Ros~
@@ -63,7 +62,6 @@
       event_counts_by(deaths_aug24, protest_domain, protest_campaign)
     Output
       # A tibble: 171 x 4
-      # Rowwise:  protest_domain, protest_campaign
          protest_domain protest_campaign         total events                         
          <chr>          <chr>                    <int> <chr>                          
        1 Coca           2001 Coca protest            8 Chapare cocalero protests 2001~
@@ -84,7 +82,6 @@
       event_counts_by(deaths_aug24, protest_domain, protest_campaign, count_events = TRUE)
     Output
       # A tibble: 171 x 5
-      # Rowwise:  protest_domain, protest_campaign
          protest_domain protest_campaign         total n_events events                
          <chr>          <chr>                    <int>    <int> <chr>                 
        1 Coca           2001 Coca protest            8        1 Chapare cocalero prot~
@@ -106,7 +103,6 @@
         protest_campaign))
     Output
       # A tibble: 171 x 4
-      # Rowwise:  protest_domain, protest_campaign
          protest_domain protest_campaign         total events                         
          <chr>          <chr>                    <int> <chr>                          
        1 Coca           2001 Coca protest            8 Chapare cocalero protests 2001~
@@ -127,7 +123,6 @@
       truncate_event_list(event_counts_by(deaths_aug24, pres_admin, protest_domain))
     Output
       # A tibble: 77 x 4
-      # Rowwise:  pres_admin, protest_domain
          pres_admin                protest_domain       total events                  
          <chr>                     <chr>                <int> <chr>                   
        1 Carlos Diego Mesa Gisbert Coca                     7 Chapare soldiers killed~

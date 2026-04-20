@@ -60,7 +60,7 @@ event_counts_by <- function(def, ..., newline_style="html", count_events=FALSE){
       n_events = dplyr::n(),
       events = paste(event_title, " (", count,")", sep="",
                      collapse = comma_newline),
-      .groups = "rowwise"
+      .groups = "drop"
       )
   if (!count_events){
     count_table <- count_table[, names(count_table) != "n_events"]

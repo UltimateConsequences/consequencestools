@@ -63,7 +63,7 @@ muni_counts_by <- function(def, ..., count_muni = FALSE, newline_style = "html")
         sep = "",
         collapse = sep_newline
       ),
-      .groups = "rowwise"
+      .groups = "drop"
     )
   if (!count_muni) {
     count_table <- count_table[, names(count_table) != "n_muni"]
